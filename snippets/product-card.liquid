@@ -1,0 +1,47 @@
+{% doc %}
+  Renders a product card for grids and carousels.
+  @param {product} product - The Shopify product object
+{% enddoc %}
+
+<div class="th-product product-grid style-2">
+  <div class="product-img">
+    {%- if product.tags contains 'new' -%}
+      <span class="product-tag">חדש</span>
+    {%- endif -%}
+    {%- if product.compare_at_price > product.price -%}
+      <span class="product-tag sale-tag">מבצע</span>
+    {%- endif -%}
+    {%- if product.featured_image -%}
+      <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" width="400" height="400" loading="lazy">
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+    <div class="actions">
+      <a href="{{ product.url }}" class="icon-btn"><i class="far fa-eye"></i></a>
+      <button type="button" class="icon-btn wishlist-btn" data-product-id="{{ product.id }}"><i class="far fa-heart"></i></button>
+    </div>
+  </div>
+  <div class="product-content">
+    <span class="price">
+      {%- if product.compare_at_price > product.price -%}
+        <del>{{ product.compare_at_price | money }}</del>
+      {%- endif -%}
+      {{ product.price | money }}
+    </span>
+    <h3 class="product-title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    <div class="product-rating">
+      <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+        <span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span>
+      </div>
+    </div>
+    {%- if product.available -%}
+      <form method="post" action="/cart/add">
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" class="th-btn style-border2 th-btn-sm"><i class="far fa-shopping-cart me-2"></i>הוסף לסל</button>
+      </form>
+    {%- else -%}
+      <button class="th-btn style-border2 th-btn-sm" disabled>אזל</button>
+    {%- endif -%}
+  </div>
+</div>

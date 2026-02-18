@@ -1,0 +1,360 @@
+{%- assign carousel_images = 'https://images.unsplash.com/photo-1597843786411-a7fa8ad44a95?w=800&h=800&fit=crop&q=80,https://images.unsplash.com/photo-1585559700398-1385b3a8aeb6?w=800&h=800&fit=crop&q=80,https://images.unsplash.com/photo-1623387641168-d9803ddd3f35?w=800&h=800&fit=crop&q=80,https://images.unsplash.com/photo-1450778869180-e13f3e5f8776?w=800&h=800&fit=crop&q=80' | split: ',' -%}
+
+<section class="e-cards-carousel full-width no-padding js-carousel has-bg has-bg__brand-1 h-padding__both">
+  <div class="e-cards-carousel__header-area">
+    <header class="e-cards-carousel__header-one">
+      <h2 class="e-cards-carousel__heading h-display-type__two js-anim h-animate-in-slide-up">
+        {{ section.settings.heading }}
+      </h2>
+      {% if section.settings.intro != blank %}
+        <p class="e-cards-carousel__intro h-display-type__intro js-anim h-animate-in-slide-up">
+          {{ section.settings.intro }}
+        </p>
+      {% endif %}
+    </header>
+    <header class="e-cards-carousel__header-two">
+      <h2 class="e-cards-carousel__tag js-anim h-animate-in-slide-up">
+        {{ section.settings.tag }}
+      </h2>
+      {% if section.settings.subtag != blank %}
+        <p class="e-cards-carousel__subtag h-display-type__intro js-anim h-animate-in-slide-up">
+          {{ section.settings.subtag }}
+        </p>
+      {% endif %}
+    </header>
+  </div>
+
+  <div class="e-cards-carousel__inner js-anim h-animate-in-slide-right">
+    <div class="e-cards-carousel__track">
+      <div class="e-cards-carousel__slides js-carousel-track">
+        {% for block in section.blocks %}
+          <article class="e-cards-carousel__slide" {{ block.shopify_attributes }}>
+            <div class="e-cards-carousel__slide--inner">
+              <div class="e-cards-carousel__slide--media">
+                {% if block.settings.image != blank %}
+                  {{ block.settings.image | image_url: width: 800 | image_tag:
+                    loading: 'lazy',
+                    alt: block.settings.heading
+                  }}
+                {% else %}
+                  <img src="{{ carousel_images[forloop.index0] | default: carousel_images[0] }}" alt="{{ block.settings.heading }}" loading="lazy">
+                {% endif %}
+              </div>
+              <div class="e-cards-carousel__slide--content">
+                <header class="e-cards-carousel__slide--header">
+                  <h3 class="e-cards-carousel__slide--heading h-display-type__three js-anim h-animate-in-fade">
+                    {{ block.settings.heading }}
+                  </h3>
+                </header>
+                {% if block.settings.intro != blank %}
+                  <div class="e-cards-carousel__slide--intro h-display-type__intro js-anim h-animate-in-fade">
+                    {{ block.settings.intro }}
+                  </div>
+                {% endif %}
+                {% if block.settings.link_url != blank %}
+                  <a class="e-cards-carousel__slide--cta" href="{{ block.settings.link_url }}" aria-label="{{ block.settings.heading }}">
+                    {% render 'arrow-icon', class: 'e-cards-carousel__slide--arrow js-anim h-animate-in-fade' %}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .e-cards-carousel {
+    background-color: transparent;
+    color: var(--brand-1);
+    overflow: hidden;
+  }
+
+  .e-cards-carousel__inner {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: calc(var(--standard-container) - var(--spacing) * 2);
+    padding-left: 0;
+    padding-right: 0;
+  }
+  @media (max-width: 760px) {
+    .e-cards-carousel__inner {
+      max-width: var(--standard-container);
+      padding-right: var(--spacing);
+      padding-left: var(--spacing);
+    }
+  }
+
+  .e-cards-carousel__header-area {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: var(--standard-container);
+    padding-right: var(--spacing);
+    padding-left: var(--spacing);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  @media (max-width: 760px) {
+    .e-cards-carousel__header-area { justify-content: center; }
+  }
+
+  .e-cards-carousel__header-one { padding-right: 20px; }
+  @media (max-width: 760px) {
+    .e-cards-carousel__header-one { text-align: center; padding-right: 0; }
+  }
+
+  .e-cards-carousel__header-two { text-align: right; padding-left: 20px; }
+  @media (max-width: 760px) { .e-cards-carousel__header-two { display: none; } }
+
+  .e-cards-carousel__header-one,
+  .e-cards-carousel__header-two { max-width: 650px; width: 50%; }
+  @media (max-width: 760px) {
+    .e-cards-carousel__header-one,
+    .e-cards-carousel__header-two { width: 100%; }
+  }
+
+  .e-cards-carousel__heading,
+  .e-cards-carousel__intro,
+  .e-cards-carousel__tag,
+  .e-cards-carousel__subtag { margin-top: 0; }
+
+  .e-cards-carousel__tag {
+    font-family: var(--secondary-font);
+    font-size: 125px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 1460px) { .e-cards-carousel__tag { font-size: 110px; } }
+  @media (max-width: 1260px) { .e-cards-carousel__tag { font-size: 95px; } }
+  @media (max-width: 960px)  { .e-cards-carousel__tag { font-size: 85px; } }
+
+  .e-cards-carousel__subtag { font-size: 24px; font-weight: 600; }
+
+  .e-cards-carousel__track { overflow: visible; }
+
+  .e-cards-carousel__slides {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+  }
+  .e-cards-carousel__slides::-webkit-scrollbar { display: none; }
+
+  @media (max-width: 1460px) {
+    .e-cards-carousel__slides { padding-top: 50px; padding-bottom: 50px; }
+  }
+  @media (max-width: 1260px) {
+    .e-cards-carousel__slides { padding-top: 40px; padding-bottom: 40px; }
+  }
+  @media (max-width: 1060px) {
+    .e-cards-carousel__slides { padding-top: 30px; padding-bottom: 30px; }
+  }
+  @media (max-width: 760px) {
+    .e-cards-carousel:not(.e-news-carousel) .e-cards-carousel__slides {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      overflow: visible;
+    }
+  }
+
+  .e-cards-carousel__slide {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    min-width: 340px;
+    flex: 0 0 340px;
+    scroll-snap-align: start;
+  }
+  @media (max-width: 1460px) { .e-cards-carousel__slide { min-width: 300px; flex: 0 0 300px; } }
+  @media (max-width: 1260px) { .e-cards-carousel__slide { min-width: 260px; flex: 0 0 260px; } }
+  @media (max-width: 760px) {
+    .e-cards-carousel__slide { min-width: 0; flex: 1; }
+    .e-cards-carousel__slide--inner { background-color: var(--brand-2); }
+  }
+
+  .e-cards-carousel__slide--media {
+    aspect-ratio: 1/1;
+    position: relative;
+  }
+  .e-cards-carousel__slide--media picture,
+  .e-cards-carousel__slide--media img { display: block; width: 100%; height: 100%; max-width: none; }
+  .e-cards-carousel__slide--media img { object-fit: cover; object-position: center; }
+
+  .e-cards-carousel__slide--media::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 100%);
+  }
+
+  .e-cards-carousel__slide--content {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    padding: 50px;
+  }
+  @media (max-width: 1460px) { .e-cards-carousel__slide--content { padding: 50px 40px; } }
+  @media (max-width: 1260px) { .e-cards-carousel__slide--content { padding: 40px 30px; } }
+  @media (max-width: 760px) {
+    .e-cards-carousel__slide--content { position: static; text-align: center; padding: 20px 10px; }
+  }
+
+  .e-cards-carousel__slide--header { margin-bottom: 10px; }
+  @media (max-width: 760px) { .e-cards-carousel__slide--header { margin-bottom: 0; } }
+
+  .e-cards-carousel__slide--heading {
+    margin-top: 0;
+    line-height: 1;
+    width: 80%;
+    max-width: 440px;
+    color: #fff;
+  }
+  @media (max-width: 760px) {
+    .e-cards-carousel__slide--heading { width: 100%; color: var(--brand-1); }
+  }
+  @media (max-width: 560px) { .e-cards-carousel__slide--heading { font-size: 14px; } }
+
+  .e-cards-carousel__slide--intro {
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 80%;
+    max-width: 440px;
+    color: #fff;
+  }
+  @media (max-width: 760px) { .e-cards-carousel__slide--intro { display: none; } }
+
+  .e-cards-carousel__slide--cta {
+    display: inline-block;
+    margin-top: 40px;
+    flex-shrink: 0;
+    width: 60px;
+    height: 45px;
+  }
+  @media (max-width: 1260px) { .e-cards-carousel__slide--cta { margin-top: 30px; width: 50px; height: 35px; } }
+  @media (max-width: 1060px) { .e-cards-carousel__slide--cta { margin-top: 20px; width: 40px; height: 25px; } }
+  @media (max-width: 760px)  { .e-cards-carousel__slide--cta { margin-top: 10px; } }
+
+  .e-cards-carousel__slide--arrow { width: 100%; height: 100%; }
+  .e-cards-carousel__slide--arrow .arrow-class {
+    transition: fill 0.2s ease-in-out;
+    fill: #fff;
+  }
+  @media (max-width: 760px) { .e-cards-carousel__slide--arrow .arrow-class { fill: var(--brand-1); } }
+{% endstylesheet %}
+
+{% javascript %}
+  document.querySelectorAll('.js-carousel-track').forEach(function (track) {
+    var isDown = false;
+    var startX;
+    var scrollLeft;
+
+    track.addEventListener('mousedown', function (e) {
+      isDown = true;
+      track.style.cursor = 'grabbing';
+      startX = e.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+    });
+
+    track.addEventListener('mouseleave', function () { isDown = false; track.style.cursor = 'grab'; });
+    track.addEventListener('mouseup', function () { isDown = false; track.style.cursor = 'grab'; });
+
+    track.addEventListener('mousemove', function (e) {
+      if (!isDown) return;
+      e.preventDefault();
+      var x = e.pageX - track.offsetLeft;
+      var walk = (x - startX) * 2;
+      track.scrollLeft = scrollLeft - walk;
+    });
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:general.cards_carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "Discover Pet Paradise"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "t:labels.intro",
+      "default": "We offer a wide range of pet food manufacture processes with a variety of sophisticated customisation options."
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag text",
+      "default": "Quality"
+    },
+    {
+      "type": "text",
+      "id": "subtag",
+      "label": "Subtag text",
+      "default": "Quality is at the heart of our business"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Carousel slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:labels.image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:labels.heading",
+          "default": "Slide title"
+        },
+        {
+          "type": "textarea",
+          "id": "intro",
+          "label": "t:labels.intro"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "t:labels.link_url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:general.cards_carousel",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" }
+      ]
+    }
+  ]
+}
+{% endschema %}

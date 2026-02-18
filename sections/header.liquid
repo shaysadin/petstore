@@ -1,0 +1,217 @@
+{% doc %}
+  Babet template header with sticky nav, top bar, logo, menu, cart icon.
+{% enddoc %}
+
+<style>
+  .th-header.header-layout2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background-color: var(--white-color, #fff);
+    transition: box-shadow 0.3s ease;
+  }
+  .th-header.header-layout2.scrolled {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.07);
+  }
+  /* Prevent Babet JS sticky class from changing layout */
+  .th-header.header-layout2 .sticky-wrapper.sticky {
+    position: static !important;
+    animation: none !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+    background-color: transparent !important;
+  }
+  .th-header.header-layout2 .sticky-wrapper.sticky .menu-area {
+    padding: 0 22px 0 25px !important;
+  }
+</style>
+<header class="th-header header-layout2">
+  <div class="sticky-wrapper">
+    {%- if section.settings.show_top_bar -%}
+      <div class="header-top">
+        <div class="container">
+          <div class="row justify-content-center justify-content-lg-between align-items-center gy-2">
+            <div class="col-12 d-none d-lg-block">
+              <div class="header-links">
+                <ul>
+                  {%- if section.settings.promo_text_1 != blank -%}
+                    <li>{{ section.settings.promo_text_1 }}</li>
+                  {%- endif -%}
+                  {%- if section.settings.promo_text_2 != blank -%}
+                    <li>{{ section.settings.promo_text_2 }}</li>
+                  {%- endif -%}
+                </ul>
+                {%- if section.settings.promo_link_text != blank -%}
+                  <h4 class="box-title"><a href="{{ section.settings.promo_link }}">{{ section.settings.promo_link_text }}</a></h4>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="container">
+      <div class="menu-area">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="header-logo">
+              <a href="/">
+                {%- if section.settings.logo != blank -%}
+                  <img src="{{ section.settings.logo | image_url: height: 50 }}" alt="{{ shop.name }}">
+                {%- else -%}
+                  <img src="{{ 'logo3.svg' | asset_url }}" alt="{{ shop.name }}">
+                {%- endif -%}
+              </a>
+            </div>
+          </div>
+          <div class="col-auto">
+            {%- assign max_visible = 6 -%}
+            {%- assign menu_links = linklists[section.settings.menu].links -%}
+            <nav class="main-menu d-none d-lg-inline-block">
+              <ul>
+                {%- for link in menu_links -%}
+                  {%- if forloop.index <= max_visible -%}
+                    <li{% if link.links.size > 0 %} class="menu-item-has-children"{% endif %}>
+                      <a href="{{ link.url }}">{{ link.title }}</a>
+                      {%- if link.links.size > 0 -%}
+                        <ul class="sub-menu">
+                          {%- for child in link.links -%}
+                            <li{% if child.links.size > 0 %} class="menu-item-has-children"{% endif %}>
+                              <a href="{{ child.url }}">{{ child.title }}</a>
+                              {%- if child.links.size > 0 -%}
+                                <ul class="sub-menu">
+                                  {%- for grandchild in child.links -%}
+                                    <li><a href="{{ grandchild.url }}">{{ grandchild.title }}</a></li>
+                                  {%- endfor -%}
+                                </ul>
+                              {%- endif -%}
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      {%- endif -%}
+                    </li>
+                  {%- endif -%}
+
+                  {%- comment -%} After the 6th item, if there are more, open a "More" dropdown {%- endcomment -%}
+                  {%- if forloop.index == max_visible and menu_links.size > max_visible -%}
+                    <li class="menu-item-has-children">
+                      <a href="#">עוד <i class="far fa-chevron-down" style="font-size: 0.7em; margin-right: 4px;"></i></a>
+                      <ul class="sub-menu">
+                  {%- endif -%}
+
+                  {%- if forloop.index > max_visible -%}
+                        <li{% if link.links.size > 0 %} class="menu-item-has-children"{% endif %}>
+                          <a href="{{ link.url }}">{{ link.title }}</a>
+                          {%- if link.links.size > 0 -%}
+                            <ul class="sub-menu">
+                              {%- for child in link.links -%}
+                                <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                        </li>
+                  {%- endif -%}
+
+                  {%- comment -%} Close the "More" dropdown after the last item {%- endcomment -%}
+                  {%- if forloop.last and menu_links.size > max_visible and forloop.index > max_visible -%}
+                      </ul>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            </nav>
+          </div>
+          <div class="col-auto">
+            <div class="header-button">
+              <button type="button" class="icon-btn searchBoxToggler"><i class="far fa-search"></i></button>
+              <a href="/cart" class="icon-btn sideMenuToggler">
+                <i class="far fa-shopping-cart"></i>
+                <span class="badge">{{ cart.item_count }}</span>
+              </a>
+              <button type="button" class="th-menu-toggle d-block d-lg-none"><i class="far fa-bars"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="header-height-spacer" aria-hidden="true"></div>
+
+<script>
+  (function() {
+    var header = document.querySelector('.th-header.header-layout2');
+    var spacer = document.querySelector('.header-height-spacer');
+    if (!header) return;
+
+    function syncSpacer() {
+      if (spacer) spacer.style.height = header.offsetHeight + 'px';
+    }
+    syncSpacer();
+    window.addEventListener('resize', syncSpacer);
+    window.addEventListener('load', syncSpacer);
+
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }, { passive: true });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Main menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Top bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_bar",
+      "label": "Show top bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "promo_text_1",
+      "label": "Promo text 1",
+      "default": "משלוח חינם בקנייה מעל ₪249!"
+    },
+    {
+      "type": "text",
+      "id": "promo_text_2",
+      "label": "Promo text 2",
+      "default": "המחירים הזולים בארץ!"
+    },
+    {
+      "type": "url",
+      "id": "promo_link",
+      "label": "Promo link"
+    },
+    {
+      "type": "text",
+      "id": "promo_link_text",
+      "label": "Promo link text",
+      "default": "קנו עכשיו"
+    }
+  ]
+}
+{% endschema %}

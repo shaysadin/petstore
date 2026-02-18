@@ -1,0 +1,31 @@
+{% doc %}
+  Scroll animation system using IntersectionObserver.
+  Adds `.js-anim__visible` class when elements with `.js-anim` scroll into view.
+{% enddoc %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.js-anim').forEach(function (el) {
+        el.classList.add('js-anim__visible');
+      });
+      return;
+    }
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('js-anim__visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document.querySelectorAll('.js-anim').forEach(function (el) {
+      observer.observe(el);
+    });
+  });
+</script>

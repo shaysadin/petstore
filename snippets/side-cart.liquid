@@ -1,0 +1,42 @@
+{% doc %}
+  Renders the side cart drawer.
+{% enddoc %}
+
+<div class="sidemenu-wrapper sidemenu-cart">
+  <div class="sidemenu-content">
+    <button class="closeButton sideMenuCls"><i class="far fa-times"></i></button>
+    <div class="widget woocommerce widget_shopping_cart">
+      <h3 class="widget_title">עגלת קניות</h3>
+      <div class="widget_shopping_cart_content">
+        <ul class="woocommerce-mini-cart cart_list product_list_widget">
+          {%- for item in cart.items -%}
+            <li class="woocommerce-mini-cart-item mini_cart_item">
+              <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="remove remove_from_cart_button"><i class="far fa-times"></i></a>
+              <a href="{{ item.url }}">
+                {%- if item.image -%}
+                  <img src="{{ item.image | image_url: width: 100 }}" alt="{{ item.title | escape }}">
+                {%- endif -%}
+                {{ item.product.title }}
+              </a>
+              <span class="quantity">{{ item.quantity }} &times;
+                <span class="woocommerce-Price-amount amount">{{ item.price | money }}</span>
+              </span>
+            </li>
+          {%- endfor -%}
+        </ul>
+        {%- if cart.items.size > 0 -%}
+          <p class="woocommerce-mini-cart__total total">
+            <strong>סה״כ ביניים:</strong>
+            <span class="woocommerce-Price-amount amount">{{ cart.total_price | money }}</span>
+          </p>
+          <p class="woocommerce-mini-cart__buttons buttons">
+            <a href="/cart" class="th-btn wc-forward">צפה בעגלה</a>
+            <a href="/checkout" class="th-btn checkout wc-forward">לתשלום</a>
+          </p>
+        {%- else -%}
+          <p class="empty-cart-message">העגלה ריקה.</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>

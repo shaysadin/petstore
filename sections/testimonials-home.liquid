@@ -1,0 +1,136 @@
+{% doc %}
+  Customer testimonials Swiper carousel with decorative shapes.
+{% enddoc %}
+
+<section class="testi-area-3 overflow-hidden">
+  <img class="testi3-top" src="{{ 'bg-testi3-top.png' | asset_url }}" alt="">
+  <img class="testi3-bottom" src="{{ 'bg-testi3-bottom.png' | asset_url }}" alt="">
+
+  <div class="about-bg-shape1-2 shape-mockup shake d-xxl-block d-none" data-top="23%" data-right="23%">
+    <img src="{{ 'shape-shape1-50.png' | asset_url }}" alt="">
+  </div>
+  <div class="about-bg-shape1-3 shape-mockup moving d-xxl-block d-none" data-top="22%" data-left="19%">
+    <img src="{{ 'shape-shape1-51.png' | asset_url }}" alt="">
+  </div>
+  <div class="about-bg-shape1-4 shape-mockup d-xl-block d-none" data-top="21%" data-left="16%">
+    <img src="{{ 'shape-shape1-52.png' | asset_url }}" alt="">
+  </div>
+  <div class="about-bg-shape1-5 shape-mockup heartbeat d-xl-block d-none" data-bottom="18%" data-right="11%">
+    <img src="{{ 'shape-shape1-53.png' | asset_url }}" alt="">
+  </div>
+  <div class="about-bg-shape1-5 shape-mockup moving d-xl-block d-none" data-bottom="5%" data-left="7%">
+    <img src="{{ 'shape-shape1-54.png' | asset_url }}" alt="">
+  </div>
+
+  <div class="container th-container">
+    <div class="title-area2 text-center mb-55">
+      <h2 class="sec-title mt-0 text-anim" data-cue="slideInUp">
+        <img src="{{ 'shape-home-3_1-sub-img.png' | asset_url }}" alt="">
+        {{ section.settings.heading | default: 'Customer Feedback' }}
+      </h2>
+    </div>
+    <div class="testi-wrap3" data-cue="slideInUp">
+      <div class="slider-area">
+        <div class="swiper th-slider testi-slider3" id="testiSlide3" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"767":{"slidesPerView":"1"},"992":{"slidesPerView":"2"},"1200":{"slidesPerView":"2"},"1400":{"spaceBetween":30,"slidesPerView":"3"}}}'>
+          <div class="swiper-wrapper">
+            {%- for block in section.blocks -%}
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                <div class="testi-card style2">
+                  <div class="testi-card_review">
+                    {%- assign rating = block.settings.rating | default: 5 -%}
+                    {%- for i in (1..rating) -%}
+                      <i class="fa-sharp fa-solid fa-star"></i>
+                    {%- endfor -%}
+                  </div>
+                  <p class="box-text">"{{ block.settings.review_text }}"</p>
+                  <div class="testi-card-profile">
+                    <div class="testi-card-avater">
+                      {%- if block.settings.avatar != blank -%}
+                        <img src="{{ block.settings.avatar | image_url: width: 100 }}" alt="{{ block.settings.name | escape }}">
+                      {%- else -%}
+                        <img src="{{ 'testimonial-testi3-1.jpg' | asset_url }}" alt="">
+                      {%- endif -%}
+                    </div>
+                    <div class="testi-card-profile-detaile">
+                      <h3 class="box-title">{{ block.settings.name }}</h3>
+                      <p class="box-desig">{{ block.settings.company }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+          <div class="pagination-wrap">
+            <img src="{{ 'shape-testi3-pagi-left.png' | asset_url }}" alt="">
+            <div class="slider-pagination"></div>
+            <img src="{{ 'shape-testi3-pagi-right.png' | asset_url }}" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "מה הלקוחות אומרים"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Reviewer name",
+          "default": "דוד כהן"
+        },
+        {
+          "type": "text",
+          "id": "company",
+          "label": "Company",
+          "default": "לקוח מאומת"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review text",
+          "default": "המוצרים בגודל מושלם לכלב הקטן שלנו. העיצוב חמוד והגומי בתחתית מעולה כי הוא הופך אותם לעמידים יותר."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        { "type": "testimonial", "settings": { "name": "דוד כהן" } },
+        { "type": "testimonial", "settings": { "name": "מירי לוי" } },
+        { "type": "testimonial", "settings": { "name": "יוסי אברהם" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

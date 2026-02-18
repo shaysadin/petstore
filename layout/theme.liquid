@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="he" class="no-js" dir="rtl">
+  <head>
+    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {%- comment -%} Google Fonts: Fredoka + Onest {%- endcomment -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Onest:wght@100..900&display=swap" rel="stylesheet">
+
+    {%- comment -%} CSS: vendor then theme (RTL for Hebrew) {%- endcomment -%}
+    {{ 'bootstrap.rtl.min.css' | asset_url | stylesheet_tag }}
+    {{ 'fontawesome.min.css' | asset_url | stylesheet_tag }}
+    {{ 'magnific-popup.min.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    {{ 'babet-style.css' | asset_url | stylesheet_tag }}
+    {{ 'rtl-overrides.css' | asset_url | stylesheet_tag }}
+
+    {%- comment -%} SEO meta tags {%- endcomment -%}
+    {% render 'meta-tags' %}
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="home3_pet_shop">
+    <div class="cursor-follower"></div>
+
+    {%- comment -%} Preloader {%- endcomment -%}
+    <div class="preloader">
+      <button class="th-btn preloaderCls">ביטול</button>
+      <div class="preloader-inner">
+        <div class="bounce">
+          <img src="{{ 'logo-icon.svg' | asset_url }}" alt="{{ shop.name }}">
+        </div>
+        <span class="loader">
+          פט פרדייס
+          <span class="loading-text">פט פרדייס</span>
+        </span>
+      </div>
+    </div>
+
+    {%- comment -%} Quick view modal shell {%- endcomment -%}
+    {% render 'quick-view-modal' %}
+
+    {%- comment -%} Mobile menu {%- endcomment -%}
+    {% render 'mobile-menu' %}
+
+    {%- comment -%} Side cart drawer {%- endcomment -%}
+    {% render 'side-cart' %}
+
+    {%- comment -%} Header {%- endcomment -%}
+    {% sections 'header-group' %}
+
+    {%- comment -%} Main content {%- endcomment -%}
+    <main>
+      {{ content_for_layout }}
+    </main>
+
+    {%- comment -%} Footer {%- endcomment -%}
+    {% sections 'footer-group' %}
+
+    {%- comment -%} Scroll to top {%- endcomment -%}
+    <div class="scroll-top">
+      <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
+      </svg>
+    </div>
+
+    {%- comment -%} JS: jQuery first (no defer), then vendor + theme (deferred) {%- endcomment -%}
+    <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}"></script>
+    <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'bootstrap.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'jquery.magnific-popup.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'jquery.counterup.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'jquery-ui.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'imagesloaded.pkgd.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'isotope.pkgd.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'scrollCue.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'gsap.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'ScrollTrigger.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'SplitText.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'lenis.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'particles.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'particles-config.js' | asset_url }}" defer></script>
+    <script src="{{ 'babet-main.js' | asset_url }}" defer></script>
+
+    <script>
+      (function() {
+        // Set dir="rtl" on all Swiper containers so Swiper auto-detects RTL
+        function initSwiperRTL() {
+          document.querySelectorAll('.swiper').forEach(function(el) {
+            el.setAttribute('dir', 'rtl');
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initSwiperRTL);
+        } else {
+          initSwiperRTL();
+        }
+      })();
+    </script>
+  </body>
+</html>

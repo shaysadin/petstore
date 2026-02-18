@@ -1,0 +1,92 @@
+{% doc %}
+  Two-column promotional CTA cards with background images.
+{% enddoc %}
+
+<section class="overflow-hidden">
+  <div class="cta-wrap3 bg-theme-dark">
+    <div class="container th-container">
+      <div class="row gy-4">
+        {%- for block in section.blocks -%}
+          <div class="col-lg-6" {{ block.shopify_attributes }}>
+            <div class="cta2-content-wrap mega-hover" data-cue="slideInUp"
+              {%- if block.settings.bg_image != blank %} data-bg-src="{{ block.settings.bg_image | image_url: width: 800 }}"{% endif -%}>
+              {%- if forloop.first -%}
+                <div class="shape-mockup d-xl-block d-none jump" data-right="39%" data-top="60%">
+                  <img src="{{ 'shape-shape1-49.png' | asset_url }}" alt="">
+                </div>
+              {%- endif -%}
+              <div class="left-content">
+                <span class="subtitle">{{ block.settings.tag | default: '15% OFF' }}</span>
+                <h4 class="box-title">{{ block.settings.heading | default: 'Fresh Natural Pets Food' }}</h4>
+                <a href="{{ block.settings.link }}" class="th-btn style3">{{ block.settings.button_text | default: 'Shop Now' }}</a>
+              </div>
+              <div class="img-box">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.heading | escape }}">
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Promo cards",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Promo card",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag text",
+          "default": "15% הנחה"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "מזון טבעי טרי לחיות מחמד"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "קנו עכשיו"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product image"
+        },
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Background image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo cards",
+      "blocks": [
+        { "type": "card" },
+        { "type": "card" }
+      ]
+    }
+  ]
+}
+{% endschema %}

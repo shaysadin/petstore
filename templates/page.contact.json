@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-contact",
+      "blocks": {
+        "phone": { "type": "info_card", "settings": { "icon": "fas fa-phone", "title": "טלפון", "text": "055-6600934" } },
+        "email": { "type": "info_card", "settings": { "icon": "fas fa-envelope", "title": "אימייל", "text": "petsparadiseld@gmail.com" } },
+        "address": { "type": "info_card", "settings": { "icon": "fas fa-map-marker-alt", "title": "כתובת", "text": "כפר זיתים, ישראל" } }
+      },
+      "block_order": ["phone", "email", "address"],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

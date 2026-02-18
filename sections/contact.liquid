@@ -1,0 +1,238 @@
+<section class="e-contact full-width h-padding__both">
+  <div class="e-contact__inner">
+    <div class="e-contact__items">
+      <div class="e-contact__item">
+        <header class="e-contact__header">
+          <h2 class="e-contact__heading h-display-type__two js-anim h-animate-in-slide-up">
+            {{ section.settings.heading }}
+          </h2>
+          {% if section.settings.intro != blank %}
+            <h3 class="e-contact__intro h-display-type__intro js-anim h-animate-in-slide-up">
+              {{ section.settings.intro }}
+            </h3>
+          {% endif %}
+        </header>
+
+        <ul class="e-contact__contact-links">
+          {% if section.settings.phone != blank %}
+            <li class="e-contact__contact-link h-display-type__intro js-anim h-animate-in-slide-up">
+              <a class="e-contact__link e-contact__link--no-under" href="tel:{{ section.settings.phone | remove: ' ' }}" aria-label="Call {{ shop.name }}">
+                {{ section.settings.phone }}
+              </a>
+            </li>
+          {% endif %}
+          {% if section.settings.email != blank %}
+            <li class="e-contact__contact-link h-display-type__intro js-anim h-animate-in-slide-up">
+              <a class="e-contact__link" href="mailto:{{ section.settings.email }}" aria-label="Email {{ shop.name }}">
+                {{ section.settings.email }}
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <div class="e-contact__item">
+        <div class="e-contact__form js-anim h-animate-in-form">
+          {% form 'contact' %}
+            {% if form.posted_successfully? %}
+              <p class="e-contact__success">{{ 'sections.contact.success' | t }}</p>
+            {% endif %}
+
+            <div class="e-contact__fields">
+              <div class="e-contact__field">
+                <label>
+                  {{ 'sections.contact.name_label' | t }}<br>
+                  <input type="text" name="contact[name]" placeholder="{{ 'sections.contact.name_placeholder' | t }}" required>
+                </label>
+              </div>
+              <div class="e-contact__field">
+                <label>
+                  {{ 'sections.contact.company_label' | t }}<br>
+                  <input type="text" name="contact[company]" placeholder="{{ 'sections.contact.company_placeholder' | t }}">
+                </label>
+              </div>
+            </div>
+
+            <div class="e-contact__fields">
+              <div class="e-contact__field">
+                <label>
+                  {{ 'sections.contact.email_label' | t }}<br>
+                  <input type="email" name="contact[email]" placeholder="{{ 'sections.contact.email_placeholder' | t }}" autocomplete="email" required>
+                </label>
+              </div>
+              <div class="e-contact__field">
+                <label>
+                  {{ 'sections.contact.phone_label' | t }}<br>
+                  <input type="text" name="contact[phone]" placeholder="{{ 'sections.contact.phone_placeholder' | t }}">
+                </label>
+              </div>
+            </div>
+
+            <label>
+              {{ 'sections.contact.message_label' | t }}<br>
+              <textarea name="contact[body]" rows="10"></textarea>
+            </label>
+
+            <div class="e-contact__submit">
+              <p>
+                <input class="e-btn" type="submit" value="{{ 'sections.contact.submit_button' | t }}">
+              </p>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .e-contact {
+    background-color: var(--brand-2);
+  }
+
+  .e-contact__inner {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: var(--standard-container);
+    padding-right: var(--spacing);
+    padding-left: var(--spacing);
+  }
+
+  .e-contact__items {
+    display: flex;
+    align-items: flex-start;
+  }
+  @media (max-width: 760px) {
+    .e-contact__items {
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+  }
+
+  .e-contact__item { width: 50%; }
+  @media (max-width: 760px) { .e-contact__item { width: 100%; } }
+
+  .e-contact__header { padding-right: 180px; }
+  @media (max-width: 1460px) { .e-contact__header { padding-right: 120px; } }
+  @media (max-width: 1260px) { .e-contact__header { padding-right: 80px; } }
+  @media (max-width: 1060px) { .e-contact__header { padding-right: 40px; } }
+  @media (max-width: 760px)  { .e-contact__header { padding-right: 0px; text-align: center; } }
+
+  .e-contact__heading { margin-top: 0; }
+  .e-contact__intro { font-weight: 500; }
+
+  .e-contact__contact-links {
+    list-style: none;
+    margin: 0;
+    padding: 70px 0 0 0;
+  }
+  @media (max-width: 1460px) { .e-contact__contact-links { padding-top: 50px; } }
+  @media (max-width: 1260px) { .e-contact__contact-links { padding-top: 40px; } }
+  @media (max-width: 1060px) { .e-contact__contact-links { padding-top: 30px; } }
+  @media (max-width: 760px)  { .e-contact__contact-links { padding-top: 20px; text-align: center; } }
+
+  .e-contact .e-contact__contact-link { margin-bottom: 0; }
+  .e-contact .e-contact__contact-link .e-contact__link {
+    display: inline-block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .e-contact .e-contact__contact-link .e-contact__link--no-under { text-decoration: none; }
+
+  @media (max-width: 760px) { .e-contact__form { padding-top: 40px; } }
+
+  .e-contact__form form > p { margin-top: 0; }
+  .e-contact__form form label { font-size: 20px; }
+  @media (max-width: 760px) { .e-contact__form form label { font-size: 18px; } }
+
+  .e-contact__form form input { height: 60px; }
+  @media (max-width: 760px) { .e-contact__form form input { height: 50px; } }
+
+  .e-contact__form form input,
+  .e-contact__form form textarea {
+    width: 100%;
+    border-radius: 0;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--brand-1);
+    color: var(--brand-1);
+    font-size: 20px;
+    font-family: inherit;
+    padding: 8px 0;
+  }
+  .e-contact__form form input::placeholder,
+  .e-contact__form form textarea::placeholder { color: #bcbcbc; }
+  @media (max-width: 760px) {
+    .e-contact__form form input,
+    .e-contact__form form textarea { font-size: 18px; }
+  }
+
+  .e-contact__form form input[type="submit"] { width: auto; }
+
+  .e-contact__fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  .e-contact__field > p { margin: 0; }
+
+  .e-contact__submit { padding-top: 30px; }
+  @media (max-width: 760px) { .e-contact__submit { padding-top: 15px; } }
+
+  .e-contact__submit > p {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+  }
+  @media (max-width: 760px) {
+    .e-contact__submit > p { justify-content: center; }
+  }
+
+  .e-contact__success {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.contact",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "Contact us"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "t:labels.intro",
+      "default": "We'd love to hear from you! Whether you have a question, feedback, or need assistance, our team is here to help."
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "t:labels.phone"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "t:labels.email"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:general.contact"
+    }
+  ]
+}
+{% endschema %}

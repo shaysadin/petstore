@@ -1,0 +1,63 @@
+<header class="e-main-title js-anim h-animate-in-fade">
+  {% if section.settings.logo != blank %}
+    {{ section.settings.logo | image_url: width: 1560 | image_tag: alt: shop.name, loading: 'eager' }}
+  {% else %}
+    <h1 class="e-main-title__text">{{ shop.name }}</h1>
+  {% endif %}
+</header>
+
+{% stylesheet %}
+  .e-main-title {
+    padding: 100px var(--spacing) 30px var(--spacing);
+    text-align: center;
+  }
+  @media (max-width: 1460px) {
+    .e-main-title { padding: 80px var(--spacing) 30px var(--spacing); }
+  }
+  @media (max-width: 1260px) {
+    .e-main-title { padding: 70px var(--spacing) 25px var(--spacing); }
+  }
+  @media (max-width: 1060px) {
+    .e-main-title { padding: 50px var(--spacing) 20px var(--spacing); }
+  }
+  @media (max-width: 760px) {
+    .e-main-title { padding: 20px var(--spacing) 15px var(--spacing); }
+  }
+
+  .e-main-title picture,
+  .e-main-title img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .e-main-title__text {
+    font-size: 60px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0;
+  }
+  @media (max-width: 760px) {
+    .e-main-title__text { font-size: 32px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.main_title",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:labels.logo",
+      "info": "Full-width brand logo SVG"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:general.main_title"
+    }
+  ]
+}
+{% endschema %}

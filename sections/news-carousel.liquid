@@ -1,0 +1,337 @@
+{%- assign news_images = 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&h=600&fit=crop&q=80,https://images.unsplash.com/photo-1450778869180-e13f3e5f8776?w=800&h=600&fit=crop&q=80,https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=600&fit=crop&q=80,https://images.unsplash.com/photo-1583337130417-13104dec14a4?w=800&h=600&fit=crop&q=80' | split: ',' -%}
+
+<section class="e-cards-carousel full-width no-padding js-carousel-news e-news-carousel h-margin__both">
+  <div class="e-cards-carousel__header-area">
+    <header class="e-cards-carousel__header-one">
+      <h2 class="e-cards-carousel__heading h-display-type__two js-anim h-animate-in-slide-up">
+        {{ section.settings.heading }}
+      </h2>
+      {% if section.settings.intro != blank %}
+        <p class="e-cards-carousel__intro h-display-type__intro js-anim h-animate-in-slide-up">
+          {{ section.settings.intro }}
+        </p>
+      {% endif %}
+    </header>
+    <header class="e-cards-carousel__header-two">
+      <h2 class="e-cards-carousel__tag js-anim h-animate-in-slide-up">
+        {{ section.settings.tag }}
+      </h2>
+      {% if section.settings.subtag != blank %}
+        <p class="e-cards-carousel__subtag h-display-type__intro js-anim h-animate-in-slide-up">
+          {{ section.settings.subtag }}
+        </p>
+      {% endif %}
+    </header>
+  </div>
+
+  <div class="e-cards-carousel__inner js-anim h-animate-in-slide-right">
+    <div class="e-cards-carousel__track">
+      <div class="e-cards-carousel__slides e-news-carousel__slides js-carousel-track">
+        {% for block in section.blocks %}
+          {% if block.type == 'article' %}
+            <article class="e-news-carousel__slide" {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.link_url | default: '#' }}" class="e-news-carousel__slide--inner" aria-label="{{ block.settings.heading }}">
+                <div class="e-news-carousel__slide--media">
+                  {% if block.settings.image != blank %}
+                    {{ block.settings.image | image_url: width: 800 | image_tag:
+                      loading: 'lazy',
+                      alt: block.settings.heading
+                    }}
+                  {% else %}
+                    <img src="{{ news_images[forloop.index0] | default: news_images[0] }}" alt="{{ block.settings.heading }}" loading="lazy">
+                  {% endif %}
+                </div>
+                <div class="e-news-carousel__slide--content">
+                  <header class="e-news-carousel__slide--header">
+                    <h3 class="e-news-carousel__slide--heading h-display-type__five js-anim h-animate-in-fade">
+                      {{ block.settings.heading }}
+                    </h3>
+                    {% if block.settings.date != blank %}
+                      <p class="e-news-carousel__slide--date h-display-type__six js-anim h-animate-in-fade">
+                        {{ block.settings.date }}
+                      </p>
+                    {% endif %}
+                  </header>
+                  {% if block.settings.excerpt != blank %}
+                    <div class="e-news-carousel__slide--intro h-display-type__intro js-anim h-animate-in-fade">
+                      {{ block.settings.excerpt }}
+                      {% render 'arrow-icon', class: 'e-news-carousel__slide--arrow js-anim h-animate-in-fade' %}
+                    </div>
+                  {% endif %}
+                </div>
+              </a>
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="e-news-carousel__bullets">
+      {% for block in section.blocks %}
+        <button class="e-news-carousel__bullet"><span></span></button>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .e-news-carousel__slides {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+  }
+  .e-news-carousel__slides::-webkit-scrollbar { display: none; }
+  @media (max-width: 760px) {
+    .e-news-carousel .e-news-carousel__slides {
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      gap: 30px;
+      overflow: visible;
+    }
+  }
+
+  .e-news-carousel__slide {
+    min-width: 400px;
+    flex: 0 0 400px;
+    scroll-snap-align: start;
+  }
+  @media (max-width: 1460px) { .e-news-carousel__slide { min-width: 350px; flex: 0 0 350px; } }
+  @media (max-width: 1260px) { .e-news-carousel__slide { min-width: 300px; flex: 0 0 300px; } }
+  @media (max-width: 760px) {
+    .e-news-carousel__slide { min-width: 0; flex: 1; }
+  }
+
+  .e-news-carousel__slide--inner {
+    text-decoration: none;
+    display: block;
+  }
+
+  .e-news-carousel__slide--media {
+    aspect-ratio: 4/3;
+    border-radius: 40px;
+    overflow: hidden;
+    background-color: #000;
+    margin-bottom: 30px;
+  }
+  @media (max-width: 760px) {
+    .e-news-carousel__slide--media { border-radius: 30px; margin-bottom: 15px; }
+  }
+
+  .e-news-carousel__slide--media picture,
+  .e-news-carousel__slide--media img { display: block; width: 100%; height: 100%; max-width: none; }
+  .e-news-carousel__slide--media img {
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .e-news-carousel__slide:hover .e-news-carousel__slide--media img {
+    transform: scale(1.15);
+  }
+
+  .e-news-carousel__slide--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  @media (max-width: 760px) {
+    .e-news-carousel__slide--header {
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+  }
+
+  .e-news-carousel__slide--heading,
+  .e-news-carousel__slide--date { margin-top: 0; }
+
+  .e-news-carousel__slide--date { flex-shrink: 0; text-align: right; }
+  @media (max-width: 760px) { .e-news-carousel__slide--date { display: none; } }
+
+  .e-news-carousel__slide--intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  @media (max-width: 760px) {
+    .e-news-carousel__slide--intro { text-align: center; justify-content: center; }
+  }
+
+  .e-news-carousel__slide--arrow {
+    flex-shrink: 0;
+    width: 60px;
+    height: 45px;
+    margin-left: 40px;
+  }
+  @media (max-width: 1260px) { .e-news-carousel__slide--arrow { width: 50px; height: 35px; margin-left: 30px; } }
+  @media (max-width: 1060px) { .e-news-carousel__slide--arrow { width: 40px; height: 25px; } }
+  .e-news-carousel__slide--arrow .arrow-class {
+    transition: fill 0.2s ease-in-out;
+    fill: var(--brand-1);
+  }
+  @media (max-width: 760px) { .e-news-carousel__slide--arrow { display: none; } }
+
+  .e-news-carousel__slide--heading,
+  .e-news-carousel__slide--date,
+  .e-news-carousel__slide--intro {
+    text-decoration-color: var(--brand-1);
+  }
+
+  .e-news-carousel__slide:hover .e-news-carousel__slide--arrow .arrow-class {
+    fill: var(--brand-2);
+  }
+  .e-news-carousel__slide:hover .e-news-carousel__slide--inner {
+    text-decoration-color: var(--brand-1);
+  }
+
+  /* Bullets */
+  .e-news-carousel__bullets { display: none; }
+  @media (max-width: 760px) {
+    .e-news-carousel__bullets {
+      width: 100%;
+      margin-right: auto;
+      margin-left: auto;
+      max-width: var(--standard-container);
+      padding-right: var(--spacing);
+      padding-left: var(--spacing);
+      display: flex;
+      justify-content: center;
+      padding-top: 20px;
+    }
+  }
+
+  .e-news-carousel__bullet {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+  }
+  .e-news-carousel__bullet.is-active span { opacity: 1; }
+  .e-news-carousel__bullet span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--brand-1);
+    opacity: 0.3;
+    transition: opacity 0.2s ease-in-out;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  /* Drag scroll for news carousel - reuses same pattern as cards carousel */
+  document.querySelectorAll('.e-news-carousel__slides').forEach(function (track) {
+    var isDown = false;
+    var startX;
+    var scrollLeft;
+
+    track.addEventListener('mousedown', function (e) {
+      isDown = true;
+      track.style.cursor = 'grabbing';
+      startX = e.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+    });
+
+    track.addEventListener('mouseleave', function () { isDown = false; track.style.cursor = 'grab'; });
+    track.addEventListener('mouseup', function () { isDown = false; track.style.cursor = 'grab'; });
+
+    track.addEventListener('mousemove', function (e) {
+      if (!isDown) return;
+      e.preventDefault();
+      var x = e.pageX - track.offsetLeft;
+      var walk = (x - startX) * 2;
+      track.scrollLeft = scrollLeft - walk;
+    });
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:general.news_carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "Latest news"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "t:labels.intro",
+      "default": "We are dedicated to creating the best possible food and treats for pets."
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag text",
+      "default": "In the know"
+    },
+    {
+      "type": "text",
+      "id": "subtag",
+      "label": "Subtag text",
+      "default": "Creators of outstanding pet food and treats"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "article",
+      "name": "News article",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:labels.image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:labels.heading",
+          "default": "Article title"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "t:labels.date",
+          "default": "1 Jan 24"
+        },
+        {
+          "type": "textarea",
+          "id": "excerpt",
+          "label": "t:labels.excerpt"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "t:labels.link_url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:general.news_carousel",
+      "blocks": [
+        { "type": "article" },
+        { "type": "article" },
+        { "type": "article" },
+        { "type": "article" }
+      ]
+    }
+  ]
+}
+{% endschema %}

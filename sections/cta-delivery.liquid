@@ -1,0 +1,79 @@
+{% doc %}
+  CTA banner for free delivery promotion.
+{% enddoc %}
+
+<section class="overflow-hidden">
+  <div class="container th-container">
+    <div class="cta-sec4" data-bg-src="{{ 'bg-cta4-bg.png' | asset_url }}">
+      <div class="row justify-content-between align-items-center">
+        <div class="col-xxl-2 col-xl-3 d-none d-xxl-block">
+          <div class="cta-wrap4">
+            <div class="cta-img">
+              {%- if section.settings.image_left != blank -%}
+                <img src="{{ section.settings.image_left | image_url: width: 300 }}" alt="">
+              {%- else -%}
+                <img src="{{ 'normal-cta-left4.png' | asset_url }}" alt="">
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+        <div class="col-xxl-7 col-xl-9 col-lg-9">
+          <div class="cta-content4">
+            <img src="{{ 'shape-cta4-icon.png' | asset_url }}" data-cue="slideInUp" alt="">
+            <h4 class="box-title text-title mb-n1 text-anim" data-cue="slideInUp">{{ section.settings.heading | default: '100% Authentic & Free Delivery for Order Over $399' }}</h4>
+            <a class="th-btn style3 th-btn-sm" data-cue="slideInUp" href="{{ section.settings.button_url | default: '/collections/all' }}">{{ section.settings.button_text | default: 'Shop Now' }}</a>
+          </div>
+        </div>
+        <div class="col-xxl-3 col-xl-3 col-lg-3">
+          <div class="cta-img4">
+            {%- if section.settings.image_right != blank -%}
+              <img src="{{ section.settings.image_right | image_url: width: 300 }}" alt="">
+            {%- else -%}
+              <img src="{{ 'normal-cta-right4.png' | asset_url }}" alt="">
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CTA delivery",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "100% מקורי ומשלוח חינם בהזמנה מעל ₪399"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "קנו עכשיו"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_left",
+      "label": "Left image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_right",
+      "label": "Right image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA delivery"
+    }
+  ]
+}
+{% endschema %}

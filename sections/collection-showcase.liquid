@@ -1,0 +1,176 @@
+{% doc %}
+  Product carousel + promotional box. Used for dog food / cat food collections.
+{% enddoc %}
+
+<section class="food-collection-sec1 space overflow-hidden">
+  <div class="container th-container">
+    <div class="row gy-40 gx-60 justify-content-center">
+      <div class="col-xl-7">
+        <div class="row gy-4 justify-content-between align-items-center mb-55">
+          <div class="col-xxl-8 col-xl-9">
+            <div class="title-area2 mb-0">
+              <h2 class="sec-title p-0 mb-0 text-anim" data-cue="slideInUp">
+                <img src="{{ 'shape-home-3-sub-img.png' | asset_url }}" alt="">
+                {{ section.settings.heading | default: 'Food Collection' }}
+              </h2>
+            </div>
+          </div>
+          <div class="col-auto" data-cue="slideInUp">
+            <a class="th-btn style3 th-btn-sm style-border2" href="{{ section.settings.collection.url | default: '/collections/all' }}">{{ section.settings.button_text | default: 'View All Products' }}</a>
+          </div>
+        </div>
+        <div class="slider-area" data-cue="slideInUp">
+          <div class="swiper th-slider has-shadow foodCollectionSlider{{ section.id }}" id="foodCollectionSlider{{ section.id }}" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"2"},"1300":{"slidesPerView":"3"}}, "autoHeight": "true"}'>
+            <div class="swiper-wrapper">
+              {%- assign collection = section.settings.collection -%}
+              {%- if collection != blank -%}
+                {%- for product in collection.products limit: 6 -%}
+                  <div class="swiper-slide">
+                    {% render 'product-card', product: product %}
+                  </div>
+                {%- endfor -%}
+              {%- else -%}
+                {%- for i in (1..6) -%}
+                  <div class="swiper-slide">
+                    <div class="th-product product-grid style-2">
+                      <div class="product-img">
+                        {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                      <div class="product-content">
+                        <span class="price">$25.00</span>
+                        <h3 class="product-title"><a href="#">Sample product {{ forloop.index }}</a></h3>
+                      </div>
+                    </div>
+                  </div>
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+          </div>
+          <button data-slider-next="#foodCollectionSlider{{ section.id }}" class="slider-arrow slider-next"><i class="far fa-arrow-right"></i></button>
+          <button data-slider-prev="#foodCollectionSlider{{ section.id }}" class="slider-arrow slider-prev"><i class="far fa-arrow-left"></i></button>
+        </div>
+      </div>
+      <div class="col-xl-5">
+        {%- if section.settings.promo_style == 'style1' -%}
+          <div class="food1-collection-right"
+            {%- if section.settings.promo_bg != blank %} data-bg-src="{{ section.settings.promo_bg | image_url: width: 800 }}"{% else %} data-bg-src="{{ 'bg-food-collection-right-bg.jpg' | asset_url }}"{% endif -%}>
+            <div class="food1-collection-content">
+              <span class="subtitle">{{ section.settings.promo_tag | default: 'Sale up 40% off' }}</span>
+              <h4 class="box-title">{{ section.settings.promo_heading | default: 'Healthy Dog Food' }}</h4>
+              <p class="box-text">{{ section.settings.promo_text | default: 'Yummy, balanced nutrition.' }}</p>
+              <div class="thumb">
+                {%- if section.settings.promo_image != blank -%}
+                  <img src="{{ section.settings.promo_image | image_url: width: 500 }}" alt="{{ section.settings.promo_heading | escape }}">
+                {%- else -%}
+                  <img src="{{ 'normal-food1-collection-right.png' | asset_url }}" alt="">
+                {%- endif -%}
+              </div>
+              <a class="th-btn style3 th-btn-xl" href="{{ section.settings.promo_link }}">{{ section.settings.promo_button | default: 'Shop Now' }}</a>
+            </div>
+          </div>
+        {%- else -%}
+          <div class="food1-collection-right">
+            <div class="food1-collection-content style2">
+              <div class="content" data-cue="slideInUp">
+                <span class="subtitle text-anim">{{ section.settings.promo_tag | default: 'Sale up 40% off' }}</span>
+                <h4 class="box-title text-anim2">{{ section.settings.promo_heading | default: 'Healthy Cat Food' }}</h4>
+                <p class="box-text">{{ section.settings.promo_text | default: 'Yummy, balanced nutrition.' }}</p>
+                <a class="th-btn style3 th-btn-xl" href="{{ section.settings.promo_link }}">{{ section.settings.promo_button | default: 'Shop Now' }}</a>
+              </div>
+              <div class="bg-thumb" data-cue="slideInUp">
+                {%- if section.settings.promo_bg != blank -%}
+                  <img src="{{ section.settings.promo_bg | image_url: width: 800 }}" alt="">
+                {%- else -%}
+                  <img src="{{ 'bg-food2-collection-right-bg.jpg' | asset_url }}" alt="">
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection showcase",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "קולקציית מזון לכלבים"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "View all text",
+      "default": "צפו בכל המוצרים"
+    },
+    {
+      "type": "header",
+      "content": "Promo box"
+    },
+    {
+      "type": "select",
+      "id": "promo_style",
+      "label": "Promo style",
+      "options": [
+        { "value": "style1", "label": "With product image" },
+        { "value": "style2", "label": "With background image" }
+      ],
+      "default": "style1"
+    },
+    {
+      "type": "text",
+      "id": "promo_tag",
+      "label": "Promo tag",
+      "default": "עד 40% הנחה"
+    },
+    {
+      "type": "text",
+      "id": "promo_heading",
+      "label": "Promo heading",
+      "default": "מזון בריא לכלבים"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo text",
+      "default": "טעים, תזונה מאוזנת."
+    },
+    {
+      "type": "text",
+      "id": "promo_button",
+      "label": "Promo button text",
+      "default": "קנו עכשיו"
+    },
+    {
+      "type": "url",
+      "id": "promo_link",
+      "label": "Promo link"
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_image",
+      "label": "Promo product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_bg",
+      "label": "Promo background image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection showcase"
+    }
+  ]
+}
+{% endschema %}

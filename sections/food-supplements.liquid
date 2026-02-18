@@ -1,0 +1,83 @@
+{% doc %}
+  Food and supplements category cards grid.
+{% enddoc %}
+
+<div class="food-supplements-sec1 overflow-hidden">
+  <img class="food-supplements1-top" src="{{ 'shape-food-supplements1-top.png' | asset_url }}" alt="">
+  <img class="food-supplements1-bottom" src="{{ 'shape-food-supplements1-bottom.png' | asset_url }}" alt="">
+  <div class="container th-container">
+    <div class="title-area2 text-center mb-55">
+      <h2 class="sec-title mt-0 text-anim" data-cue="slideInUp">
+        <img src="{{ 'shape-home-3_1-sub-img.png' | asset_url }}" alt="">
+        {{ section.settings.heading | default: 'Explore Food & Supplements' }}
+      </h2>
+    </div>
+    <div class="row gy-30 justify-content-center">
+      {%- for block in section.blocks -%}
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6" {{ block.shopify_attributes }}>
+          <div class="food-supplements-card" data-cue="slideInUp">
+            <div class="box-icon">
+              {%- if block.settings.image != blank -%}
+                <img src="{{ block.settings.image | image_url: width: 200 }}" alt="{{ block.settings.title | escape }}">
+              {%- else -%}
+                <img src="{{ 'food-supplements-food-supplement-1-1.png' | asset_url }}" alt="">
+              {%- endif -%}
+            </div>
+            <h3 class="box-title"><a href="{{ block.settings.link }}">{{ block.settings.title }}</a></h3>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Food supplements",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "חקרו מזון ותוספים"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Supplement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "מזון רטוב"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Food supplements",
+      "blocks": [
+        { "type": "item", "settings": { "title": "מזון רטוב" } },
+        { "type": "item", "settings": { "title": "מזון יבש" } },
+        { "type": "item", "settings": { "title": "חטיפים" } },
+        { "type": "item", "settings": { "title": "מזון טבעי" } },
+        { "type": "item", "settings": { "title": "תוספי מזון" } },
+        { "type": "item", "settings": { "title": "מזון גולמי" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

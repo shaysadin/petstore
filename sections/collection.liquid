@@ -1,0 +1,93 @@
+{% doc %}
+  Collection page with breadcrumb, sort bar, product grid, and pagination.
+{% enddoc %}
+
+<div class="breadcumb-wrapper" data-bg-src="{{ 'bg-breadcumb-bg-3.jpg' | asset_url }}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title">{{ collection.title }}</h1>
+      <ul class="breadcumb-menu">
+        <li><a href="/">דף הבית</a></li>
+        <li>{{ collection.title }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+{%- assign products_per_page = section.settings.products_per_page | default: 20 -%}
+{% paginate collection.products by products_per_page %}
+<section class="th-product-wrapper space-top space-extra-bottom">
+  <div class="container th-container">
+    <div class="row">
+      <div class="col-12">
+        <div class="th-sort-bar">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-md">
+              <p class="woocommerce-result-count">
+                מציג {{ paginate.current_offset | plus: 1 }}&ndash;{% assign page_end = paginate.current_offset | plus: paginate.page_size %}{% if page_end > collection.products_count %}{{ collection.products_count }}{% else %}{{ page_end }}{% endif %} מתוך {{ collection.products_count }} תוצאות
+              </p>
+            </div>
+            <div class="col-md-auto">
+              <form class="woocommerce-ordering">
+                <select name="sort_by" class="orderby" onchange="window.location.href=this.value">
+                  {%- for option in collection.sort_options -%}
+                    <option value="{{ option.url }}"{% if collection.sort_by == option.value %} selected{% endif %}>{{ option.name }}</option>
+                  {%- endfor -%}
+                </select>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row gy-40">
+      {%- for product in collection.products -%}
+        <div class="col-xl-3 col-lg-4 col-sm-6" data-cue="slideInUp">
+          {% render 'product-card', product: product %}
+        </div>
+      {%- else -%}
+        <div class="col-12 text-center py-5">
+          <p>לא נמצאו מוצרים בקולקציה זו.</p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+      <div class="th-pagination text-center mt-60">
+        <ul>
+          {%- if paginate.previous -%}
+            <li><a href="{{ paginate.previous.url }}"><i class="far fa-arrow-left"></i></a></li>
+          {%- endif -%}
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}
+              <li><a href="{{ part.url }}">{{ part.title }}</a></li>
+            {%- else -%}
+              <li class="active"><span>{{ part.title }}</span></li>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if paginate.next -%}
+            <li><a href="{{ paginate.next.url }}"><i class="far fa-arrow-right"></i></a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "default": 20
+    }
+  ]
+}
+{% endschema %}

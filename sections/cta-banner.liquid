@@ -1,0 +1,80 @@
+{% doc %}
+  Full-width CTA banner with discount message and product images.
+{% enddoc %}
+
+<section class="space-bottom space-extra-bottom overflow-hidden">
+  <div class="container th-container">
+    <div class="cta-sec3" data-bg-src="{{ 'bg-cta-3-bg.png' | asset_url }}">
+      <div class="row justify-content-between align-items-center">
+        <div class="col-xxl-2 col-xl-3 col-lg-3">
+          <div class="cta-wrap3">
+            <div class="cta-img">
+              {%- if section.settings.image_left != blank -%}
+                <img src="{{ section.settings.image_left | image_url: width: 300 }}" alt="">
+              {%- else -%}
+                <img src="{{ 'normal-cta_3_1.png' | asset_url }}" alt="">
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+        <div class="col-xxl-7 col-xl-9 col-lg-9">
+          <div class="cta-content3 ms-xxl-4">
+            <p class="cta3-top-title text-anim" data-cue="slideInUp">{{ section.settings.tag | default: 'UP TO <span>30%</span> OFF' }}</p>
+            <h4 class="box-title text-title mb-n1 text-anim2" data-cue="slideInUp">{{ section.settings.heading | default: '100% Authentic Nutrition Food For Cat!' }}</h4>
+            <p class="box-text" data-cue="slideInUp">{{ section.settings.text | default: 'Hurry up limited quantity! Use code: CATE20' }}</p>
+          </div>
+        </div>
+        <div class="col-xxl-3 col-xl-3 col-lg-3 d-none d-xxl-block">
+          <div class="cta-img3">
+            {%- if section.settings.image_right != blank -%}
+              <img src="{{ section.settings.image_right | image_url: width: 300 }}" alt="">
+            {%- else -%}
+              <img src="{{ 'normal-cta_3_2.png' | asset_url }}" alt="">
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CTA banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag text",
+      "default": "עד <span>30%</span> הנחה"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "100% מזון מזין אותנטי לחתול!"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Description",
+      "default": "מהרו! כמות מוגבלת! השתמשו בקוד: CATE20"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_left",
+      "label": "Left image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_right",
+      "label": "Right image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA banner"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,39 @@
+{% doc %}
+  About page section with breadcrumb and page content.
+{% enddoc %}
+
+<div class="breadcumb-wrapper" data-bg-src="{{ 'bg-breadcumb-bg-3.jpg' | asset_url }}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title">{{ page.title | default: 'About Us' }}</h1>
+      <ul class="breadcumb-menu">
+        <li><a href="/">Home</a></li>
+        <li>{{ page.title | default: 'About Us' }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section class="space-top space-extra-bottom">
+  <div class="container th-container">
+    <div class="row justify-content-center">
+      <div class="col-xxl-8 col-xl-10">
+        <div class="page-content" data-cue="slideInUp">
+          {{ page.content }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "About page"
+    }
+  ]
+}
+{% endschema %}

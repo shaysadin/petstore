@@ -1,0 +1,82 @@
+{% doc %}
+  Trending products Swiper carousel. Pulls from a selected collection.
+{% enddoc %}
+
+<section class="week-treading-product-sec1 space overflow-hidden">
+  <div class="container th-container">
+    <div class="row justify-content-center">
+      <div class="col-xxl-5 col-xl-7 col-md-8">
+        <div class="title-area2 text-center mb-55">
+          <h2 class="sec-title text-anim" data-cue="slideInUp">
+            <img src="{{ 'shape-home-3-sub-img.png' | asset_url }}" alt="">
+            {{ section.settings.heading | default: 'Trending this week' }}
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="slider-area" data-cue="slideInUp">
+      <div class="swiper th-slider has-shadow treadingSlider1" id="treadingSlider1" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"5"}}, "autoHeight": "true"}'>
+        <div class="swiper-wrapper">
+          {%- assign collection = section.settings.collection -%}
+          {%- assign product_count = section.settings.product_count | default: 10 -%}
+          {%- if collection != blank -%}
+            {%- for product in collection.products limit: product_count -%}
+              <div class="swiper-slide">
+                {% render 'product-card', product: product %}
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for i in (1..product_count) -%}
+              <div class="swiper-slide">
+                <div class="th-product product-grid style-2">
+                  <div class="product-img">
+                    {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                  <div class="product-content">
+                    <span class="price">$25.00</span>
+                    <h3 class="product-title"><a href="#">Sample product {{ forloop.index }}</a></h3>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+      <button data-slider-next="#treadingSlider1" class="slider-arrow slider-next"><i class="far fa-arrow-right"></i></button>
+      <button data-slider-prev="#treadingSlider1" class="slider-arrow slider-prev"><i class="far fa-arrow-left"></i></button>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trending products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "פופולרי השבוע"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_count",
+      "label": "Products to show",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "default": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trending products"
+    }
+  ]
+}
+{% endschema %}

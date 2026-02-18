@@ -1,0 +1,80 @@
+{% doc %}
+  Brand logos Swiper carousel.
+{% enddoc %}
+
+<div class="brand-wrap2 text-center space-top overflow-hidden">
+  <div class="container th-container">
+    <div class="title-area2 text-center mb-55">
+      <h2 class="sec-title">
+        <img src="{{ 'shape-home-3-sub-img.png' | asset_url }}" alt="">
+        {{ section.settings.heading | default: 'Shop by Products Brand' }}
+      </h2>
+    </div>
+    <div class="swiper th-slider" data-cue="slideInUp" id="brandSlider1" data-slider-options='{"breakpoints":{"0":{"slidesPerView":2},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"3"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"6"},"1400":{"slidesPerView":"6"}}}'>
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="swiper-slide" data-cue="slideInUp" {{ block.shopify_attributes }}>
+            <a href="{{ block.settings.link | default: '#' }}" class="brand-box">
+              {%- if block.settings.logo != blank -%}
+                <img src="{{ block.settings.logo | image_url: width: 200 }}" alt="{{ block.settings.name | escape }}">
+              {%- else -%}
+                <img src="{{ 'brand-brand2-1.svg' | asset_url }}" alt="Brand">
+              {%- endif -%}
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brands carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "קנו לפי מותג"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Brand name",
+          "default": "מותג"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Brand logo"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brands carousel",
+      "blocks": [
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" }
+      ]
+    }
+  ]
+}
+{% endschema %}

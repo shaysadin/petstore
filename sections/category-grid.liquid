@@ -1,0 +1,104 @@
+{% doc %}
+  Category cards Swiper carousel. Each block is a pet category.
+{% enddoc %}
+
+<section class="category-area-1 space overflow-hidden">
+  <div class="container th-container">
+    <div class="title-area2 text-center mb-55">
+      <h2 class="sec-title text-anim" data-cue="slideInUp">
+        <img src="{{ 'shape-home-3-sub-img.png' | asset_url }}" alt="">
+        {{ section.settings.heading | default: 'Browse by Pet Category' }}
+      </h2>
+    </div>
+    <div class="swiper th-slider categorySlider1" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"400":{"slidesPerView":"2"},"768":{"slidesPerView":"3"},"992":{"slidesPerView":"4"},"1100":{"slidesPerView":"4"},"1200":{"slidesPerView":"5"},"1400":{"slidesPerView":"5"},"1600":{"slidesPerView":"6"}}}'>
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <div class="category-card" data-cue="slideInUp">
+              <div class="box-shape" data-theme-color="{{ block.settings.bg_color | default: '#F9DF8A' }}" data-mask-src="{{ 'category-category3-bg-1.png' | asset_url }}"></div>
+              <div class="box-icon">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 200 }}" alt="{{ block.settings.title | escape }}">
+                {%- else -%}
+                  <img src="{{ 'category-category3-1.png' | asset_url }}" alt="">
+                {%- endif -%}
+              </div>
+              <h3 class="box-title"><a href="{{ block.settings.link }}">{{ block.settings.title }}</a></h3>
+              {%- if block.settings.subtitle != blank -%}
+                <p class="box-subtitle">{{ block.settings.subtitle }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="pagination-wrap">
+        <img src="{{ 'shape-cat3-pagi-left.png' | asset_url }}" alt="">
+        <div class="slider-pagination"></div>
+        <img src="{{ 'shape-cat3-pagi-right.png' | asset_url }}" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "חפשו לפי סוג חיית מחמד"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "כלבים"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "6 מוצרים זמינים"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background color",
+          "default": "#F9DF8A"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category grid",
+      "blocks": [
+        { "type": "category", "settings": { "title": "כלבים", "bg_color": "#F9DF8A" } },
+        { "type": "category", "settings": { "title": "חתולים", "bg_color": "#CEB99D" } },
+        { "type": "category", "settings": { "title": "דגים", "bg_color": "#A9EDFC" } },
+        { "type": "category", "settings": { "title": "ציפורים", "bg_color": "#F8CCFB" } },
+        { "type": "category", "settings": { "title": "ארנבים", "bg_color": "#D2D7D9" } },
+        { "type": "category", "settings": { "title": "צבים", "bg_color": "#DAEFC6" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

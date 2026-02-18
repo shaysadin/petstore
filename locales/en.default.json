@@ -1,0 +1,153 @@
+{
+  "general": {
+    "store_name": "פט פרדייס",
+    "currency": "ILS"
+  },
+  "404": {
+    "title": "404",
+    "not_found": "הדף לא נמצא.",
+    "back_to_shopping": "חזרה לקניות"
+  },
+  "blog": {
+    "article_comments": "תגובות",
+    "article_metadata_html": "{{ date }} מאת {{ author }}",
+    "comment_form_body": "תגובה",
+    "comment_form_email": "אימייל",
+    "comment_form_name": "שם",
+    "comment_form_submit": "פרסם",
+    "comment_form_title": "הוסף תגובה"
+  },
+  "cart": {
+    "checkout": "לתשלום",
+    "title": "עגלה",
+    "update": "עדכון",
+    "remove": "הסר",
+    "empty": "העגלה ריקה",
+    "continue_shopping": "המשך בקניות",
+    "subtotal": "סה״כ ביניים",
+    "total": "סה״כ",
+    "proceed_to_checkout": "המשך לתשלום",
+    "quantity": "כמות",
+    "product_name": "שם המוצר",
+    "price": "מחיר",
+    "image": "תמונה"
+  },
+  "customers": {
+    "login": {
+      "email": "אימייל",
+      "password": "סיסמה",
+      "submit": "התחבר",
+      "title": "התחברות"
+    }
+  },
+  "collections": {
+    "title": "קולקציות",
+    "showing_results": "מציג {{ from }}–{{ to }} מתוך {{ total }} תוצאות"
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "הוסף ל-Apple Wallet",
+    "card": "כרטיס מתנה",
+    "expired": "כרטיס מתנה זה פג תוקף",
+    "expires_on": "פג תוקף ב-{{ expires_on }}",
+    "use_at_checkout": "השתמשו בכרטיס המתנה בקופה"
+  },
+  "password": {
+    "title": "חנות זו פרטית",
+    "password": "סיסמה",
+    "enter": "כניסה"
+  },
+  "search": {
+    "title": "חיפוש",
+    "placeholder": "חפשו מאמרים, דפים או מוצרים",
+    "submit": "חפש",
+    "no_results_html": "לא נמצאו תוצאות עבור {{ terms }}",
+    "results_for_html": "נמצאו {{ count }} תוצאות עבור {{ terms }}"
+  },
+  "products": {
+    "add_to_cart": "הוסף לסל",
+    "sold_out": "אזל",
+    "in_stock": "במלאי",
+    "out_of_stock": "אזל מהמלאי",
+    "availability": "זמינות",
+    "sku": "מק״ט",
+    "vendor": "יצרן",
+    "type": "סוג",
+    "tags": "תגיות",
+    "related_products": "מוצרים דומים",
+    "quantity": "כמות"
+  },
+  "sections": {
+    "header": {
+      "menu_toggle": "תפריט",
+      "menu_open": "תפריט",
+      "menu_close": "סגור תפריט",
+      "home_link": "חזרה לדף הבית של פט פרדייס",
+      "search": "חיפוש",
+      "cart": "עגלה"
+    },
+    "hero": {
+      "subtitle": "מוצרים טבעיים לחיות מחמד",
+      "heading": "המוצרים הטובים ביותר לחיות שלכם!",
+      "text": "מרכיבים אורגניים באיכות הגבוהה ביותר למגוון מוצרים טבעיים 100% לחיות מחמד.",
+      "button": "גלו את המוצרים"
+    },
+    "category": {
+      "heading": "חפשו לפי סוג חיית מחמד"
+    },
+    "best_sellers": {
+      "heading": "המוצרים הנמכרים ביותר",
+      "view_all": "צפו בכל המוצרים"
+    },
+    "deals": {
+      "subtitle": "מבצעי היום",
+      "heading": "המזון הטוב ביותר לחיית המחמד שלך!",
+      "timer_heading": "מהרו! המבצע מסתיים בעוד:",
+      "days": "ימים",
+      "hours": "שעות",
+      "minutes": "דקות",
+      "seconds": "שניות"
+    },
+    "trending": {
+      "heading": "פופולרי השבוע"
+    },
+    "food_supplements": {
+      "heading": "חקרו מזון ותוספים"
+    },
+    "testimonials": {
+      "heading": "מה הלקוחות אומרים"
+    },
+    "brands": {
+      "heading": "קנו לפי מותג"
+    },
+    "features": {
+      "free_shipping": "משלוח חינם",
+      "free_shipping_text": "משלוח חינם בהזמנה מעל ₪120",
+      "money_back": "אחריות החזר כספי",
+      "money_back_text": "אחריות החזר כספי תוך 7 ימים",
+      "membership": "מועדון לקוחות",
+      "membership_text": "הנחות מיוחדות לחברי מועדון",
+      "support": "תמיכה אונליין",
+      "support_text": "תמיכה זמינה 24 שעות ביממה"
+    },
+    "footer": {
+      "home_link": "חזרה לדף הבית של פט פרדייס",
+      "quick_links": "קישורים מהירים",
+      "resources": "מידע",
+      "services": "שירותים",
+      "subscribe_heading": "הירשמו לניוזלטר וקבלו 20% הנחה!",
+      "copyright": "כל הזכויות שמורות.",
+      "payment_text": "אנחנו מקבלים"
+    },
+    "contact": {
+      "heading": "צרו קשר",
+      "send_message": "שלחו לנו הודעה",
+      "name": "שם מלא",
+      "email": "אימייל",
+      "phone": "מספר טלפון",
+      "subject": "נושא",
+      "message": "ההודעה שלך",
+      "submit": "שלח הודעה",
+      "success": "תודה על פנייתך. ניצור איתך קשר בהקדם."
+    }
+  }
+}

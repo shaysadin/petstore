@@ -1,0 +1,20 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "type_primary_font": "poppins_n4",
+    "background_color": "#FFFFFF",
+    "foreground_color": "#040506",
+    "brand_color_dark": "#040506",
+    "brand_color_light": "#EEEDE8",
+    "min_page_margin": 30,
+    "input_corner_radius": 0
+  }
+}

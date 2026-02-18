@@ -1,0 +1,41 @@
+{% doc %}
+  Renders the quick view product modal shell.
+  Populated dynamically by JS when user clicks the quick view button.
+{% enddoc %}
+
+<div id="QuickView" class="white-popup mfp-hide">
+  <div class="container bg-white rounded-10">
+    <div class="row gx-60">
+      <div class="col-lg-6">
+        <div class="product-big-img">
+          <div class="img"><img src="" alt="Product Image"></div>
+        </div>
+      </div>
+      <div class="col-lg-6 align-self-center">
+        <div class="product-about">
+          <h2 class="product-title"></h2>
+          <div class="product-rating">
+            <div class="star-rating" role="img"><span style="width:100%"></span></div>
+          </div>
+          <p class="price"></p>
+          <p class="text"></p>
+          <div class="mt-2 link-inherit">
+            <p>
+              <strong class="text-title me-3">זמינות:</strong>
+              <span class="stock in-stock"><i class="far fa-check-square me-2 ms-1"></i>במלאי</span>
+            </p>
+          </div>
+          <div class="actions">
+            <div class="quantity">
+              <input type="number" class="qty-input" step="1" min="1" max="100" name="quantity" value="1" title="Qty">
+              <button class="quantity-plus qty-btn"><i class="far fa-chevron-up"></i></button>
+              <button class="quantity-minus qty-btn"><i class="far fa-chevron-down"></i></button>
+            </div>
+            <button class="th-btn">הוסף לסל</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button title="Close (Esc)" type="button" class="mfp-close">&times;</button>
+  </div>
+</div>

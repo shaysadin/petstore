@@ -1,0 +1,267 @@
+{% doc %}
+  Babet template footer with widgets, newsletter, copyright bar.
+{% enddoc %}
+
+<footer class="footer-wrapper footer-layout2">
+  <div class="shape-mockup footer-bg-shape2 d-none d-xxl-block" data-bottom="0%" data-right="2%">
+    <img src="{{ 'shape-shape1-55.png' | asset_url }}" alt="">
+  </div>
+  <div class="shape-mockup footer-bg-shape3 d-none d-xxl-block" data-bottom="2%" data-left="2%">
+    <img src="{{ 'shape-shape1-56.png' | asset_url }}" alt="">
+  </div>
+
+  <div class="widget-area">
+    <div class="container th-container">
+      <div class="row justify-content-between">
+        {%- comment -%} Column 1: About + contact info {%- endcomment -%}
+        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+          <div class="widget footer-widget">
+            <div class="th-widget-about">
+              <div class="about-logo">
+                <a href="/">
+                  {%- if section.settings.logo != blank -%}
+                    <img src="{{ section.settings.logo | image_url: height: 50 }}" alt="{{ shop.name }}">
+                  {%- else -%}
+                    <img src="{{ 'logo3.svg' | asset_url }}" alt="{{ shop.name }}">
+                  {%- endif -%}
+                </a>
+              </div>
+              {%- if section.settings.about_text != blank -%}
+                <p class="about-text">{{ section.settings.about_text }}</p>
+              {%- endif -%}
+              {%- if section.settings.phone != blank -%}
+                <div class="info-box">
+                  <div class="box-icon"><i class="fas fa-phone"></i></div>
+                  <p class="box-text"><a href="tel:{{ section.settings.phone }}" class="box-link">{{ section.settings.phone }}</a></p>
+                </div>
+              {%- endif -%}
+              {%- if section.settings.email != blank -%}
+                <div class="info-box">
+                  <div class="box-icon"><i class="fas fa-envelope"></i></div>
+                  <p class="box-text"><a href="mailto:{{ section.settings.email }}" class="box-link">{{ section.settings.email }}</a></p>
+                </div>
+              {%- endif -%}
+              {%- if section.settings.address != blank -%}
+                <div class="info-box">
+                  <div class="box-icon"><i class="fas fa-map-marker-alt"></i></div>
+                  <p class="box-text"><a href="{{ section.settings.map_url | default: '#' }}" class="box-link">{{ section.settings.address }}</a></p>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+
+        {%- comment -%} Column 2: Quick links {%- endcomment -%}
+        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+          <div class="widget widget_nav_menu footer-widget">
+            <h3 class="widget_title">{{ section.settings.menu_1_title | default: 'Quick Links' }}</h3>
+            <div class="menu-all-pages-container">
+              <ul class="menu">
+                {%- for link in linklists[section.settings.menu_1].links -%}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {%- comment -%} Column 3: Resources {%- endcomment -%}
+        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+          <div class="widget widget_nav_menu footer-widget">
+            <h3 class="widget_title">{{ section.settings.menu_2_title | default: 'Resources' }}</h3>
+            <div class="menu-all-pages-container">
+              <ul class="menu">
+                {%- for link in linklists[section.settings.menu_2].links -%}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {%- comment -%} Column 4: Services {%- endcomment -%}
+        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+          <div class="widget widget_nav_menu footer-widget">
+            <h3 class="widget_title">{{ section.settings.menu_3_title | default: 'Services' }}</h3>
+            <div class="menu-all-pages-container">
+              <ul class="menu">
+                {%- for link in linklists[section.settings.menu_3].links -%}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {%- comment -%} Column 5: App / extra {%- endcomment -%}
+        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+          <div class="widget widget_download footer-widget">
+            <h4 class="widget_title">{{ section.settings.col5_heading | default: 'Shop on the go' }}</h4>
+            {%- if section.settings.col5_text != blank -%}
+              <p class="footer-text">{{ section.settings.col5_text }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} Newsletter {%- endcomment -%}
+      <div class="row justify-content-center">
+        <div class="col-xxl-6 col-xl-7 col-lg-8">
+          <div class="footer2-subscribe-wrap text-center me-xl-5 ms-xl-5">
+            <h4 class="box-title">{{ section.settings.subscribe_heading | default: 'Subscribe! New subscribers get 20% off!' }}</h4>
+            {% form 'customer' %}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <div class="newsletter-form">
+                <div class="form-group">
+                  <input class="form-control" type="email" name="contact[email]" placeholder="כתובת אימייל" required>
+                </div>
+                <button type="submit" class="th-btn style3 th-btn-sm">הירשמו</button>
+              </div>
+            {% endform %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Copyright bar {%- endcomment -%}
+  <div class="copyright-wrap">
+    <div class="container th-container">
+      <div class="row justify-content-center gy-3 align-items-center">
+        <div class="col-lg-6" data-cue="slideInUp">
+          <p class="copyright-text">
+            <i class="fal fa-copyright"></i> כל הזכויות שמורות {{ 'now' | date: '%Y' }} <a href="/">{{ shop.name }}</a>.
+          </p>
+        </div>
+        <div class="col-lg-6 text-lg-end text-center" data-cue="slideInUp">
+          <div class="th-social">
+            <span class="text-white">{{ section.settings.payment_text | default: 'We are accepting' }}</span>
+            <div class="thumb">
+              <img src="{{ 'shape-payment.png' | asset_url }}" alt="Payment methods">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "header",
+      "content": "Contact info"
+    },
+    {
+      "type": "textarea",
+      "id": "about_text",
+      "label": "About text",
+      "default": "פט פרדייס - החנות המובילה למוצרים לחיות מחמד בישראל. מגוון רחב של מזון, חטיפים ואביזרים."
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "055-6600934"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "petsparadiseld@gmail.com"
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Address",
+      "default": "כפר זיתים, ישראל"
+    },
+    {
+      "type": "url",
+      "id": "map_url",
+      "label": "Map link"
+    },
+    {
+      "type": "header",
+      "content": "Menu columns"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu column 1",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_title",
+      "label": "Column 1 title",
+      "default": "קישורים מהירים"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu column 2"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_title",
+      "label": "Column 2 title",
+      "default": "מידע"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_3",
+      "label": "Menu column 3"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_title",
+      "label": "Column 3 title",
+      "default": "שירותים"
+    },
+    {
+      "type": "header",
+      "content": "Extra column"
+    },
+    {
+      "type": "text",
+      "id": "col5_heading",
+      "label": "Column 5 heading",
+      "default": "קניות בדרך"
+    },
+    {
+      "type": "text",
+      "id": "col5_text",
+      "label": "Column 5 text",
+      "default": "הזמינו גם דרך הטלפון"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "subscribe_heading",
+      "label": "Subscribe heading",
+      "default": "הירשמו לניוזלטר וקבלו 20% הנחה!"
+    },
+    {
+      "type": "header",
+      "content": "Copyright"
+    },
+    {
+      "type": "text",
+      "id": "payment_text",
+      "label": "Payment text",
+      "default": "אנחנו מקבלים"
+    }
+  ]
+}
+{% endschema %}

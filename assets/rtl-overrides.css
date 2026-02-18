@@ -1,0 +1,509 @@
+/*
+ * RTL Overrides for Babet Theme
+ * Fixes directional CSS properties that Bootstrap RTL doesn't cover.
+ * Loaded when dir="rtl" on <html>.
+ */
+
+/* ===== Global Text Direction ===== */
+body {
+  text-align: right;
+  direction: rtl;
+}
+
+/* ===== Header Top Bar ===== */
+.header-links ul {
+  padding-right: 0;
+}
+
+.header-links li:not(:last-child) {
+  margin: 0 0 0 45px;
+}
+
+.header-links li:not(:last-child):after {
+  right: auto;
+  left: -25px;
+}
+
+.header-links li > i {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.header-links b,
+.header-links strong {
+  margin-right: 0;
+  margin-left: 6px;
+}
+
+.header-links .box-title {
+  text-align: right;
+}
+
+/* ===== Header Menu Area ===== */
+.main-menu ul {
+  text-align: right;
+}
+
+.main-menu > ul > li {
+  margin: 0 15px;
+}
+
+.main-menu > ul > li:last-child {
+  margin-left: 0 !important;
+  margin-right: 15px !important;
+}
+
+.main-menu > ul > li:first-child {
+  margin-right: 0 !important;
+  margin-left: 15px !important;
+}
+
+/* Dropdown chevron after menu items */
+.main-menu ul li:has(.sub-menu) > a:after,
+.main-menu ul li:has(.mega-menu) > a:after,
+.main-menu ul li.menu-item-has-children > a:after {
+  margin-left: 0;
+  margin-right: 5px;
+}
+
+/* Sub-menu positioning */
+.main-menu ul.sub-menu {
+  left: auto;
+  right: -14px;
+  text-align: right;
+}
+
+.main-menu ul.sub-menu {
+  left: auto;
+  right: -27px;
+}
+
+/* Nested sub-menu arrow direction */
+.main-menu ul.sub-menu li:has(.sub-menu) > a:after,
+.main-menu ul.sub-menu li:has(.mega-menu) > a:after,
+.main-menu ul.sub-menu li.menu-item-has-children > a:after {
+  float: left;
+  content: "\f104";
+}
+
+/* Sub-menu item icon (paw) */
+.main-menu ul.sub-menu li a {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.main-menu ul.sub-menu li a:before {
+  left: auto;
+  right: 10px;
+}
+
+/* Nested sub-menu */
+.main-menu ul.sub-menu .sub-menu {
+  left: auto;
+  right: 100%;
+}
+
+/* ===== Header Buttons (search, cart, hamburger) ===== */
+.header-button .icon-btn .badge {
+  right: auto;
+  left: 0;
+}
+
+/* ===== Mobile Menu ===== */
+.th-menu-wrapper .th-menu-area {
+  left: auto;
+  right: -110%;
+  border-right: none;
+  border-left: 3px solid var(--theme-color);
+}
+
+.th-menu-wrapper.th-body-visible .th-menu-area {
+  left: auto;
+  right: 0;
+}
+
+.th-menu-wrapper .th-menu-toggle {
+  right: auto;
+  left: -16.5px;
+}
+
+.th-mobile-menu,
+.th-mobile-menu2 {
+  text-align: right;
+}
+
+.th-mobile-menu ul li.menu-item-has-children > a .th-mean-expand,
+.th-mobile-menu ul li > a .th-mean-expand {
+  left: 0;
+  right: auto;
+}
+
+/* ===== Side Cart Drawer ===== */
+.sidemenu-wrapper {
+  right: auto;
+  left: 0;
+}
+
+.sidemenu-wrapper .sidemenu-content {
+  margin-left: 0;
+  margin-right: auto;
+  right: auto;
+  left: -500px;
+  transition: left ease 1s;
+}
+
+.sidemenu-wrapper.show .sidemenu-content {
+  right: auto;
+  left: 0;
+}
+
+.sidemenu-wrapper .closeButton {
+  right: auto;
+  left: 20px;
+}
+
+.widget_shopping_cart .cart_list a.remove {
+  right: auto;
+  left: 0;
+}
+
+.widget_shopping_cart .quantity {
+  text-align: right;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.widget_shopping_cart .mini_cart_item {
+  text-align: right;
+}
+
+.widget_shopping_cart .cart_list img {
+  float: right;
+  margin-left: 15px;
+  margin-right: 0;
+}
+
+.widget_shopping_cart .total {
+  text-align: right;
+}
+
+/* ===== Product Card ===== */
+.th-product .product-tag {
+  left: auto;
+  right: 16px;
+}
+
+.th-product .product-content {
+  text-align: center;
+}
+
+.th-product .price del {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+/* Product card "Add to cart" icon */
+.th-product .product-content .th-btn .fa-shopping-cart {
+  margin-right: 0 !important;
+  margin-left: 8px !important;
+}
+
+/* List view product */
+.th-product.list-view .product-content {
+  text-align: right;
+}
+
+/* ===== Product Details Page ===== */
+.product-about {
+  text-align: right;
+}
+
+.product-about .text-title {
+  margin-right: 0;
+  margin-left: 12px;
+}
+
+.product_meta {
+  text-align: right;
+}
+
+.product_meta > span {
+  text-align: right;
+}
+
+/* ===== Breadcrumbs ===== */
+.breadcumb-menu {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.breadcumb-content {
+  text-align: center;
+}
+
+/* ===== Cart Table ===== */
+.cart_table th,
+.cart_table td {
+  text-align: right;
+}
+
+.cart_table .remove_cart {
+  text-align: center;
+}
+
+/* Cart totals */
+.cart-total-table th {
+  text-align: right;
+}
+
+/* Coupon */
+.cart-coupon {
+  direction: rtl;
+}
+
+.cart-coupon .form-control {
+  border-radius: 0 30px 30px 0;
+}
+
+.cart-coupon .th-btn {
+  border-radius: 30px 0 0 30px;
+}
+
+/* ===== Sort Bar ===== */
+.th-sort-bar .woocommerce-result-count {
+  text-align: right;
+}
+
+/* ===== Slider Arrows ===== */
+.slider-arrow {
+  left: auto;
+  right: var(--pos-x, -90px);
+}
+
+.slider-arrow.slider-next {
+  right: auto;
+  left: var(--pos-x, -90px);
+}
+
+/* ===== Pagination Arrows ===== */
+.th-pagination .fa-arrow-left::before {
+  content: "\f061";
+}
+
+.th-pagination .fa-arrow-right::before {
+  content: "\f060";
+}
+
+/* ===== Hero Section ===== */
+.hero-style3 {
+  text-align: right;
+}
+
+.hero-style3 .sub-title img.logo {
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+/* ===== Section Title Areas ===== */
+.title-area2 .sec-title img {
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+/* ===== Deals / Countdown Section ===== */
+.countdown-wrapp {
+  text-align: right;
+}
+
+.counter-list {
+  direction: ltr;
+}
+
+/* ===== CTA Sections ===== */
+.cta-content3 {
+  text-align: right;
+}
+
+.cta-content4 {
+  text-align: right;
+}
+
+/* ===== Promo Cards ===== */
+.cta2-content-wrap .left-content {
+  text-align: right;
+}
+
+/* ===== Food Collection Promo ===== */
+.food1-collection-content {
+  text-align: right;
+}
+
+.food1-collection-content.style2 .content {
+  text-align: right;
+}
+
+/* ===== Feature Cards ===== */
+.feature-card.style2 {
+  text-align: right;
+}
+
+/* ===== Testimonial Cards ===== */
+.testi-card {
+  text-align: right;
+}
+
+.testi-card-profile {
+  text-align: right;
+}
+
+/* ===== Star Rating ===== */
+.star-rating {
+  direction: ltr;
+  unicode-bidi: bidi-override;
+}
+
+/* ===== Footer ===== */
+.footer-widget {
+  text-align: right;
+}
+
+.widget_nav_menu .menu {
+  text-align: right;
+  padding-right: 0;
+}
+
+.info-box {
+  text-align: right;
+}
+
+.info-box .box-icon {
+  margin-left: 15px;
+  margin-right: 0;
+}
+
+.th-widget-about {
+  text-align: right;
+}
+
+.copyright-text {
+  text-align: right;
+}
+
+.copyright-text .fal.fa-copyright {
+  margin-left: 5px;
+  margin-right: 0;
+}
+
+/* Footer newsletter */
+.newsletter-form {
+  direction: rtl;
+}
+
+.newsletter-form .form-control {
+  text-align: right;
+}
+
+/* Payment section */
+.th-social {
+  text-align: right;
+}
+
+/* ===== Contact Info Card ===== */
+.contact-info-card {
+  text-align: center;
+}
+
+/* ===== Forms ===== */
+.form-control,
+.form-select,
+textarea.form-control {
+  text-align: right;
+}
+
+/* ===== Quantity Box ===== */
+.quantity {
+  direction: ltr;
+}
+
+/* ===== Quick View Modal ===== */
+#QuickView .product-about {
+  text-align: right;
+}
+
+/* ===== Scroll to Top ===== */
+.scroll-top {
+  left: 30px;
+  right: auto;
+}
+
+/* ===== Shape Mockup Global Fix ===== */
+/* The main.js reads data-left/data-right and sets inline styles.
+   With dir=rtl, we need to ensure shapes positioned with data-right
+   use the right property correctly. The JS handles this already
+   since it sets inline left/right styles from data attributes. */
+
+/* ===== Widget Nav Menus (footer columns) ===== */
+.widget_nav_menu .sub-menu {
+  padding-right: 15px;
+  padding-left: 0;
+}
+
+/* ===== Category Cards ===== */
+.category-card {
+  text-align: center;
+}
+
+/* ===== Brand Boxes ===== */
+.brand-box {
+  text-align: center;
+}
+
+/* ===== Alerts ===== */
+.alert {
+  text-align: right;
+}
+
+/* ===== Food Supplements Cards ===== */
+.food-supplements-card {
+  text-align: center;
+}
+
+/* ===== Responsive fixes ===== */
+@media (max-width: 375px) {
+  .header-links li:not(:last-child) {
+    margin: 0 0 0 30px;
+  }
+  .header-links li:not(:last-child):after {
+    right: auto;
+    left: -18px;
+  }
+}
+
+@media (max-width: 575px) {
+  .sidemenu-wrapper .sidemenu-content {
+    width: 100%;
+  }
+}
+
+@media (max-width: 991px) {
+  .th-menu-wrapper .th-menu-area {
+    max-width: 310px;
+  }
+}
+
+/* ===== Product Image Uniform Sizing ===== */
+.th-product .product-img {
+  aspect-ratio: 1 / 1;
+}
+
+.th-product .product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.th-product .product-img .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

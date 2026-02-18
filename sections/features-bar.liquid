@@ -1,0 +1,71 @@
+{% doc %}
+  Four feature/benefit cards row.
+{% enddoc %}
+
+<section class="space overflow-hidden">
+  <div class="container th-container">
+    <div class="row gy-4 gx-40 justify-content-center">
+      {%- for block in section.blocks -%}
+        <div class="col-xl-3 col-md-6" data-cue="slideInUp" {{ block.shopify_attributes }}>
+          <div class="feature-card style2">
+            <div class="box-img">
+              {%- if block.settings.icon != blank -%}
+                <img src="{{ block.settings.icon | image_url: width: 80 }}" alt="{{ block.settings.title | escape }}">
+              {%- else -%}
+                <img src="{{ 'icon-features2-1.svg' | asset_url }}" alt="">
+              {%- endif -%}
+            </div>
+            <div class="content">
+              <h3 class="box-title">{{ block.settings.title }}</h3>
+              <p class="box-text">{{ block.settings.text }}</p>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Features bar",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "משלוח חינם"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Description",
+          "default": "משלוח חינם בהזמנה מעל ₪120"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features bar",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "משלוח חינם", "text": "משלוח חינם בהזמנה מעל ₪120" } },
+        { "type": "feature", "settings": { "title": "אחריות החזר כספי", "text": "אחריות החזר כספי תוך 7 ימים" } },
+        { "type": "feature", "settings": { "title": "מועדון לקוחות", "text": "הנחות מיוחדות לחברי מועדון" } },
+        { "type": "feature", "settings": { "title": "תמיכה אונליין", "text": "תמיכה זמינה 24 שעות ביממה" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

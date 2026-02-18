@@ -1,0 +1,128 @@
+{% doc %}
+  Contact page section with info boxes and contact form.
+{% enddoc %}
+
+<div class="breadcumb-wrapper" data-bg-src="{{ 'bg-breadcumb-bg-3.jpg' | asset_url }}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title">{{ page.title | default: 'צרו קשר' }}</h1>
+      <ul class="breadcumb-menu">
+        <li><a href="/">דף הבית</a></li>
+        <li>{{ page.title | default: 'צרו קשר' }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section class="space-top space-extra-bottom">
+  <div class="container th-container">
+    <div class="row gy-30 mb-60">
+      {%- for block in section.blocks -%}
+        <div class="col-lg-4" {{ block.shopify_attributes }}>
+          <div class="contact-info-card" data-cue="slideInUp">
+            <div class="box-icon">
+              <i class="{{ block.settings.icon | default: 'fas fa-phone' }}"></i>
+            </div>
+            <h3 class="box-title">{{ block.settings.title }}</h3>
+            <p class="box-text">{{ block.settings.text }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="row gx-60">
+      <div class="col-lg-6" data-cue="slideInUp">
+        <h2 class="h3 mb-30">{{ section.settings.form_heading | default: 'שלחו לנו הודעה' }}</h2>
+        {% form 'contact' %}
+          {%- if form.posted_successfully? -%}
+            <div class="alert alert-success">תודה על פנייתך. ניצור איתך קשר בהקדם.</div>
+          {%- endif -%}
+          {{ form.errors | default_errors }}
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <input class="form-control" type="text" name="contact[name]" placeholder="שם מלא" required>
+            </div>
+            <div class="col-md-6 form-group">
+              <input class="form-control" type="email" name="contact[email]" placeholder="אימייל" required>
+            </div>
+            <div class="col-md-6 form-group">
+              <input class="form-control" type="text" name="contact[phone]" placeholder="מספר טלפון">
+            </div>
+            <div class="col-md-6 form-group">
+              <input class="form-control" type="text" name="contact[subject]" placeholder="נושא">
+            </div>
+            <div class="col-12 form-group">
+              <textarea class="form-control" name="contact[body]" rows="5" placeholder="ההודעה שלך" required></textarea>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="th-btn style3">שלח הודעה</button>
+            </div>
+          </div>
+        {% endform %}
+      </div>
+      <div class="col-lg-6" data-cue="slideInUp">
+        {%- if section.settings.map_embed != blank -%}
+          <div class="contact-map">
+            {{ section.settings.map_embed }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form heading",
+      "default": "שלחו לנו הודעה"
+    },
+    {
+      "type": "html",
+      "id": "map_embed",
+      "label": "Google Maps embed code"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "info_card",
+      "name": "Info card",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "FontAwesome icon class",
+          "default": "fas fa-phone"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "טלפון"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "055-6600934"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact page",
+      "blocks": [
+        { "type": "info_card", "settings": { "icon": "fas fa-phone", "title": "טלפון", "text": "055-6600934" } },
+        { "type": "info_card", "settings": { "icon": "fas fa-envelope", "title": "אימייל", "text": "petsparadiseld@gmail.com" } },
+        { "type": "info_card", "settings": { "icon": "fas fa-map-marker-alt", "title": "כתובת", "text": "כפר זיתים, ישראל" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

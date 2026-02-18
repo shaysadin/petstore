@@ -1,0 +1,158 @@
+{% doc %}
+  Product details page with images, variant selector, add to cart, and meta info.
+{% enddoc %}
+
+<div class="breadcumb-wrapper" data-bg-src="{{ 'bg-breadcumb-bg-3.jpg' | asset_url }}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title">{{ product.title }}</h1>
+      <ul class="breadcumb-menu">
+        <li><a href="/">דף הבית</a></li>
+        <li><a href="/collections/all">מוצרים</a></li>
+        <li>{{ product.title }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section class="product-details space-top space-extra-bottom">
+  <div class="container th-container">
+    <div class="row gx-60">
+      {%- comment -%} Product images {%- endcomment -%}
+      <div class="col-lg-6">
+        <div class="product-big-img">
+          <div class="img">
+            {%- if product.featured_image -%}
+              <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" id="main-product-image">
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+        </div>
+        {%- if product.images.size > 1 -%}
+          <div class="product-thumb-area row gx-10 mt-20">
+            {%- for image in product.images -%}
+              <div class="col-auto">
+                <div class="thumb{% if forloop.first %} active{% endif %}" data-image="{{ image | image_url: width: 800 }}">
+                  <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy">
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Product info {%- endcomment -%}
+      <div class="col-lg-6 align-self-center">
+        <div class="product-about">
+          <h2 class="product-title">{{ product.title }}</h2>
+          <div class="product-rating">
+            <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+              <span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span>
+            </div>
+          </div>
+          <p class="price">
+            {%- if product.compare_at_price > product.price -%}
+              <del>{{ product.compare_at_price | money }}</del>
+            {%- endif -%}
+            {{ product.price | money }}
+          </p>
+          <div class="text">{{ product.description }}</div>
+          <div class="mt-2 link-inherit">
+            <p>
+              <strong class="text-title me-3">זמינות:</strong>
+              {%- if product.available -%}
+                <span class="stock in-stock"><i class="far fa-check-square me-2 ms-1"></i>במלאי</span>
+              {%- else -%}
+                <span class="stock out-of-stock"><i class="far fa-times-square me-2 ms-1"></i>אזל מהמלאי</span>
+              {%- endif -%}
+            </p>
+          </div>
+
+          {% form 'product', product %}
+            {{ form.errors | default_errors }}
+
+            {%- unless product.has_only_default_variant -%}
+              {%- for option in product.options_with_values -%}
+                <div class="mb-3">
+                  <label class="form-label fw-bold" for="option-{{ option.name | handle }}">{{ option.name }}</label>
+                  <select name="id" id="option-{{ option.name | handle }}" class="form-select">
+                    {%- for variant in product.variants -%}
+                      <option value="{{ variant.id }}"{% if variant == product.selected_or_first_available_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>
+                        {{ variant.title }} - {{ variant.price | money }}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            {%- endunless -%}
+
+            <div class="actions">
+              <div class="quantity">
+                <input type="number" class="qty-input" step="1" min="1" max="100" name="quantity" value="1" title="כמות">
+                <button type="button" class="quantity-plus qty-btn"><i class="far fa-chevron-up"></i></button>
+                <button type="button" class="quantity-minus qty-btn"><i class="far fa-chevron-down"></i></button>
+              </div>
+              <button type="submit" class="th-btn"{% unless product.available %} disabled{% endunless %}>
+                {%- if product.available -%}הוסף לסל{%- else -%}אזל{%- endif -%}
+              </button>
+              <button type="button" class="icon-btn wishlist-btn" data-product-id="{{ product.id }}"><i class="far fa-heart"></i></button>
+            </div>
+          {% endform %}
+
+          <div class="product_meta">
+            {%- if product.selected_or_first_available_variant.sku != blank -%}
+              <span class="sku_wrapper">מק״ט: <span class="sku">{{ product.selected_or_first_available_variant.sku }}</span></span>
+            {%- endif -%}
+            {%- if product.vendor != blank -%}
+              <span>יצרן: <a href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a></span>
+            {%- endif -%}
+            {%- if product.type != blank -%}
+              <span>סוג: <a href="{{ product.type | url_for_type }}">{{ product.type }}</a></span>
+            {%- endif -%}
+            {%- if product.tags.size > 0 -%}
+              <span>תגיות:
+                {%- for tag in product.tags -%}
+                  <a href="/collections/all/{{ tag | handle }}">{{ tag }}{% unless forloop.last %}, {% endunless %}</a>
+                {%- endfor -%}
+              </span>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Related products {%- endcomment -%}
+    {%- if recommendations.products.size > 0 -%}
+      <div class="mt-80">
+        <div class="title-area2 text-center mb-55">
+          <h2 class="sec-title">
+            <img src="{{ 'shape-home-3-sub-img.png' | asset_url }}" alt="">
+            מוצרים דומים
+          </h2>
+        </div>
+        <div class="slider-area">
+          <div class="swiper th-slider has-shadow" id="relatedSlider" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"3"},"1200":{"slidesPerView":"5"}}}'>
+            <div class="swiper-wrapper">
+              {%- for product in recommendations.products limit: 10 -%}
+                <div class="swiper-slide">
+                  {% render 'product-card', product: product %}
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+          <button data-slider-next="#relatedSlider" class="slider-arrow slider-next"><i class="far fa-arrow-right"></i></button>
+          <button data-slider-prev="#relatedSlider" class="slider-arrow slider-prev"><i class="far fa-arrow-left"></i></button>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product"
+}
+{% endschema %}

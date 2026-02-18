@@ -1,0 +1,123 @@
+{% doc %}
+  Deals of the day section with countdown timer and featured product image.
+{% enddoc %}
+
+<section class="deals-sec1 overflow-hidden">
+  <img class="deals-3-top" src="{{ 'shape-deals-3-top.png' | asset_url }}" alt="">
+  <img class="deals-3-bottom" src="{{ 'shape-deals-3-bottom.png' | asset_url }}" alt="">
+
+  <div class="shape-mockup d-xl-block d-none moving" data-right="50%" data-top="19%">
+    <img src="{{ 'shape-shape1-45.png' | asset_url }}" alt="">
+  </div>
+  <div class="shape-mockup d-xxl-block d-none shake" data-right="30%" data-top="35%">
+    <img src="{{ 'shape-shape1-46.png' | asset_url }}" alt="">
+  </div>
+  <div class="shape-mockup d-xxl-block d-none jump-reverse" data-right="38%" data-top="56%">
+    <img src="{{ 'shape-shape1-47.png' | asset_url }}" alt="">
+  </div>
+  <div class="shape-mockup d-xxl-block" data-right="25%" data-top="25%">
+    <img src="{{ 'shape-shape1-48.png' | asset_url }}" alt="">
+  </div>
+
+  <div class="container th-container">
+    <div class="row gy-30 align-items-center">
+      <div class="col-xxl-4 col-xl-6 col-lg-6">
+        <div class="countdown-wrapp pe-xl-5">
+          <span class="subtitle text-anim">{{ section.settings.subtitle | default: 'Deals of the day' }}</span>
+          <h4 class="box-title text-anim2">{{ section.settings.heading | default: 'The Best Food For Your Pet!' }}</h4>
+          <p class="box-text" data-cue="slideInUp">{{ section.settings.text | default: 'Find all the great deals for pets. 30% Off our Spring Pet Collection!' }}</p>
+          <a href="{{ section.settings.button_url | default: '/collections/all' }}" class="th-btn style3 th-btn-xl" data-cue="slideInUp">{{ section.settings.button_text | default: 'Shop Now' }}</a>
+          <div class="time-counter-box" data-cue="slideInUp">
+            <h3 class="offer-title">{{ section.settings.timer_heading | default: 'Hurry Up! Offer ends in:' }}</h3>
+            <ul class="timer-counter counter-list" data-offer-date="{{ section.settings.end_date | default: '12/06/2027' }}">
+              <li>
+                <div class="day count-number">0</div>
+                <span class="count-name">ימים</span>
+              </li>
+              <li>
+                <div class="hour count-number">0</div>
+                <span class="count-name">שעות</span>
+              </li>
+              <li>
+                <div class="minute count-number">0</div>
+                <span class="count-name">דקות</span>
+              </li>
+              <li>
+                <div class="seconds count-number">0</div>
+                <span class="count-name">שניות</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-8 col-xl-6 col-lg-6">
+        <div class="deals3-img-box">
+          {%- if section.settings.image != blank -%}
+            <img src="{{ section.settings.image | image_url: width: 900 }}" alt="{{ section.settings.heading | escape }}">
+          {%- else -%}
+            <img src="{{ 'deals3-img.png' | asset_url }}" alt="">
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Deals countdown",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "מבצעי היום"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "המזון הטוב ביותר לחיית המחמד שלך!"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Description",
+      "default": "מצאו את כל המבצעים לחיות מחמד. 30% הנחה על קולקציית האביב!"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "קנו עכשיו"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "timer_heading",
+      "label": "Timer heading",
+      "default": "מהרו! המבצע מסתיים בעוד:"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End date (MM/DD/YYYY)",
+      "default": "12/06/2027"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Featured image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Deals countdown"
+    }
+  ]
+}
+{% endschema %}
