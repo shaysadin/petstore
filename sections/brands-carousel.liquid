@@ -18,7 +18,9 @@
               {%- if block.settings.logo != blank -%}
                 <img src="{{ block.settings.logo | image_url: width: 200 }}" alt="{{ block.settings.name | escape }}">
               {%- else -%}
-                <img src="{{ 'brand-brand2-1.svg' | asset_url }}" alt="Brand">
+                {%- assign brand_images = 'brand2-1.svg,brand2-2.svg,brand2-3.svg,brand2-4.svg,brand2-5.svg,brand2-6.svg' | split: ',' -%}
+                {%- assign brand_index = forloop.index0 | modulo: 6 -%}
+                <img src="{{ brand_images[brand_index] | asset_url }}" alt="{{ block.settings.name | escape }}">
               {%- endif -%}
             </a>
           </div>

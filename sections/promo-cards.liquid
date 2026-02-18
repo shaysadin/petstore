@@ -8,8 +8,10 @@
       <div class="row gy-4">
         {%- for block in section.blocks -%}
           <div class="col-lg-6" {{ block.shopify_attributes }}>
+            {%- assign promo_bgs = 'cta-bg-3-1.png,cta-bg-3-2.png' | split: ',' -%}
+            {%- assign bg_index = forloop.index0 | modulo: 2 -%}
             <div class="cta2-content-wrap mega-hover" data-cue="slideInUp"
-              {%- if block.settings.bg_image != blank %} data-bg-src="{{ block.settings.bg_image | image_url: width: 800 }}"{% endif -%}>
+              {%- if block.settings.bg_image != blank %} data-bg-src="{{ block.settings.bg_image | image_url: width: 800 }}"{% else %} data-bg-src="{{ promo_bgs[bg_index] | asset_url }}"{% endif -%}>
               {%- if forloop.first -%}
                 <div class="shape-mockup d-xl-block d-none jump" data-right="39%" data-top="60%">
                   <img src="{{ 'shape-shape1-49.png' | asset_url }}" alt="">
@@ -23,6 +25,10 @@
               <div class="img-box">
                 {%- if block.settings.image != blank -%}
                   <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.heading | escape }}">
+                {%- else -%}
+                  {%- assign promo_images = 'cta-2-1.png,cta-2-2.png' | split: ',' -%}
+                  {%- assign promo_index = forloop.index0 | modulo: 2 -%}
+                  <img src="{{ promo_images[promo_index] | asset_url }}" alt="">
                 {%- endif -%}
               </div>
             </div>

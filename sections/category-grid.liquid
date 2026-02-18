@@ -20,7 +20,9 @@
                 {%- if block.settings.image != blank -%}
                   <img src="{{ block.settings.image | image_url: width: 200 }}" alt="{{ block.settings.title | escape }}">
                 {%- else -%}
-                  <img src="{{ 'category-category3-1.png' | asset_url }}" alt="">
+                  {%- assign cat_images = 'category3-1.png,category3-2.png,category3-3.png,category3-4.png,category3-5.png,category3-6.png' | split: ',' -%}
+                  {%- assign cat_index = forloop.index0 | modulo: 6 -%}
+                  <img src="{{ cat_images[cat_index] | asset_url }}" alt="{{ block.settings.title | escape }}">
                 {%- endif -%}
               </div>
               <h3 class="box-title"><a href="{{ block.settings.link }}">{{ block.settings.title }}</a></h3>

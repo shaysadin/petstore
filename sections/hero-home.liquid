@@ -33,7 +33,9 @@
                     {%- if block.settings.image != blank -%}
                       <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.heading | escape }}">
                     {%- else -%}
-                      <img src="{{ 'hero-hero3-1.png' | asset_url }}" alt="">
+                      {%- assign slide_images = 'hero3-1.png,hero3-2.png,hero3-3.png' | split: ',' -%}
+                      {%- assign slide_index = forloop.index0 | modulo: 3 -%}
+                      <img src="{{ slide_images[slide_index] | asset_url }}" alt="">
                     {%- endif -%}
                   </div>
                 </div>

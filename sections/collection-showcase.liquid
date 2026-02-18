@@ -62,7 +62,7 @@
                 {%- if section.settings.promo_image != blank -%}
                   <img src="{{ section.settings.promo_image | image_url: width: 500 }}" alt="{{ section.settings.promo_heading | escape }}">
                 {%- else -%}
-                  <img src="{{ 'normal-food1-collection-right.png' | asset_url }}" alt="">
+                  <img src="{{ 'food1-collection-right.png' | asset_url }}" alt="">
                 {%- endif -%}
               </div>
               <a class="th-btn style3 th-btn-xl" href="{{ section.settings.promo_link }}">{{ section.settings.promo_button | default: 'Shop Now' }}</a>
@@ -81,7 +81,7 @@
                 {%- if section.settings.promo_bg != blank -%}
                   <img src="{{ section.settings.promo_bg | image_url: width: 800 }}" alt="">
                 {%- else -%}
-                  <img src="{{ 'bg-food2-collection-right-bg.jpg' | asset_url }}" alt="">
+                  <img src="{{ 'food2-collection-right-bg.jpg' | asset_url }}" alt="">
                 {%- endif -%}
               </div>
             </div>
