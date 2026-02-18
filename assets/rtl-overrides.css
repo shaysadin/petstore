@@ -311,17 +311,25 @@ body {
   margin-left: auto;
 }
 
-/* Hero yellow frame fix for RTL */
-.hero3-img:before {
-  left: auto;
-  right: -52px;
+/* Hero image + yellow frame fix for RTL - both to left side */
+.hero3-img {
+  direction: ltr;
+  text-align: start;
 }
 
-/* Hero side padding on all devices */
-.th-hero-wrapper.hero-3 .hero-inner {
-  padding-left: 15px;
-  padding-right: 15px;
+.hero3-img img {
+  margin-bottom: -13px;
+  margin-left: -30px;
 }
+
+.hero3-img:before {
+  right: auto;
+  left: -10px;
+  max-width: 100%;
+  width: 95%;
+  height: 92%;
+}
+
 
 /* ===== Section Title Areas ===== */
 .title-area2 .sec-title img {
@@ -470,6 +478,22 @@ textarea.form-control {
 /* ===== Category Cards ===== */
 .category-card {
   text-align: center;
+  position: relative;
+}
+
+/* Arch/tombstone shape - CSS fallback since mask-image may not apply */
+.category-card .box-shape {
+  position: absolute;
+  inset: 2px;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 120px 120px 20px 20px;
+  background: #F9DF8A;
+}
+
+/* Per-card colors via --theme-color set by JS */
+.categorySlider1 .swiper-slide .category-card .box-shape {
+  background: var(--theme-color, #F9DF8A);
 }
 
 /* ===== Brand Boxes ===== */
@@ -628,13 +652,6 @@ img {
     font-size: 14px;
   }
 
-  /* Hero side padding */
-  .th-hero-wrapper.hero-3 .container,
-  .th-hero-wrapper.hero-3 .th-container {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
   /* Hero image sizing */
   .hero3-img {
     padding-top: 30px;
@@ -644,19 +661,13 @@ img {
   .hero3-img img {
     max-height: 280px;
     object-fit: contain;
+    margin: 0 !important;
   }
 
-  /* Yellow frame - scale down on phones */
+  /* Yellow frame - slight inset on phones */
   .hero3-img:before {
-    width: 95%;
-    right: 2.5%;
     left: auto;
-    border-radius: 40px;
-  }
-
-  /* Hero background shape */
-  .hero-bg-shape3 {
-    border-radius: 30px !important;
+    border-radius: 30px;
   }
 
   /* Hide decorative shapes on phones */
@@ -776,13 +787,6 @@ img {
     gap: 10px;
   }
 
-  /* Hero side padding */
-  .th-hero-wrapper.hero-3 .container,
-  .th-hero-wrapper.hero-3 .th-container {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
   /* Hero padding */
   .hero-style3 {
     padding: 80px 0 40px;
@@ -793,10 +797,8 @@ img {
     padding-top: 40px;
   }
   .hero3-img:before {
-    width: 100%;
-    right: 0;
     left: auto;
-    border-radius: 50px;
+    border-radius: 40px;
   }
 
   /* Footer newsletter - narrower */
@@ -835,6 +837,17 @@ img {
   /* Hero section */
   .hero-style3 .hero-title {
     font-size: 30px;
+  }
+
+  /* Hero bg shape - side gap on mobile (babet sets 0px) */
+  .hero-3 .hero-bg-shape3 {
+    inset: 0 12px !important;
+  }
+
+  /* Hero content inner padding on mobile */
+  .hero-style3 {
+    padding-left: 15px;
+    padding-right: 15px;
   }
 
   /* Deals - stack columns */
