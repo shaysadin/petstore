@@ -19,30 +19,36 @@
         </div>
       </div>
     </div>
-    <div class="five-column-grid">
-      {%- assign collection = section.settings.collection -%}
-      {%- assign product_count = section.settings.product_count | default: 10 -%}
-      {%- if collection != blank -%}
-        {%- for product in collection.products limit: product_count -%}
-          <div data-cue="slideInUp">
-            {% render 'product-card', product: product %}
-          </div>
-        {%- endfor -%}
-      {%- else -%}
-        {%- for i in (1..product_count) -%}
-          <div data-cue="slideInUp">
-            <div class="th-product product-grid style-2">
-              <div class="product-img">
-                {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+    <div class="slider-area" data-cue="slideInUp">
+      <div class="swiper th-slider has-shadow bestSellerSlider1" id="bestSellerSlider1" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"5"}}, "autoHeight": "true"}'>
+        <div class="swiper-wrapper">
+          {%- assign collection = section.settings.collection -%}
+          {%- assign product_count = section.settings.product_count | default: 10 -%}
+          {%- if collection != blank -%}
+            {%- for product in collection.products limit: product_count -%}
+              <div class="swiper-slide">
+                {% render 'product-card', product: product %}
               </div>
-              <div class="product-content">
-                <span class="price">$25.00</span>
-                <h3 class="product-title"><a href="#">Sample product {{ forloop.index }}</a></h3>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for i in (1..product_count) -%}
+              <div class="swiper-slide">
+                <div class="th-product product-grid style-2">
+                  <div class="product-img">
+                    {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                  <div class="product-content">
+                    <span class="price">$25.00</span>
+                    <h3 class="product-title"><a href="#">Sample product {{ forloop.index }}</a></h3>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        {%- endfor -%}
-      {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+      <button data-slider-prev="#bestSellerSlider1" class="slider-arrow slider-prev"><i class="far fa-arrow-right"></i></button>
+      <button data-slider-next="#bestSellerSlider1" class="slider-arrow slider-next"><i class="far fa-arrow-left"></i></button>
     </div>
   </div>
 </section>

@@ -363,10 +363,20 @@ body {
 /* ===== Food Collection Promo ===== */
 .food1-collection-content {
   text-align: right;
+  padding: 50px;
+  padding-left: 0;
+}
+
+.food1-collection-content .th-btn {
+  float: left;
 }
 
 .food1-collection-content.style2 .content {
   text-align: right;
+}
+
+.food1-collection-content.style2 .th-btn {
+  float: left;
 }
 
 /* ===== Feature Cards ===== */
