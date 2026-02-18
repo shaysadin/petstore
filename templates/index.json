@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -9,7 +18,8 @@
             "subtitle": "מוצרים טבעיים לחיות מחמד",
             "heading": "המוצרים הטובים ביותר לחיות שלכם!",
             "text": "מרכיבים אורגניים באיכות הגבוהה ביותר למגוון מוצרים טבעיים 100% לחיות מחמד.",
-            "button_text": "גלו את המוצרים"
+            "button_text": "גלו את המוצרים",
+            "button_url": ""
           }
         },
         "slide-2": {
@@ -18,7 +28,8 @@
             "subtitle": "מוצרים טבעיים לחיות מחמד",
             "heading": "המוצרים הטובים ביותר לחיות שלכם!",
             "text": "מרכיבים אורגניים באיכות הגבוהה ביותר למגוון מוצרים טבעיים 100% לחיות מחמד.",
-            "button_text": "גלו את המוצרים"
+            "button_text": "גלו את המוצרים",
+            "button_url": ""
           }
         },
         "slide-3": {
@@ -27,23 +38,85 @@
             "subtitle": "מוצרים טבעיים לחיות מחמד",
             "heading": "המוצרים הטובים ביותר לחיות שלכם!",
             "text": "מרכיבים אורגניים באיכות הגבוהה ביותר למגוון מוצרים טבעיים 100% לחיות מחמד.",
-            "button_text": "גלו את המוצרים"
+            "button_text": "גלו את המוצרים",
+            "button_url": ""
           }
         }
       },
-      "block_order": ["slide-1", "slide-2", "slide-3"]
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3"
+      ],
+      "settings": {}
     },
     "category-grid": {
       "type": "category-grid",
       "blocks": {
-        "cat-1": { "type": "category", "settings": { "title": "כלבים", "subtitle": "6 מוצרים זמינים", "bg_color": "#F9DF8A" } },
-        "cat-2": { "type": "category", "settings": { "title": "חתולים", "subtitle": "4 מוצרים זמינים", "bg_color": "#CEB99D" } },
-        "cat-3": { "type": "category", "settings": { "title": "דגים", "subtitle": "2 מוצרים זמינים", "bg_color": "#A9EDFC" } },
-        "cat-4": { "type": "category", "settings": { "title": "ציפורים", "subtitle": "3 מוצרים זמינים", "bg_color": "#F8CCFB" } },
-        "cat-5": { "type": "category", "settings": { "title": "ארנבים", "subtitle": "4 מוצרים זמינים", "bg_color": "#D2D7D9" } },
-        "cat-6": { "type": "category", "settings": { "title": "צבים", "subtitle": "5 מוצרים זמינים", "bg_color": "#DAEFC6" } }
+        "cat-1": {
+          "type": "category",
+          "settings": {
+            "title": "כלבים",
+            "subtitle": "6 מוצרים זמינים",
+            "image": "shopify://shop_images/Gemini_Generated_Image_ykj6efykj6efykj6.png",
+            "link": "",
+            "bg_color": "#f9df8a"
+          }
+        },
+        "cat-2": {
+          "type": "category",
+          "settings": {
+            "title": "חתולים",
+            "subtitle": "4 מוצרים זמינים",
+            "link": "",
+            "bg_color": "#ceb99d"
+          }
+        },
+        "cat-3": {
+          "type": "category",
+          "settings": {
+            "title": "דגים",
+            "subtitle": "2 מוצרים זמינים",
+            "link": "",
+            "bg_color": "#a9edfc"
+          }
+        },
+        "cat-4": {
+          "type": "category",
+          "settings": {
+            "title": "ציפורים",
+            "subtitle": "3 מוצרים זמינים",
+            "link": "",
+            "bg_color": "#f8ccfb"
+          }
+        },
+        "cat-5": {
+          "type": "category",
+          "settings": {
+            "title": "ארנבים",
+            "subtitle": "4 מוצרים זמינים",
+            "link": "",
+            "bg_color": "#d2d7d9"
+          }
+        },
+        "cat-6": {
+          "type": "category",
+          "settings": {
+            "title": "צבים",
+            "subtitle": "5 מוצרים זמינים",
+            "link": "",
+            "bg_color": "#daefc6"
+          }
+        }
       },
-      "block_order": ["cat-1", "cat-2", "cat-3", "cat-4", "cat-5", "cat-6"],
+      "block_order": [
+        "cat-1",
+        "cat-2",
+        "cat-3",
+        "cat-4",
+        "cat-5",
+        "cat-6"
+      ],
       "settings": {
         "heading": "חפשו לפי סוג חיית מחמד"
       }
@@ -51,15 +124,36 @@
     "promo-cards": {
       "type": "promo-cards",
       "blocks": {
-        "card-1": { "type": "card", "settings": { "tag": "15% הנחה", "heading": "מזון טבעי טרי לחיות מחמד", "button_text": "קנו עכשיו" } },
-        "card-2": { "type": "card", "settings": { "tag": "15% הנחה", "heading": "מזון טבעי טרי לחיות מחמד", "button_text": "קנו עכשיו" } }
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "tag": "15% הנחה",
+            "heading": "מזון טבעי טרי לחיות מחמד",
+            "button_text": "קנו עכשיו",
+            "link": ""
+          }
+        },
+        "card-2": {
+          "type": "card",
+          "settings": {
+            "tag": "15% הנחה",
+            "heading": "מזון טבעי טרי לחיות מחמד",
+            "button_text": "קנו עכשיו",
+            "link": ""
+          }
+        }
       },
-      "block_order": ["card-1", "card-2"]
+      "block_order": [
+        "card-1",
+        "card-2"
+      ],
+      "settings": {}
     },
     "best-sellers": {
       "type": "best-sellers",
       "settings": {
         "heading": "המוצרים הנמכרים ביותר",
+        "collection": "",
         "product_count": 10,
         "button_text": "צפו בכל המוצרים"
       }
@@ -71,6 +165,8 @@
         "heading": "המזון הטוב ביותר לחיית המחמד שלך!",
         "text": "מצאו את כל המבצעים לחיות מחמד. 30% הנחה על קולקציית האביב!",
         "button_text": "קנו עכשיו",
+        "button_url": "",
+        "timer_heading": "מהרו! המבצע מסתיים בעוד:",
         "end_date": "12/06/2027"
       }
     },
@@ -78,26 +174,72 @@
       "type": "trending-products",
       "settings": {
         "heading": "פופולרי השבוע",
+        "collection": "",
         "product_count": 10
       }
     },
     "cta-banner": {
       "type": "cta-banner",
       "settings": {
-        "heading": "100% מזון מזין אותנטי לחתול!"
+        "tag": "עד <span>30%</span> הנחה",
+        "heading": "100% מזון מזין אותנטי לחתול!",
+        "text": "מהרו! כמות מוגבלת! השתמשו בקוד: CATE20"
       }
     },
     "food-supplements": {
       "type": "food-supplements",
       "blocks": {
-        "sup-1": { "type": "item", "settings": { "title": "מזון רטוב" } },
-        "sup-2": { "type": "item", "settings": { "title": "מזון יבש" } },
-        "sup-3": { "type": "item", "settings": { "title": "חטיפים" } },
-        "sup-4": { "type": "item", "settings": { "title": "מזון טבעי" } },
-        "sup-5": { "type": "item", "settings": { "title": "תוספי מזון" } },
-        "sup-6": { "type": "item", "settings": { "title": "מזון גולמי" } }
+        "sup-1": {
+          "type": "item",
+          "settings": {
+            "title": "מזון רטוב",
+            "link": ""
+          }
+        },
+        "sup-2": {
+          "type": "item",
+          "settings": {
+            "title": "מזון יבש",
+            "link": ""
+          }
+        },
+        "sup-3": {
+          "type": "item",
+          "settings": {
+            "title": "חטיפים",
+            "link": ""
+          }
+        },
+        "sup-4": {
+          "type": "item",
+          "settings": {
+            "title": "מזון טבעי",
+            "link": ""
+          }
+        },
+        "sup-5": {
+          "type": "item",
+          "settings": {
+            "title": "תוספי מזון",
+            "link": ""
+          }
+        },
+        "sup-6": {
+          "type": "item",
+          "settings": {
+            "title": "מזון גולמי",
+            "link": ""
+          }
+        }
       },
-      "block_order": ["sup-1", "sup-2", "sup-3", "sup-4", "sup-5", "sup-6"],
+      "block_order": [
+        "sup-1",
+        "sup-2",
+        "sup-3",
+        "sup-4",
+        "sup-5",
+        "sup-6"
+      ],
       "settings": {
         "heading": "חקרו מזון ותוספים"
       }
@@ -106,39 +248,74 @@
       "type": "collection-showcase",
       "settings": {
         "heading": "קולקציית מזון לכלבים",
+        "collection": "",
+        "button_text": "צפו בכל המוצרים",
         "promo_style": "style1",
         "promo_tag": "עד 40% הנחה",
         "promo_heading": "מזון בריא לכלבים",
         "promo_text": "טעים, תזונה מאוזנת.",
-        "promo_button": "קנו עכשיו"
+        "promo_button": "קנו עכשיו",
+        "promo_link": ""
       }
     },
     "cta-delivery": {
       "type": "cta-delivery",
       "settings": {
         "heading": "100% מקורי ומשלוח חינם בהזמנה מעל ₪399",
-        "button_text": "קנו עכשיו"
+        "button_text": "קנו עכשיו",
+        "button_url": ""
       }
     },
     "collection-cat": {
       "type": "collection-showcase",
       "settings": {
         "heading": "קולקציית מזון לחתולים",
+        "collection": "",
+        "button_text": "צפו בכל המוצרים",
         "promo_style": "style2",
         "promo_tag": "עד 40% הנחה",
         "promo_heading": "מזון בריא לחתולים",
         "promo_text": "טעים, תזונה מאוזנת.",
-        "promo_button": "קנו עכשיו"
+        "promo_button": "קנו עכשיו",
+        "promo_link": ""
       }
     },
     "testimonials": {
       "type": "testimonials-home",
       "blocks": {
-        "testi-1": { "type": "testimonial", "settings": { "name": "דוד כהן", "company": "לקוח מאומת", "review_text": "המוצרים בגודל מושלם לכלב הקטן שלנו. העיצוב חמוד והגומי בתחתית מעולה כי הוא הופך אותם לעמידים יותר.", "rating": 5 } },
-        "testi-2": { "type": "testimonial", "settings": { "name": "מירי לוי", "company": "לקוחה מאומתת", "review_text": "שירות מעולה ומשלוח מהיר. המזון באיכות גבוהה והכלב שלי אוהב אותו. ממליצה בחום!", "rating": 5 } },
-        "testi-3": { "type": "testimonial", "settings": { "name": "יוסי אברהם", "company": "לקוח מאומת", "review_text": "מחירים מצוינים ומבחר ענק. תמיד מוצא כאן את מה שאני צריך לחתולים שלי. חנות מומלצת!", "rating": 5 } }
+        "testi-1": {
+          "type": "testimonial",
+          "settings": {
+            "name": "דוד כהן",
+            "company": "לקוח מאומת",
+            "review_text": "המוצרים בגודל מושלם לכלב הקטן שלנו. העיצוב חמוד והגומי בתחתית מעולה כי הוא הופך אותם לעמידים יותר.",
+            "rating": 5
+          }
+        },
+        "testi-2": {
+          "type": "testimonial",
+          "settings": {
+            "name": "מירי לוי",
+            "company": "לקוחה מאומתת",
+            "review_text": "שירות מעולה ומשלוח מהיר. המזון באיכות גבוהה והכלב שלי אוהב אותו. ממליצה בחום!",
+            "rating": 5
+          }
+        },
+        "testi-3": {
+          "type": "testimonial",
+          "settings": {
+            "name": "יוסי אברהם",
+            "company": "לקוח מאומת",
+            "review_text": "מחירים מצוינים ומבחר ענק. תמיד מוצא כאן את מה שאני צריך לחתולים שלי. חנות מומלצת!",
+            "rating": 5
+          }
+        }
       },
-      "block_order": ["testi-1", "testi-2", "testi-3"],
+      "block_order": [
+        "testi-1",
+        "testi-2",
+        "testi-3"
+      ],
       "settings": {
         "heading": "מה הלקוחות אומרים"
       }
@@ -146,14 +323,57 @@
     "brands": {
       "type": "brands-carousel",
       "blocks": {
-        "brand-1": { "type": "brand", "settings": { "name": "מותג 1" } },
-        "brand-2": { "type": "brand", "settings": { "name": "מותג 2" } },
-        "brand-3": { "type": "brand", "settings": { "name": "מותג 3" } },
-        "brand-4": { "type": "brand", "settings": { "name": "מותג 4" } },
-        "brand-5": { "type": "brand", "settings": { "name": "מותג 5" } },
-        "brand-6": { "type": "brand", "settings": { "name": "מותג 6" } }
+        "brand-1": {
+          "type": "brand",
+          "settings": {
+            "name": "מותג 1",
+            "link": ""
+          }
+        },
+        "brand-2": {
+          "type": "brand",
+          "settings": {
+            "name": "מותג 2",
+            "link": ""
+          }
+        },
+        "brand-3": {
+          "type": "brand",
+          "settings": {
+            "name": "מותג 3",
+            "link": ""
+          }
+        },
+        "brand-4": {
+          "type": "brand",
+          "settings": {
+            "name": "מותג 4",
+            "link": ""
+          }
+        },
+        "brand-5": {
+          "type": "brand",
+          "settings": {
+            "name": "מותג 5",
+            "link": ""
+          }
+        },
+        "brand-6": {
+          "type": "brand",
+          "settings": {
+            "name": "מותג 6",
+            "link": ""
+          }
+        }
       },
-      "block_order": ["brand-1", "brand-2", "brand-3", "brand-4", "brand-5", "brand-6"],
+      "block_order": [
+        "brand-1",
+        "brand-2",
+        "brand-3",
+        "brand-4",
+        "brand-5",
+        "brand-6"
+      ],
       "settings": {
         "heading": "קנו לפי מותג"
       }
@@ -161,12 +381,42 @@
     "features": {
       "type": "features-bar",
       "blocks": {
-        "feat-1": { "type": "feature", "settings": { "title": "משלוח חינם", "text": "משלוח חינם בהזמנה מעל ₪120" } },
-        "feat-2": { "type": "feature", "settings": { "title": "אחריות החזר כספי", "text": "אחריות החזר כספי תוך 7 ימים" } },
-        "feat-3": { "type": "feature", "settings": { "title": "מועדון לקוחות", "text": "הנחות מיוחדות לחברי מועדון" } },
-        "feat-4": { "type": "feature", "settings": { "title": "תמיכה אונליין", "text": "תמיכה זמינה 24 שעות ביממה" } }
+        "feat-1": {
+          "type": "feature",
+          "settings": {
+            "title": "משלוח חינם",
+            "text": "משלוח חינם בהזמנה מעל ₪120"
+          }
+        },
+        "feat-2": {
+          "type": "feature",
+          "settings": {
+            "title": "אחריות החזר כספי",
+            "text": "אחריות החזר כספי תוך 7 ימים"
+          }
+        },
+        "feat-3": {
+          "type": "feature",
+          "settings": {
+            "title": "מועדון לקוחות",
+            "text": "הנחות מיוחדות לחברי מועדון"
+          }
+        },
+        "feat-4": {
+          "type": "feature",
+          "settings": {
+            "title": "תמיכה אונליין",
+            "text": "תמיכה זמינה 24 שעות ביממה"
+          }
+        }
       },
-      "block_order": ["feat-1", "feat-2", "feat-3", "feat-4"]
+      "block_order": [
+        "feat-1",
+        "feat-2",
+        "feat-3",
+        "feat-4"
+      ],
+      "settings": {}
     }
   },
   "order": [
