@@ -14,7 +14,7 @@
     <div class="container th-container">
       <div class="row justify-content-between">
         {%- comment -%} Column 1: About + contact info {%- endcomment -%}
-        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+        <div class="col-12 col-sm-6 col-xl-auto" data-cue="slideInUp">
           <div class="widget footer-widget">
             <div class="th-widget-about">
               <div class="about-logo">
@@ -52,7 +52,7 @@
         </div>
 
         {%- comment -%} Column 2: Quick links {%- endcomment -%}
-        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+        <div class="col-6 col-sm-6 col-lg-4 col-xl-auto" data-cue="slideInUp">
           <div class="widget widget_nav_menu footer-widget">
             <h3 class="widget_title">{{ section.settings.menu_1_title | default: 'Quick Links' }}</h3>
             <div class="menu-all-pages-container">
@@ -66,7 +66,7 @@
         </div>
 
         {%- comment -%} Column 3: Resources {%- endcomment -%}
-        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+        <div class="col-6 col-sm-6 col-lg-4 col-xl-auto" data-cue="slideInUp">
           <div class="widget widget_nav_menu footer-widget">
             <h3 class="widget_title">{{ section.settings.menu_2_title | default: 'Resources' }}</h3>
             <div class="menu-all-pages-container">
@@ -80,7 +80,7 @@
         </div>
 
         {%- comment -%} Column 4: Services {%- endcomment -%}
-        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+        <div class="col-6 col-sm-6 col-lg-4 col-xl-auto" data-cue="slideInUp">
           <div class="widget widget_nav_menu footer-widget">
             <h3 class="widget_title">{{ section.settings.menu_3_title | default: 'Services' }}</h3>
             <div class="menu-all-pages-container">
@@ -94,7 +94,7 @@
         </div>
 
         {%- comment -%} Column 5: App / extra {%- endcomment -%}
-        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+        <div class="col-12 col-sm-6 col-xl-auto" data-cue="slideInUp">
           <div class="widget widget_download footer-widget">
             <h4 class="widget_title">{{ section.settings.col5_heading | default: 'Shop on the go' }}</h4>
             {%- if section.settings.col5_text != blank -%}

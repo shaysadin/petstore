@@ -16,6 +16,7 @@ node_modules/
 template/
 .claude/
 insperation/
+petstore/
 nul
 
 # Dev/docs files

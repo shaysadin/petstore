@@ -26,6 +26,37 @@
   .th-header.header-layout2 .sticky-wrapper.sticky .menu-area {
     padding: 0 22px 0 25px !important;
   }
+
+  /* Responsive header */
+  @media (max-width: 575px) {
+    .th-header.header-layout2 .header-logo img {
+      max-height: 40px;
+    }
+    .th-header.header-layout2 .menu-area {
+      padding: 6px 0;
+    }
+    .th-header.header-layout2 .header-button {
+      gap: 4px;
+    }
+    .th-header.header-layout2 .icon-btn {
+      font-size: 16px;
+      width: 36px;
+      height: 36px;
+    }
+    .th-header.header-layout2 .th-menu-toggle {
+      font-size: 18px;
+      width: 38px;
+      height: 38px;
+    }
+  }
+  @media (max-width: 991px) {
+    .th-header.header-layout2 .menu-area {
+      padding: 8px 0;
+    }
+    .th-header.header-layout2 .sticky-wrapper.sticky .menu-area {
+      padding: 8px 15px !important;
+    }
+  }
 </style>
 <header class="th-header header-layout2">
   <div class="sticky-wrapper">

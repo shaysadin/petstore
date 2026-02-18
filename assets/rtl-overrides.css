@@ -468,32 +468,10 @@ textarea.form-control {
   text-align: center;
 }
 
-/* ===== Responsive fixes ===== */
-@media (max-width: 375px) {
-  .header-links li:not(:last-child) {
-    margin: 0 0 0 30px;
-  }
-  .header-links li:not(:last-child):after {
-    right: auto;
-    left: -18px;
-  }
-}
-
-@media (max-width: 575px) {
-  .sidemenu-wrapper .sidemenu-content {
-    width: 100%;
-  }
-}
-
-@media (max-width: 991px) {
-  .th-menu-wrapper .th-menu-area {
-    max-width: 310px;
-  }
-}
-
 /* ===== Product Image Uniform Sizing ===== */
 .th-product .product-img {
   aspect-ratio: 1 / 1;
+  overflow: hidden;
 }
 
 .th-product .product-img img {
@@ -506,4 +484,335 @@ textarea.form-control {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+/* ===== Global Responsive Fixes ===== */
+
+/* Prevent horizontal overflow on all pages */
+html, body {
+  overflow-x: hidden;
+}
+
+/* All images must be responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Touch-friendly buttons & links */
+.th-btn,
+.icon-btn,
+.th-menu-toggle {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Product title word wrap */
+.product-title,
+.box-title,
+.widget_title {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   Mobile-first: smallest → largest
+   ============================================================ */
+
+/* ----- Extra Small: ≤ 375px (iPhone SE, small Android) ----- */
+@media (max-width: 375px) {
+  /* Header top bar */
+  .header-links li:not(:last-child) {
+    margin: 0 0 0 20px;
+  }
+  .header-links li:not(:last-child):after {
+    right: auto;
+    left: -12px;
+  }
+
+  /* Hero text */
+  .hero-style3 .hero-title {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+  .hero-style3 .hero-text {
+    font-size: 14px;
+  }
+
+  /* Feature cards - full width stack */
+  .feature-card.style2 {
+    text-align: center;
+  }
+
+  /* Footer newsletter input */
+  .newsletter-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .newsletter-form .form-control {
+    border-radius: 30px !important;
+  }
+  .newsletter-form .th-btn {
+    border-radius: 30px !important;
+    width: 100%;
+  }
+
+  /* Side cart product text */
+  .widget_shopping_cart .mini_cart_item a {
+    font-size: 13px;
+  }
+}
+
+/* ----- Small: ≤ 575px (phones) ----- */
+@media (max-width: 575px) {
+  /* Side cart drawer - full width on phones */
+  .sidemenu-wrapper .sidemenu-content {
+    width: 100%;
+    left: -100%;
+  }
+  .sidemenu-wrapper.show .sidemenu-content {
+    left: 0;
+  }
+
+  /* Mobile menu - full width on tiny phones */
+  .th-menu-wrapper .th-menu-area {
+    max-width: 85vw;
+    min-width: 260px;
+  }
+
+  /* Header logo smaller on phones */
+  .header-logo img {
+    max-height: 40px;
+  }
+
+  /* Header buttons spacing */
+  .header-button {
+    gap: 6px;
+  }
+
+  /* Hero section - compact on phones */
+  .hero-style3 .hero-title {
+    font-size: 26px;
+    line-height: 1.3;
+  }
+  .hero-style3 .hero-text {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+  .hero-style3 .th-btn {
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+
+  /* Hero image sizing */
+  .hero3-img {
+    max-height: 300px;
+    text-align: center;
+  }
+  .hero3-img img {
+    max-height: 300px;
+    object-fit: contain;
+  }
+
+  /* Hide decorative shapes on phones */
+  .shape-mockup {
+    display: none !important;
+  }
+
+  /* Deals section shape borders */
+  .deals-3-top,
+  .deals-3-bottom {
+    display: none;
+  }
+
+  /* Countdown timer - compact */
+  .time-counter-box .counter-list {
+    gap: 8px;
+  }
+  .time-counter-box .count-number {
+    font-size: 24px;
+    width: 55px;
+    height: 55px;
+  }
+  .time-counter-box .count-name {
+    font-size: 11px;
+  }
+
+  /* Promo cards - stack content */
+  .cta2-content-wrap {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px !important;
+  }
+  .cta2-content-wrap .left-content {
+    text-align: center;
+  }
+  .cta2-content-wrap .img-box {
+    text-align: center;
+    margin-top: 15px;
+  }
+  .cta2-content-wrap .img-box img {
+    max-height: 200px;
+  }
+
+  /* Footer - single column */
+  .footer-wrapper .col-sm-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .footer-widget {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .info-box {
+    text-align: center;
+    justify-content: center;
+  }
+  .widget_nav_menu .menu {
+    text-align: center;
+  }
+  .th-widget-about {
+    text-align: center;
+  }
+  .copyright-text {
+    text-align: center;
+  }
+  .th-social {
+    text-align: center;
+  }
+
+  /* Cart table responsive */
+  .cart_table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Section spacing reduction */
+  .space {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  /* Scroll to top - smaller on mobile */
+  .scroll-top {
+    left: 15px;
+    bottom: 15px;
+  }
+
+  /* Product card buttons */
+  .th-product .th-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  /* Food collection cards */
+  .food1-collection-content {
+    text-align: center;
+  }
+  .food1-collection-content.style2 .content {
+    text-align: center;
+  }
+
+  /* CTA sections */
+  .cta-content3,
+  .cta-content4 {
+    text-align: center;
+    padding: 30px 15px;
+  }
+}
+
+/* ----- Medium: ≤ 767px (large phones / small tablets) ----- */
+@media (max-width: 767px) {
+  /* Countdown timer stays horizontal but smaller */
+  .time-counter-box .counter-list {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* Hero columns - text on top, image below */
+  .th-hero-wrapper .row {
+    flex-direction: column;
+  }
+
+  /* Footer newsletter - narrower */
+  .footer2-subscribe-wrap {
+    padding: 0 10px;
+  }
+
+  /* Collection grid - ensure 2-col on tablets */
+  .th-sort-bar {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
+
+/* ----- Tablet: ≤ 991px ----- */
+@media (max-width: 991px) {
+  /* Mobile menu drawer */
+  .th-menu-wrapper .th-menu-area {
+    max-width: 310px;
+  }
+
+  /* Hide desktop menu, show hamburger */
+  .main-menu {
+    display: none !important;
+  }
+  .th-menu-toggle {
+    display: inline-flex !important;
+  }
+
+  /* Header simplify - tighten spacing */
+  .menu-area {
+    padding: 8px 0;
+  }
+
+  /* Hero section */
+  .hero-style3 .hero-title {
+    font-size: 30px;
+  }
+
+  /* Deals - stack columns */
+  .deals-sec1 .col-lg-6 {
+    text-align: center;
+  }
+  .countdown-wrapp {
+    text-align: center;
+  }
+
+  /* Promo cards full width */
+  .cta-wrap3 .col-lg-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* ----- Large desktop: ≤ 1199px ----- */
+@media (max-width: 1199px) {
+  /* Reduce menu item spacing on smaller desktops */
+  .main-menu > ul > li {
+    margin: 0 10px;
+  }
+
+  /* Slider arrows closer to content */
+  .slider-arrow {
+    right: var(--pos-x, -50px);
+  }
+  .slider-arrow.slider-next {
+    left: var(--pos-x, -50px);
+  }
+}
+
+/* ----- Extra large: ≤ 1399px ----- */
+@media (max-width: 1399px) {
+  /* Slider arrows even closer */
+  .slider-arrow {
+    right: var(--pos-x, -60px);
+  }
+  .slider-arrow.slider-next {
+    left: var(--pos-x, -60px);
+  }
 }
