@@ -158,8 +158,8 @@
       "type": "best-sellers",
       "settings": {
         "heading": "המוצרים הנמכרים ביותר",
-        "collection": "",
-        "product_count": 10,
+        "collection": "הנמכרים-ביותר",
+        "product_count": 12,
         "button_text": "צפו בכל המוצרים"
       }
     },
