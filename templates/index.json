@@ -56,8 +56,8 @@
         "cat-1": {
           "type": "category",
           "settings": {
-            "title": "כלבים",
-            "subtitle": "6 מוצרים זמינים",
+            "title": "אוכל לכלבים",
+            "subtitle": "10+ מוצרים זמינים",
             "image": "shopify://shop_images/Gemini_Generated_Image_ykj6efykj6efykj6_69e53905-11a8-4708-a480-e2f56ef65167.png",
             "link": "",
             "bg_color": "#f9df8a"
@@ -66,7 +66,7 @@
         "cat-2": {
           "type": "category",
           "settings": {
-            "title": "חתולים",
+            "title": "אוכל לחתולים",
             "subtitle": "4 מוצרים זמינים",
             "image": "shopify://shop_images/Gemini_Generated_Image_9s39us9s39us9s39.png",
             "link": "",
@@ -76,8 +76,8 @@
         "cat-3": {
           "type": "category",
           "settings": {
-            "title": "דגים",
-            "subtitle": "2 מוצרים זמינים",
+            "title": "צעצועים לכלבים",
+            "subtitle": "10+ מוצרים זמינים",
             "image": "shopify://shop_images/Gemini_Generated_Image_owdne9owdne9owdn.png",
             "link": "",
             "bg_color": "#a9edfc"
@@ -86,8 +86,8 @@
         "cat-4": {
           "type": "category",
           "settings": {
-            "title": "ציפורים",
-            "subtitle": "3 מוצרים זמינים",
+            "title": "חטיפים",
+            "subtitle": "10+ מוצרים זמינים",
             "image": "shopify://shop_images/Gemini_Generated_Image_77ucw377ucw377uc.png",
             "link": "",
             "bg_color": "#f8ccfb"
@@ -97,7 +97,7 @@
           "type": "category",
           "settings": {
             "title": "ארנבים",
-            "subtitle": "4 מוצרים זמינים",
+            "subtitle": "קערות האכלה",
             "image": "shopify://shop_images/Gemini_Generated_Image_55oqvw55oqvw55oq.png",
             "link": "",
             "bg_color": "#d2d7d9"
@@ -107,7 +107,7 @@
           "type": "category",
           "settings": {
             "title": "צבים",
-            "subtitle": "5 מוצרים זמינים",
+            "subtitle": "מוצרי טיפוח לכלב",
             "image": "shopify://shop_images/Gemini_Generated_Image_j5nu6dj5nu6dj5nu_1.png",
             "link": "",
             "bg_color": "#daefc6"
