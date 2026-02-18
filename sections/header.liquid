@@ -60,7 +60,7 @@
 </style>
 <header class="th-header header-layout2">
   <div class="sticky-wrapper">
-    {%- if section.settings.show_top_bar -%}
+    {%- if section.settings.show_top_bar and template.name == 'index' -%}
       <div class="header-top">
         <div class="container">
           <div class="row justify-content-center justify-content-lg-between align-items-center gy-2">

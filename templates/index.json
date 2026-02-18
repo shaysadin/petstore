@@ -186,64 +186,6 @@
         "text": "מהרו! כמות מוגבלת! השתמשו בקוד: CATE20"
       }
     },
-    "food-supplements": {
-      "type": "food-supplements",
-      "blocks": {
-        "sup-1": {
-          "type": "item",
-          "settings": {
-            "title": "מזון רטוב",
-            "link": ""
-          }
-        },
-        "sup-2": {
-          "type": "item",
-          "settings": {
-            "title": "מזון יבש",
-            "link": ""
-          }
-        },
-        "sup-3": {
-          "type": "item",
-          "settings": {
-            "title": "חטיפים",
-            "link": ""
-          }
-        },
-        "sup-4": {
-          "type": "item",
-          "settings": {
-            "title": "מזון טבעי",
-            "link": ""
-          }
-        },
-        "sup-5": {
-          "type": "item",
-          "settings": {
-            "title": "תוספי מזון",
-            "link": ""
-          }
-        },
-        "sup-6": {
-          "type": "item",
-          "settings": {
-            "title": "מזון גולמי",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "sup-1",
-        "sup-2",
-        "sup-3",
-        "sup-4",
-        "sup-5",
-        "sup-6"
-      ],
-      "settings": {
-        "heading": "חקרו מזון ותוספים"
-      }
-    },
     "collection-dog": {
       "type": "collection-showcase",
       "settings": {
@@ -427,7 +369,6 @@
     "deals-countdown",
     "trending-products",
     "cta-banner",
-    "food-supplements",
     "collection-dog",
     "cta-delivery",
     "collection-cat",

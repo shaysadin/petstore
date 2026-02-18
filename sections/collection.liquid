@@ -2,14 +2,21 @@
   Collection page with breadcrumb, sort bar, product grid, and pagination.
 {% enddoc %}
 
-<div class="breadcumb-wrapper" data-bg-src="{{ 'breadcumb-bg-3.png' | asset_url }}">
+<script>document.body.classList.add('has-breadcrumb');</script>
+
+<div class="breadcumb-wrapper">
+  <div class="breadcumb-bg-thumb" data-overlay="title" data-opacity="5" data-bg-src="{{ 'breadcumb-bg-3.png' | asset_url }}"></div>
   <div class="container">
-    <div class="breadcumb-content">
-      <h1 class="breadcumb-title">{{ collection.title }}</h1>
-      <ul class="breadcumb-menu">
-        <li><a href="/">דף הבית</a></li>
-        <li>{{ collection.title }}</li>
-      </ul>
+    <div class="row">
+      <div class="col-xxl-12">
+        <div class="breadcumb-content">
+          <h1 class="breadcumb-title text-anim" data-cue="slideInUp" data-delay="100">{{ collection.title }}</h1>
+          <ul class="breadcumb-menu">
+            <li><a href="/">דף הבית</a></li>
+            <li>{{ collection.title }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>

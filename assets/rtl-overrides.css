@@ -231,6 +231,41 @@ body {
   text-align: right;
 }
 
+/* ===== Breadcrumb: blend with header ===== */
+body.has-breadcrumb .header-height-spacer {
+  display: none;
+}
+
+body.has-breadcrumb .th-header.header-layout2 {
+  background-color: transparent;
+  box-shadow: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+  padding-top: 30px;
+}
+
+body.has-breadcrumb .th-header.header-layout2 .main-menu > ul > li > a {
+  color: var(--white-color, #fff);
+  transition: color 0.3s ease;
+}
+
+body.has-breadcrumb .th-header.header-layout2 .main-menu ul li.menu-item-has-children > a:after {
+  color: var(--white-color, #fff);
+}
+
+body.has-breadcrumb .th-header.header-layout2.scrolled .main-menu ul li.menu-item-has-children > a:after {
+  color: var(--title-color);
+}
+
+body.has-breadcrumb .th-header.header-layout2.scrolled {
+  background-color: var(--white-color, #fff);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.07);
+  padding-top: 0;
+}
+
+body.has-breadcrumb .th-header.header-layout2.scrolled .main-menu > ul > li > a {
+  color: var(--title-color);
+}
+
 /* ===== Breadcrumbs ===== */
 .breadcumb-menu {
   padding-right: 0;
@@ -283,6 +318,55 @@ body {
 .slider-arrow.slider-next {
   right: auto;
   left: var(--pos-x, -90px);
+}
+
+/* Trending arrows: side-positioned like best-sellers */
+.week-treading-product-sec1 .slider-arrow {
+  background-color: var(--theme-color);
+  color: var(--white-color);
+  border: none;
+  --icon-size: 56px;
+  box-shadow: none;
+  left: auto;
+  right: var(--pos-x, -90px);
+}
+
+.week-treading-product-sec1 .slider-arrow.slider-next {
+  right: auto;
+  left: var(--pos-x, -90px);
+}
+
+.week-treading-product-sec1 .slider-arrow:hover {
+  background-color: var(--title-color);
+  color: var(--white-color);
+}
+
+/* Food collection arrows: centered below carousel */
+.food-collection-sec1 .slider-arrow {
+  background-color: var(--theme-color);
+  color: var(--white-color);
+  border: none;
+  --icon-size: 56px;
+  box-shadow: none;
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  margin-top: 20px;
+  display: inline-flex;
+}
+
+.food-collection-sec1 .slider-area {
+  text-align: center;
+}
+
+.food-collection-sec1 .slider-arrow + .slider-arrow {
+  margin-inline-start: 50px;
+}
+
+.food-collection-sec1 .slider-arrow:hover {
+  background-color: var(--title-color);
+  color: var(--white-color);
 }
 
 /* ===== Pagination Arrows ===== */
@@ -356,6 +440,26 @@ body {
 }
 
 /* ===== Promo Cards ===== */
+.cta2-content-wrap {
+  min-height: 220px;
+}
+
+.cta2-content-wrap .img-box {
+  flex-shrink: 0;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cta2-content-wrap .img-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
 .cta2-content-wrap .left-content {
   text-align: right;
 }
@@ -542,7 +646,10 @@ textarea.form-control {
 /* ===== Global Responsive Fixes ===== */
 
 /* Prevent horizontal overflow on all pages */
-html, body {
+html {
+  overflow-x: clip;
+}
+body {
   overflow-x: hidden;
 }
 
@@ -714,11 +821,9 @@ img {
     text-align: center;
   }
   .cta2-content-wrap .img-box {
-    text-align: center;
-    margin-top: 15px;
-  }
-  .cta2-content-wrap .img-box img {
-    max-height: 200px;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 15px;
   }
 
   /* Footer - single column */
@@ -790,6 +895,27 @@ img {
 
 /* ----- Medium: ≤ 767px (large phones / small tablets) ----- */
 @media (max-width: 767px) {
+  /* Side arrows → centered below carousel on mobile */
+  .slider-arrow,
+  .week-treading-product-sec1 .slider-arrow {
+    position: relative;
+    top: auto;
+    left: auto !important;
+    right: auto !important;
+    margin-top: 20px;
+    display: inline-flex;
+  }
+
+  .slider-area,
+  .week-treading-product-sec1 .slider-area {
+    text-align: center;
+  }
+
+  .slider-arrow + .slider-arrow,
+  .week-treading-product-sec1 .slider-arrow + .slider-arrow {
+    margin-inline-start: 30px;
+  }
+
   /* Countdown timer stays horizontal but smaller */
   .time-counter-box .counter-list {
     justify-content: center;

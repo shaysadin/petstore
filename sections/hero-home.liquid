@@ -12,7 +12,7 @@
   <div class="shape-mockup jump-reverse hero-shape-3-3" data-top="50%" data-right="42%">
     <img src="{{ 'shape-shape1-44.png' | asset_url }}" alt="">
   </div>
-  <div class="swiper th-slider" id="heroSlider8" data-slider-options='{"effect":"fade", "autoplay":false, "autoHeight": "true"}'>
+  <div class="swiper th-slider" id="heroSlider8" data-slider-options='{"effect":"fade","autoplay":false,"autoHeight":true}'>
     <div class="swiper-wrapper">
       {%- for block in section.blocks -%}
         <div class="swiper-slide" {{ block.shopify_attributes }}>
@@ -48,6 +48,131 @@
     <div class="slider-pagination"></div>
   </div>
 </div>
+
+{% stylesheet %}
+  /* Text overlay — always visible, outside Swiper */
+  .hero-text-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .hero-text-overlay .hero-style3 {
+    pointer-events: auto;
+  }
+
+  /* Image fade — first child is always relative to hold height */
+  .hero-img-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  .hero-img-slide:first-child {
+    position: relative;
+  }
+  .hero-img-slide.is-active {
+    opacity: 1;
+  }
+  /* Center and bottom-align images 2 & 3 inside the frame */
+  .hero-img-slide:not(:first-child) {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .hero-img-slide:not(:first-child) img {
+    max-height: 100%;
+    object-fit: contain;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (function() {
+    var hero = document.querySelector('.th-hero-wrapper.hero-3');
+    if (!hero) return;
+
+    /* ---- TEXT OVERLAY ---- */
+    var firstText = hero.querySelector('.swiper-slide .hero-style3');
+    if (firstText) {
+      hero.style.position = 'relative';
+
+      var clone = firstText.cloneNode(true);
+      clone.querySelectorAll('[data-ani]').forEach(function(el) {
+        el.removeAttribute('data-ani');
+        el.removeAttribute('data-ani-delay');
+      });
+
+      var overlay = document.createElement('div');
+      overlay.className = 'hero-text-overlay';
+
+      var inner = document.createElement('div');
+      inner.className = 'hero-inner';
+
+      var container = document.createElement('div');
+      container.className = 'container th-container';
+
+      var row = document.createElement('div');
+      row.className = 'row gy-40 align-items-center';
+
+      var col = document.createElement('div');
+      col.className = 'col-lg-6';
+
+      col.appendChild(clone);
+      row.appendChild(col);
+      container.appendChild(row);
+      inner.appendChild(container);
+      overlay.appendChild(inner);
+      hero.appendChild(overlay);
+
+      hero.querySelectorAll('.swiper-slide .hero-style3').forEach(function(el) {
+        el.style.visibility = 'hidden';
+      });
+    }
+
+    /* ---- IMAGE VERTICAL SLIDER ---- */
+    var imgContainer = hero.querySelector('.swiper-slide-active .hero3-img') ||
+                       hero.querySelector('.swiper-slide .hero3-img');
+    if (!imgContainer) return;
+
+    // Collect images from all slides
+    var allSlides = hero.querySelectorAll('.swiper-slide');
+    var images = [];
+    allSlides.forEach(function(slide) {
+      var img = slide.querySelector('.hero3-img img');
+      if (img) images.push(img.cloneNode(true));
+    });
+
+    if (images.length <= 1) return;
+
+    // Clear existing img and insert wrapped slides
+    var existingImgs = imgContainer.querySelectorAll('img');
+    existingImgs.forEach(function(img) { img.remove(); });
+
+    images.forEach(function(img, i) {
+      var wrapper = document.createElement('div');
+      wrapper.className = 'hero-img-slide' + (i === 0 ? ' is-active' : '');
+      wrapper.appendChild(img);
+      imgContainer.appendChild(wrapper);
+    });
+
+    // Simple fade cycle
+    var current = 0;
+    var total = images.length;
+    var slideEls = imgContainer.querySelectorAll('.hero-img-slide');
+
+    setInterval(function() {
+      slideEls[current].classList.remove('is-active');
+      current = (current + 1) % total;
+      slideEls[current].classList.add('is-active');
+    }, 4000);
+  })();
+{% endjavascript %}
 
 {% schema %}
 {

@@ -2,15 +2,22 @@
   Product details page with images, variant selector, add to cart, and meta info.
 {% enddoc %}
 
-<div class="breadcumb-wrapper" data-bg-src="{{ 'breadcumb-bg-3.png' | asset_url }}">
+<script>document.body.classList.add('has-breadcrumb');</script>
+
+<div class="breadcumb-wrapper">
+  <div class="breadcumb-bg-thumb" data-overlay="title" data-opacity="5" data-bg-src="{{ 'breadcumb-bg-3.png' | asset_url }}"></div>
   <div class="container">
-    <div class="breadcumb-content">
-      <h1 class="breadcumb-title">{{ product.title }}</h1>
-      <ul class="breadcumb-menu">
-        <li><a href="/">דף הבית</a></li>
-        <li><a href="/collections/all">מוצרים</a></li>
-        <li>{{ product.title }}</li>
-      </ul>
+    <div class="row">
+      <div class="col-xxl-12">
+        <div class="breadcumb-content">
+          <h1 class="breadcumb-title text-anim" data-cue="slideInUp" data-delay="100">{{ product.title }}</h1>
+          <ul class="breadcumb-menu">
+            <li><a href="/">דף הבית</a></li>
+            <li><a href="/collections/all">מוצרים</a></li>
+            <li>{{ product.title }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -19,23 +26,59 @@
   <div class="container th-container">
     <div class="row gx-60">
       {%- comment -%} Product images {%- endcomment -%}
-      <div class="col-lg-6">
-        <div class="product-big-img">
-          <div class="img">
-            {%- if product.featured_image -%}
-              <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" id="main-product-image">
-            {%- else -%}
-              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-            {%- endif -%}
+      <div class="col-lg-6 product-img-col">
+        <div class="product-img-sticky">
+          <div class="product-big-img" id="productMainImg">
+            <div class="img product-img-clickable">
+              {%- if product.featured_image -%}
+                <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" id="main-product-image" data-index="0">
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
           </div>
+          {%- if product.images.size > 1 -%}
+            <div class="product-thumb-slider mt-20">
+              <div class="swiper th-slider" id="productThumbSlider" data-slider-options='{"slidesPerView":4,"spaceBetween":10,"loop":false,"autoplay":false,"breakpoints":{"0":{"slidesPerView":3,"spaceBetween":8},"576":{"slidesPerView":4,"spaceBetween":10},"992":{"slidesPerView":5,"spaceBetween":10}}}'>
+                <div class="swiper-wrapper">
+                  {%- for image in product.images -%}
+                    <div class="swiper-slide">
+                      <div class="product-thumb{% if forloop.first %} active{% endif %}" data-img="{{ image | image_url: width: 800 }}" data-index="{{ forloop.index0 }}">
+                        <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy">
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} Fullscreen lightbox {%- endcomment -%}
+      <div class="product-lightbox" id="productLightbox">
+        <button class="lightbox-close" id="lightboxClose"><i class="far fa-times"></i></button>
+        <div class="lightbox-counter" id="lightboxCounter"></div>
+        <div class="lightbox-main">
+          <div class="swiper" id="lightboxSlider">
+            <div class="swiper-wrapper">
+              {%- for image in product.images -%}
+                <div class="swiper-slide">
+                  <div class="lightbox-slide">
+                    <img src="{{ image | image_url: width: 1600 }}" alt="{{ image.alt | escape }}">
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+          <button class="lightbox-arrow lightbox-prev" id="lightboxPrev"><i class="far fa-arrow-right"></i></button>
+          <button class="lightbox-arrow lightbox-next" id="lightboxNext"><i class="far fa-arrow-left"></i></button>
         </div>
         {%- if product.images.size > 1 -%}
-          <div class="product-thumb-area row gx-10 mt-20">
+          <div class="lightbox-thumbs">
             {%- for image in product.images -%}
-              <div class="col-auto">
-                <div class="thumb{% if forloop.first %} active{% endif %}" data-image="{{ image | image_url: width: 800 }}">
-                  <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy">
-                </div>
+              <div class="lightbox-thumb{% if forloop.first %} active{% endif %}" data-lb-index="{{ forloop.index0 }}">
+                <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}">
               </div>
             {%- endfor -%}
           </div>
@@ -43,7 +86,7 @@
       </div>
 
       {%- comment -%} Product info {%- endcomment -%}
-      <div class="col-lg-6 align-self-center">
+      <div class="col-lg-6">
         <div class="product-about">
           <h2 class="product-title">{{ product.title }}</h2>
           <div class="product-rating">
@@ -134,7 +177,7 @@
           </h2>
         </div>
         <div class="slider-area">
-          <div class="swiper th-slider has-shadow" id="relatedSlider" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"3"},"1200":{"slidesPerView":"5"}}}'>
+          <div class="swiper th-slider has-shadow" id="relatedSlider" data-slider-options='{"breakpoints":{"0":{"slidesPerView":2},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"3"},"1200":{"slidesPerView":"5"}}}'>
             <div class="swiper-wrapper">
               {%- for product in recommendations.products limit: 10 -%}
                 <div class="swiper-slide">
@@ -150,6 +193,408 @@
     {%- endif -%}
   </div>
 </section>
+
+<style>
+  /* Product description always right-aligned */
+  .product-about .text {
+    text-align: right;
+  }
+  .product-about .text * {
+    text-align: right !important;
+  }
+
+  /* Image column padding fix for RTL */
+  @media (min-width: 992px) {
+    .product-img-col {
+      align-self: flex-start;
+      padding-right: 0;
+      padding-left: var(--bs-gutter-x);
+    }
+  }
+  .product-img-sticky.is-stuck {
+    position: fixed;
+    z-index: 2;
+  }
+
+  /* Main image clickable */
+  .product-img-clickable {
+    cursor: pointer;
+    position: relative;
+  }
+  .product-img-clickable img#main-product-image {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+  }
+  .product-img-clickable::after {
+    content: "\f002";
+    font-family: var(--icon-font);
+    font-weight: 400;
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    background: var(--white-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--title-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .product-img-clickable:hover::after {
+    opacity: 1;
+  }
+
+  /* Thumbnail slider */
+  .product-thumb {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+  }
+  .product-thumb.active {
+    border-color: var(--theme-color);
+  }
+  .product-thumb img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Fullscreen lightbox */
+  .product-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.92);
+    flex-direction: column;
+  }
+  .product-lightbox.active {
+    display: flex;
+  }
+  .lightbox-main {
+    flex: 1;
+    position: relative;
+    min-height: 0;
+  }
+  .lightbox-main .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  .lightbox-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 50px 80px;
+  }
+  .lightbox-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+  }
+  .lightbox-close:hover {
+    opacity: 0.7;
+  }
+  .lightbox-counter {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .lightbox-arrow:hover {
+    background: rgba(255,255,255,0.3);
+  }
+  .lightbox-prev { right: 20px; }
+  .lightbox-next { left: 20px; }
+
+  /* Lightbox thumbnails */
+  .lightbox-thumbs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 20px 20px;
+    overflow-x: auto;
+    flex-shrink: 0;
+  }
+  .lightbox-thumb {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    opacity: 0.5;
+    transition: opacity 0.3s ease, border-color 0.3s ease;
+    flex-shrink: 0;
+  }
+  .lightbox-thumb.active {
+    border-color: var(--theme-color);
+    opacity: 1;
+  }
+  .lightbox-thumb:hover {
+    opacity: 0.85;
+  }
+  .lightbox-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (max-width: 767px) {
+    .lightbox-slide {
+      padding: 40px 15px;
+    }
+    .lightbox-arrow {
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+    }
+    .lightbox-prev { right: 10px; }
+    .lightbox-next { left: 10px; }
+    .lightbox-thumb {
+      width: 55px;
+      height: 55px;
+    }
+    .lightbox-thumbs {
+      gap: 8px;
+      padding: 10px 15px 15px;
+    }
+  }
+</style>
+
+<script>
+  window.addEventListener('load', function() {
+    var thumbs = document.querySelectorAll('.product-thumb');
+    var mainImg = document.getElementById('main-product-image');
+    var currentIndex = 0;
+
+    /* Thumbnail click → swap main image */
+    thumbs.forEach(function(thumb) {
+      thumb.addEventListener('click', function() {
+        var newSrc = this.getAttribute('data-img');
+        var idx = parseInt(this.getAttribute('data-index'), 10);
+        if (mainImg && newSrc) {
+          mainImg.src = newSrc;
+          mainImg.setAttribute('data-index', idx);
+          currentIndex = idx;
+        }
+        thumbs.forEach(function(t) { t.classList.remove('active'); });
+        this.classList.add('active');
+      });
+    });
+
+    /* Lightbox */
+    var lightbox = document.getElementById('productLightbox');
+    var closeBtn = document.getElementById('lightboxClose');
+    var prevBtn = document.getElementById('lightboxPrev');
+    var nextBtn = document.getElementById('lightboxNext');
+    var counter = document.getElementById('lightboxCounter');
+    var lbThumbs = document.querySelectorAll('.lightbox-thumb');
+    var lightboxSwiper = null;
+
+    function syncLbThumbs(idx) {
+      lbThumbs.forEach(function(t) { t.classList.remove('active'); });
+      if (lbThumbs[idx]) lbThumbs[idx].classList.add('active');
+    }
+
+    function updateCounter(idx) {
+      var total = lightbox.querySelectorAll('#lightboxSlider .swiper-slide').length;
+      if (counter) counter.textContent = (idx + 1) + ' / ' + total;
+      syncLbThumbs(idx);
+    }
+
+    function openLightbox(startIndex) {
+      if (!lightbox) return;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      if (!lightboxSwiper) {
+        lightboxSwiper = new Swiper('#lightboxSlider', {
+          initialSlide: startIndex || 0,
+          slidesPerView: 1,
+          loop: false,
+          effect: 'fade',
+          fadeEffect: { crossFade: true },
+          on: {
+            slideChange: function() {
+              updateCounter(this.activeIndex);
+            }
+          }
+        });
+      } else {
+        lightboxSwiper.slideTo(startIndex || 0, 0);
+      }
+      updateCounter(startIndex || 0);
+    }
+
+    function closeLightbox() {
+      if (!lightbox) return;
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    /* Click main image → open lightbox */
+    var mainImgWrap = document.querySelector('.product-img-clickable');
+    if (mainImgWrap) {
+      mainImgWrap.addEventListener('click', function() {
+        var idx = parseInt(mainImg.getAttribute('data-index') || '0', 10);
+        openLightbox(idx);
+      });
+    }
+
+    /* Lightbox thumbnail clicks */
+    lbThumbs.forEach(function(thumb) {
+      thumb.addEventListener('click', function() {
+        var idx = parseInt(this.getAttribute('data-lb-index'), 10);
+        if (lightboxSwiper) lightboxSwiper.slideTo(idx);
+      });
+    });
+
+    /* Lightbox controls */
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (prevBtn) prevBtn.addEventListener('click', function() {
+      if (lightboxSwiper) lightboxSwiper.slidePrev();
+    });
+    if (nextBtn) nextBtn.addEventListener('click', function() {
+      if (lightboxSwiper) lightboxSwiper.slideNext();
+    });
+
+    /* Close on backdrop click */
+    if (lightbox) {
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox || e.target.classList.contains('lightbox-slide')) {
+          closeLightbox();
+        }
+      });
+    }
+
+    /* Close on Escape key */
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+      if (lightboxSwiper && lightbox.classList.contains('active')) {
+        if (e.key === 'ArrowLeft') lightboxSwiper.slideNext();
+        if (e.key === 'ArrowRight') lightboxSwiper.slidePrev();
+      }
+    });
+
+    /* JS-based sticky for product images (desktop only) */
+    if (window.innerWidth > 991) {
+      var stickyEl = document.querySelector('.product-img-sticky');
+      var col = document.querySelector('.product-img-col');
+      var section = document.querySelector('.product-details');
+      if (stickyEl && col && section) {
+        var headerH = document.querySelector('.th-header') ? document.querySelector('.th-header').offsetHeight : 80;
+        var gap = 20;
+        var topOffset = headerH + gap;
+        /* Capture natural dimensions before any sticky changes */
+        var naturalWidth = stickyEl.offsetWidth;
+        var naturalRight = document.documentElement.clientWidth - col.getBoundingClientRect().right;
+        var colTopAbsolute = col.getBoundingClientRect().top + window.pageYOffset;
+
+        function recalc() {
+          /* Temporarily unstick to get true measurements */
+          stickyEl.classList.remove('is-stuck');
+          stickyEl.style.cssText = '';
+          naturalWidth = stickyEl.offsetWidth;
+          naturalRight = document.documentElement.clientWidth - col.getBoundingClientRect().right;
+          colTopAbsolute = col.getBoundingClientRect().top + window.pageYOffset;
+          headerH = document.querySelector('.th-header') ? document.querySelector('.th-header').offsetHeight : 80;
+          topOffset = headerH + gap;
+          handleSticky();
+        }
+
+        window.addEventListener('resize', recalc);
+
+        function handleSticky() {
+          if (window.innerWidth <= 991) {
+            stickyEl.classList.remove('is-stuck');
+            stickyEl.style.cssText = '';
+            return;
+          }
+
+          var sectionRect = section.getBoundingClientRect();
+          var elH = stickyEl.offsetHeight;
+          var scrollTop = window.pageYOffset;
+
+          /* Not enough content to scroll - skip */
+          var row = col.parentElement;
+          if (!row) return;
+          var infoCol = row.querySelector('.col-lg-6:not(.product-img-col)');
+          if (infoCol && infoCol.offsetHeight <= elH + 50) return;
+
+          /* Where section ends */
+          var sectionBottomAbs = sectionRect.bottom + scrollTop;
+          var maxFixedTop = sectionBottomAbs - elH - gap;
+
+          if (scrollTop + topOffset > colTopAbsolute) {
+            /* Should be sticky */
+            var fixedTop = Math.min(topOffset, sectionRect.bottom - elH - gap);
+            stickyEl.classList.add('is-stuck');
+            stickyEl.style.top = fixedTop + 'px';
+            stickyEl.style.width = naturalWidth + 'px';
+            stickyEl.style.right = naturalRight + 'px';
+          } else {
+            /* Back to normal */
+            stickyEl.classList.remove('is-stuck');
+            stickyEl.style.cssText = '';
+          }
+        }
+
+        window.addEventListener('scroll', handleSticky, { passive: true });
+        handleSticky();
+      }
+    }
+  });
+</script>
 
 {% schema %}
 {
