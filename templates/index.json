@@ -96,8 +96,8 @@
         "cat-5": {
           "type": "category",
           "settings": {
-            "title": "ארנבים",
-            "subtitle": "קערות האכלה",
+            "title": "קערות האכלה",
+            "subtitle": "10+ מוצרים זמינים",
             "image": "shopify://shop_images/Gemini_Generated_Image_55oqvw55oqvw55oq.png",
             "link": "",
             "bg_color": "#d2d7d9"
@@ -106,8 +106,8 @@
         "cat-6": {
           "type": "category",
           "settings": {
-            "title": "צבים",
-            "subtitle": "מוצרי טיפוח לכלב",
+            "title": "מוצרי טיפוח לכלב",
+            "subtitle": "10+ מוצרים זמינים",
             "image": "shopify://shop_images/Gemini_Generated_Image_j5nu6dj5nu6dj5nu_1.png",
             "link": "",
             "bg_color": "#daefc6"
