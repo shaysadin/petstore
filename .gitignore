@@ -12,6 +12,20 @@ node_modules/
 # Shopify CLI files
 .shopify/
 
+# Non-theme folders (not needed by Shopify)
+template/
+.claude/
+insperation/
+nul
+
+# Dev/docs files
+AGENTS.md
+CLAUDE.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+LICENSE.md
+README.md
+
 ## Release files
 release
 *.zip
