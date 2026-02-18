@@ -179,8 +179,8 @@
       "type": "trending-products",
       "settings": {
         "heading": "פופולרי השבוע",
-        "collection": "",
-        "product_count": 10
+        "collection": "מוצרים-מובילים",
+        "product_count": 12
       }
     },
     "cta-banner": {
