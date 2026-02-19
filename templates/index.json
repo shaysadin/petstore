@@ -142,10 +142,11 @@
         "card-2": {
           "type": "card",
           "settings": {
-            "tag": "15% הנחה",
-            "heading": "מזון טבעי טרי לחיות מחמד",
+            "tag": "10% הנחה",
+            "heading": "מוצרים לחתולים",
             "button_text": "קנו עכשיו",
-            "link": ""
+            "link": "",
+            "image": "shopify://shop_images/cta_3_1.png"
           }
         }
       },
