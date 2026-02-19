@@ -86,8 +86,8 @@ Version: 1.0.0
 ==================================*/
 /*------------------- 1.1. Mixin -------------------*/
 :root {
-  --theme-color: #F8721F;
-  --theme-color2: #F4E11B;
+  --theme-color: #F75C02;
+  --theme-color2: #FF8A3D;
   --title-color: #02000F;
   --body-color: #6C6D71;
   --smoke-color: #F6F6F6;
@@ -101,17 +101,17 @@ Version: 1.0.0
   --th-border-color3: rgba(56, 61, 70, 0.1);
   --light-color: #A1A4B1;
   --gray-color: #141414;
-  --gray-color2: #F4F3E6;
+  --gray-color2: #FFF0E6;
   --gray-color3: #A1A1A1;
   --gray-color4: #F4F1FC;
-  --gray-color5: #FFF5F1;
-  --smoke-color3: #FFF3E0;
+  --gray-color5: #FFF2EB;
+  --smoke-color3: #FFEADB;
   --smoke-color4: #F2F2F2;
   --black-color5: #22272E;
   --black-color6: #2D333D;
   --black-color7: #0E0E13;
   --white-color: #ffffff;
-  --yellow-color: #FFB539;
+  --yellow-color: #FF9A3D;
   --success-color: #28a745;
   --error-color: #dc3545;
   --th-border-color4: rgba(198, 201, 212, 0.5);
@@ -3865,17 +3865,18 @@ Version: 1.0.0
   background: var(--theme-color);
 }
 .th-btn.style3 {
-  background: var(--theme-color2);
-  color: var(--title-color);
+  background: var(--theme-color);
+  color: var(--white-color);
   padding: 22px 36px;
   border: 2px solid var(--title-color);
 }
 .th-btn.style3:after, .th-btn.style3:before {
-  background: var(--theme-color2);
+  background: var(--theme-color);
 }
 .th-btn.style3:focus, .th-btn.style3:hover, .th-btn.style3:active {
   background: var(--title-color);
   color: var(--white-color);
+  border-color: var(--theme-color);
 }
 .th-btn.style3:focus::before, .th-btn.style3:focus:after, .th-btn.style3:hover::before, .th-btn.style3:hover:after, .th-btn.style3:active::before, .th-btn.style3:active:after {
   width: 55%;
@@ -12575,6 +12576,8 @@ Version: 1.0.0
   .breadcumb-menu {
     margin-top: 100px;
     padding: 20px 60px 12px;
+    padding-right: 30px;
+    padding-left: 30px;
   }
 }
 
@@ -12621,7 +12624,7 @@ Version: 1.0.0
 }
 @media (max-width: 575px) {
   .breadcumb-wrapper .breadcumb-bg-thumb {
-    inset: 0;
+    inset: 0 -20px;
     border-radius: 0 0 24px 24px;
   }
 }
@@ -14657,7 +14660,7 @@ Version: 1.0.0
 .hero3-img:before {
   content: "";
   position: absolute;
-  background: #E6D445;
+  background: #ffa971;
   z-index: -1;
   border-radius: 100px;
   width: 111%;
@@ -14788,7 +14791,7 @@ Version: 1.0.0
     top: 54% !important;
   }
   .hero3-img::before {
-    width: 104%;
+    width: 100%;
     left: 0;
     bottom: 30px;
     border-radius: 40px;
@@ -19551,7 +19554,7 @@ Version: 1.0.0
   padding: 60px 0 172px;
   position: relative;
   background: -webkit-gradient(linear, left top, right top, color-stop(20%, #E99D2B), to(#E99D2B));
-  background: linear-gradient(to right, #E99D2B 20%, #E99D2B 100%);
+  background: linear-gradient(to right, #fca532 20%, #fca532 100%);
 }
 .deals-sec1 .deals-3-top {
   position: absolute;
@@ -26235,8 +26238,8 @@ Version: 1.0.0
           justify-content: space-between;
 }
 .cta2-content-wrap .left-content .subtitle {
-  font-size: 24px;
-  color: var(--theme-color2);
+  font-size: 16px;
+  color: var(--white-color);
   margin-bottom: 14px;
   display: block;
 }
@@ -26247,8 +26250,13 @@ Version: 1.0.0
   margin-bottom: 30px;
 }
 .cta2-content-wrap .left-content .th-btn.style3 {
-  border: 0;
+  border: 2px solid var(--title-color);
   padding: 19px 37px;
+}
+.cta2-content-wrap .left-content .th-btn.style3:focus,
+.cta2-content-wrap .left-content .th-btn.style3:hover,
+.cta2-content-wrap .left-content .th-btn.style3:active {
+  border-color: var(--theme-color);
 }
 
 @media (max-width: 425px) {

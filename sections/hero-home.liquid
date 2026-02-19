@@ -3,6 +3,7 @@
 {% enddoc %}
 
 <div class="th-hero-wrapper hero-3" id="hero">
+  <div class="hero-bg-shape3" data-bg-src="{{ 'hero-paw-bg.png' | asset_url }}"></div>
   <div class="shape-mockup moving hero-shape-3-1" data-top="14%" data-right="54%">
     <img src="{{ 'shape-shape1-42.png' | asset_url }}" alt="">
   </div>
@@ -16,20 +17,19 @@
     <div class="swiper-wrapper">
       {%- for block in section.blocks -%}
         <div class="swiper-slide" {{ block.shopify_attributes }}>
-          <div class="hero-bg-shape3" data-bg-src="{{ 'normal-hero3-bg-shape.png' | asset_url }}"></div>
           <div class="hero-inner">
             <div class="container th-container">
               <div class="row gy-40 align-items-center">
                 <div class="col-lg-6">
                   <div class="hero-style3">
-                    <span class="sub-title style3" data-ani="slideinup" data-ani-delay="0.2s"><img class="logo" src="{{ 'shape-hero-shape-3.png' | asset_url }}" alt=""> {{ block.settings.subtitle }}</span>
-                    <h1 class="hero-title" data-ani="slideinup" data-ani-delay="0.4s">{{ block.settings.heading }}</h1>
-                    <p class="hero-text" data-ani="slideinup" data-ani-delay="0.6s">{{ block.settings.text }}</p>
-                    <a href="{{ block.settings.button_url }}" data-ani="slideinup" data-ani-delay="0.8s" class="th-btn style3">{{ block.settings.button_text }}</a>
+                    <span class="sub-title style3"><img class="logo" src="{{ 'shape-hero-shape-3.png' | asset_url }}" alt=""> {{ block.settings.subtitle }}</span>
+                    <h1 class="hero-title">{{ block.settings.heading }}</h1>
+                    <p class="hero-text">{{ block.settings.text }}</p>
+                    <a href="{{ block.settings.button_url }}" class="th-btn style3">{{ block.settings.button_text }}</a>
                   </div>
                 </div>
                 <div class="col-lg-6">
-                  <div class="hero3-img" data-ani="slideinup" data-ani-delay="0.8s">
+                  <div class="hero3-img">
                     {%- if block.settings.image != blank -%}
                       <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.heading | escape }}">
                     {%- else -%}
@@ -50,6 +50,43 @@
 </div>
 
 {% stylesheet %}
+  /* Static hero background — outside swiper, no slide animation */
+  .hero-3 {
+    position: relative;
+  }
+  .hero-3 > .hero-bg-shape3 {
+    position: absolute;
+    inset: 0 40px;
+    border-radius: 100px;
+    z-index: 0;
+    opacity: 0;
+    animation: heroBgFade 0.6s ease-out 0.1s forwards;
+  }
+  @keyframes heroBgFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @media (max-width: 1700px) {
+    .hero-3 > .hero-bg-shape3 { inset: 0 0px; }
+  }
+  @media (max-width: 1600px) {
+    .hero-3 > .hero-bg-shape3 { inset: 0 30px; }
+  }
+  @media (max-width: 767px) {
+    .hero3-img:before {
+      left: 10px;
+      border-radius: 40px;
+    }
+  }
+  @media (max-width: 575px) {
+    .hero-3 > .hero-bg-shape3 { inset: 0 0px; border-radius: 50px; }
+  }
+
+  /* Hide original text inside swiper immediately — overlay clone handles display */
+  .hero-3 .swiper-slide .hero-style3 {
+    visibility: hidden;
+  }
+
   /* Text overlay — always visible, outside Swiper */
   .hero-text-overlay {
     position: absolute;
@@ -62,6 +99,32 @@
   }
   .hero-text-overlay .hero-style3 {
     pointer-events: auto;
+  }
+
+  /* Smooth entrance animations */
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-text-overlay .sub-title {
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease-out 0.2s forwards;
+  }
+  .hero-text-overlay .hero-title {
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease-out 0.4s forwards;
+  }
+  .hero-text-overlay .hero-text {
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease-out 0.6s forwards;
+  }
+  .hero-text-overlay .th-btn {
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease-out 0.8s forwards;
+  }
+  .hero3-img {
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease-out 0.8s forwards;
   }
 
   /* Image fade — first child is always relative to hold height */

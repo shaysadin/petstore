@@ -8,7 +8,7 @@
       <div class="row gy-4">
         {%- for block in section.blocks -%}
           <div class="col-lg-6" {{ block.shopify_attributes }}>
-            {%- assign promo_bgs = 'cta-bg-3-1.png,cta-bg-3-2.png' | split: ',' -%}
+            {%- assign promo_bgs = 'cta-orange-bg.png,cta-orange-bg.png' | split: ',' -%}
             {%- assign bg_index = forloop.index0 | modulo: 2 -%}
             <div class="cta2-content-wrap mega-hover" data-cue="slideInUp"
               {%- if block.settings.bg_image != blank %} data-bg-src="{{ block.settings.bg_image | image_url: width: 800 }}"{% else %} data-bg-src="{{ promo_bgs[bg_index] | asset_url }}"{% endif -%}>
