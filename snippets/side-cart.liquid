@@ -11,7 +11,7 @@
         <ul class="woocommerce-mini-cart cart_list product_list_widget">
           {%- for item in cart.items -%}
             <li class="woocommerce-mini-cart-item mini_cart_item">
-              <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="remove remove_from_cart_button"><i class="far fa-times"></i></a>
+              <button type="button" class="remove remove_from_cart_button" data-line="{{ forloop.index }}"><i class="far fa-times"></i></button>
               <a href="{{ item.url }}">
                 {%- if item.image -%}
                   <img src="{{ item.image | image_url: width: 100 }}" alt="{{ item.title | escape }}">

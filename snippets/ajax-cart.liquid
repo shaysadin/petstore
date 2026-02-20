@@ -1,0 +1,217 @@
+{% doc %}
+  AJAX add-to-cart with toast notification and side cart refresh.
+{% enddoc %}
+
+<style>
+  /* Toast notification */
+  .cart-toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    z-index: 999999;
+    background: var(--white-color, #fff);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, visibility 0.3s ease;
+    max-width: 90vw;
+    min-width: 280px;
+    border: 2px solid var(--theme-color);
+  }
+  .cart-toast.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+  .cart-toast__icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50%;
+    background: var(--theme-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+  }
+  .cart-toast__content {
+    flex: 1;
+  }
+  .cart-toast__title {
+    font-family: var(--title-font);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--title-color);
+    margin: 0 0 2px;
+    line-height: 1.3;
+  }
+  .cart-toast__message {
+    font-size: 13px;
+    color: var(--body-color);
+    margin: 0;
+  }
+  .cart-toast__close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: var(--body-color);
+    cursor: pointer;
+    padding: 0 0 0 8px;
+    line-height: 1;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  .cart-toast__close:hover {
+    opacity: 1;
+  }
+
+  /* Button loading state */
+  .btn-adding {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+</style>
+
+<div class="cart-toast" id="cartToast">
+  <div class="cart-toast__icon"><i class="far fa-check"></i></div>
+  <div class="cart-toast__content">
+    <p class="cart-toast__title" id="cartToastTitle"></p>
+    <p class="cart-toast__message" id="cartToastMessage">נוסף לעגלת הקניות</p>
+  </div>
+  <button class="cart-toast__close" onclick="document.getElementById('cartToast').classList.remove('active')">&times;</button>
+</div>
+
+<script>
+(function() {
+  var toastTimer;
+
+  function showToast(productName) {
+    var toast = document.getElementById('cartToast');
+    var title = document.getElementById('cartToastTitle');
+    if (!toast) return;
+    title.textContent = productName;
+    clearTimeout(toastTimer);
+    toast.classList.add('active');
+    toastTimer = setTimeout(function() {
+      toast.classList.remove('active');
+    }, 3500);
+  }
+
+  function updateCartCount(count) {
+    document.querySelectorAll('.header-button .badge').forEach(function(el) {
+      el.textContent = count;
+    });
+  }
+
+  function formatMoney(cents) {
+    return '\u20AA' + (cents / 100).toFixed(2);
+  }
+
+  function renderSideCartItems(cart) {
+    updateCartCount(cart.item_count);
+    var wrapper = document.querySelector('.sidemenu-cart .widget_shopping_cart_content');
+    if (!wrapper) return;
+
+    if (cart.items.length === 0) {
+      wrapper.innerHTML = '<ul class="woocommerce-mini-cart cart_list product_list_widget"></ul><p class="empty-cart-message">\u05D4\u05E2\u05D2\u05DC\u05D4 \u05E8\u05D9\u05E7\u05D4.</p>';
+      return;
+    }
+
+    var html = '<ul class="woocommerce-mini-cart cart_list product_list_widget">';
+    cart.items.forEach(function(item, i) {
+      var imgTag = item.image ? '<img src="' + item.image.replace(/(\.[a-z]+)(\?|$)/, '_100x$1$2') + '" alt="' + item.title.replace(/"/g, '&quot;') + '">' : '';
+      html += '<li class="woocommerce-mini-cart-item mini_cart_item">';
+      html += '<button type="button" class="remove remove_from_cart_button" data-line="' + (i + 1) + '"><i class="far fa-times"></i></button>';
+      html += '<a href="' + item.url + '">' + imgTag + item.product_title + '</a>';
+      html += '<span class="quantity">' + item.quantity + ' &times; <span class="woocommerce-Price-amount amount">' + formatMoney(item.price) + '</span></span>';
+      html += '</li>';
+    });
+    html += '</ul>';
+    html += '<p class="woocommerce-mini-cart__total total"><strong>\u05E1\u05D4\u05F4\u05DB \u05D1\u05D9\u05E0\u05D9\u05D9\u05DD:</strong> <span class="woocommerce-Price-amount amount">' + formatMoney(cart.total_price) + '</span></p>';
+    html += '<p class="woocommerce-mini-cart__buttons buttons"><a href="/cart" class="th-btn wc-forward">\u05E6\u05E4\u05D4 \u05D1\u05E2\u05D2\u05DC\u05D4</a><a href="/checkout" class="th-btn checkout wc-forward">\u05DC\u05EA\u05E9\u05DC\u05D5\u05DD</a></p>';
+    wrapper.innerHTML = html;
+  }
+
+  function refreshSideCart() {
+    fetch('/cart.js')
+      .then(function(r) { return r.json(); })
+      .then(renderSideCartItems)
+      .catch(function() {});
+  }
+
+  // Intercept all add-to-cart forms
+  document.addEventListener('submit', function(e) {
+    var form = e.target;
+    if (!form.action || form.action.indexOf('/cart/add') === -1) return;
+
+    e.preventDefault();
+
+    var submitBtn = form.querySelector('[type="submit"]');
+    var productName = '';
+
+    // Try to find product name near the form
+    var card = form.closest('.th-product');
+    if (card) {
+      var titleEl = card.querySelector('.product-title a, .product-title');
+      if (titleEl) productName = titleEl.textContent.trim();
+    }
+    // For product page
+    if (!productName) {
+      var pageTitle = document.querySelector('.product-title, .product_title');
+      if (pageTitle) productName = pageTitle.textContent.trim();
+    }
+
+    if (submitBtn) submitBtn.classList.add('btn-adding');
+
+    var formData = new FormData(form);
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      body: formData
+    })
+    .then(function(response) {
+      if (!response.ok) throw new Error('Failed');
+      return response.json();
+    })
+    .then(function(item) {
+      showToast(productName || item.product_title || '\u05DE\u05D5\u05E6\u05E8');
+      refreshSideCart();
+    })
+    .catch(function() {
+      showToast('\u05E9\u05D2\u05D9\u05D0\u05D4 \u05D1\u05D4\u05D5\u05E1\u05E4\u05D4 \u05DC\u05E1\u05DC');
+    })
+    .finally(function() {
+      if (submitBtn) submitBtn.classList.remove('btn-adding');
+    });
+  });
+
+  // Intercept side cart remove buttons (delegated)
+  document.addEventListener('click', function(e) {
+    var removeBtn = e.target.closest('.remove_from_cart_button[data-line]');
+    if (!removeBtn) return;
+
+    e.preventDefault();
+    var line = removeBtn.getAttribute('data-line');
+    var li = removeBtn.closest('li');
+    if (li) li.style.opacity = '0.4';
+
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ line: parseInt(line), quantity: 0 })
+    })
+    .then(function(r) { return r.json(); })
+    .then(renderSideCartItems)
+    .catch(function() {
+      if (li) li.style.opacity = '1';
+    });
+  });
+})();
+</script>

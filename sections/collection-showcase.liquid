@@ -58,6 +58,7 @@
               <span class="subtitle">{{ section.settings.promo_tag | default: 'Sale up 40% off' }}</span>
               <h4 class="box-title">{{ section.settings.promo_heading | default: 'Healthy Dog Food' }}</h4>
               <p class="box-text">{{ section.settings.promo_text | default: 'Yummy, balanced nutrition.' }}</p>
+              <a class="th-btn style3 th-btn-xl" href="{{ section.settings.promo_link }}">{{ section.settings.promo_button | default: 'Shop Now' }}</a>
               <div class="thumb">
                 {%- if section.settings.promo_image != blank -%}
                   <img src="{{ section.settings.promo_image | image_url: width: 500 }}" alt="{{ section.settings.promo_heading | escape }}">
@@ -65,7 +66,6 @@
                   <img src="{{ 'food1-collection-right.png' | asset_url }}" alt="">
                 {%- endif -%}
               </div>
-              <a class="th-btn style3 th-btn-xl" href="{{ section.settings.promo_link }}">{{ section.settings.promo_button | default: 'Shop Now' }}</a>
             </div>
           </div>
         {%- else -%}

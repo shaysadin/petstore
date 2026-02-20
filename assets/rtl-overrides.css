@@ -472,7 +472,7 @@ body.has-breadcrumb .th-header.header-layout2.scrolled .main-menu > ul > li > a 
 }
 
 .food1-collection-content .th-btn {
-  float: left;
+  float: right;
 }
 
 .food1-collection-content.style2 .content {
@@ -480,7 +480,7 @@ body.has-breadcrumb .th-header.header-layout2.scrolled .main-menu > ul > li > a 
 }
 
 .food1-collection-content.style2 .th-btn {
-  float: left;
+  float: right;
 }
 
 /* ===== Feature Cards ===== */

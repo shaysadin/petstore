@@ -8656,15 +8656,20 @@ Version: 1.0.0
 .widget_shopping_cart .cart_list a:not(.remove):hover {
   color: var(--theme-color);
 }
-.widget_shopping_cart .cart_list a.remove {
+.widget_shopping_cart .cart_list .remove {
   position: absolute;
   top: 50%;
   left: 95%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   color: var(--body-color);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
 }
-.widget_shopping_cart .cart_list a.remove:hover {
+.widget_shopping_cart .cart_list .remove:hover {
   color: var(--theme-color);
 }
 .widget_shopping_cart .cart_list img {
@@ -10729,9 +10734,9 @@ Version: 1.0.0
 .main-menu a {
   display: block;
   position: relative;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
-  font-family: var(--body-font);
+  font-family: var(--title-font);
   color: var(--title-color);
 }
 .main-menu a:hover {
@@ -10848,14 +10853,14 @@ Version: 1.0.0
 }
 .main-menu ul.sub-menu li a {
   position: relative;
-  padding-left: 0;
+  padding-right: 0;
   text-transform: capitalize;
 }
 .main-menu ul.sub-menu li a:before {
   content: "\f1b0";
   position: absolute;
   top: 6px;
-  left: 10px;
+  right: -10px;
   font-family: var(--icon-font);
   width: 11px;
   height: 11px;
@@ -10872,23 +10877,23 @@ Version: 1.0.0
   transition: 0.3s ease-in-out;
 }
 .main-menu ul.sub-menu li a:hover {
-  padding-left: 23px;
+  padding-right: 23px;
 }
 .main-menu ul.sub-menu li a:hover:before {
   visibility: visible;
   opacity: 1;
-  left: 0;
+  right: 0;
 }
 .main-menu ul.sub-menu li ul.sub-menu {
-  left: 100%;
-  right: auto;
+  right: 100%;
+  left: auto;
   top: 0;
   margin: 0 0;
-  margin-left: 20px;
+  margin-right: 20px;
 }
 .main-menu ul.sub-menu li ul.sub-menu li ul {
-  left: 100%;
-  right: auto;
+  right: 100%;
+  left: auto;
 }
 .main-menu .mega-menu-wrap {
   position: static;
@@ -15336,13 +15341,15 @@ Version: 1.0.0
   z-index: 99999;
   right: 0;
   top: 0;
+  left: 0;
   height: 100%;
-  width: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0);
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: all ease 0.8s;
-  transition: all ease 0.8s;
+  pointer-events: none;
+  -webkit-transition: opacity 0.4s ease, visibility 0.4s ease, background-color 0.4s ease;
+  transition: opacity 0.4s ease, visibility 0.4s ease, background-color 0.4s ease;
 }
 .sidemenu-wrapper .info-box_link {
   color: var(--title-color);
@@ -15394,10 +15401,8 @@ Version: 1.0.0
   position: relative;
   right: -500px;
   cursor: auto;
-  -webkit-transition-delay: 1s;
-          transition-delay: 1s;
-  -webkit-transition: right ease 1s;
-  transition: right ease 1s;
+  -webkit-transition: right 0.5s ease 0.15s;
+  transition: right 0.5s ease 0.15s;
 }
 .sidemenu-wrapper .sidemenu-content::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.1);
@@ -15416,9 +15421,8 @@ Version: 1.0.0
 .sidemenu-wrapper.show {
   opacity: 1;
   visibility: visible;
-  width: 100%;
-  -webkit-transition: all ease 0.8s;
-  transition: all ease 0.8s;
+  background-color: rgba(0, 0, 0, 0.75);
+  pointer-events: auto;
 }
 .sidemenu-wrapper.show .sidemenu-content {
   right: 0;
@@ -15428,8 +15432,8 @@ Version: 1.0.0
 
 /* Extra small devices */
 @media (max-width: 575px) {
-  .sidemenu-wrapper {
-    background: transparent;
+  .sidemenu-wrapper.show {
+    background-color: rgba(0, 0, 0, 0.5);
   }
   .sidemenu-wrapper .sidemenu-content {
     width: 100%;
@@ -17441,7 +17445,8 @@ Version: 1.0.0
   color: #372121;
 }
 .food1-collection-content .th-btn {
-  margin-top: 0px;
+  margin-top: 30px;
+  float: right;
 }
 .food1-collection-content .thumb img {
   margin-bottom: -48px;
@@ -17472,7 +17477,7 @@ Version: 1.0.0
   }
 }
 .food1-collection-content.style2 .box-text {
-  margin-bottom: 30px;
+  margin-bottom: 0px;
 }
 
 .food1-collection-content.style2 {
