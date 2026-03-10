@@ -1,0 +1,28 @@
+<section class="pp-featured-brand">
+  {%- if section.settings.background_image -%}
+    <img class="pp-featured-brand__bg" src="{{ section.settings.background_image | image_url: width: 1920 }}" alt="" loading="lazy">
+  {%- endif -%}
+
+  <div class="pp-featured-brand__content">
+    <h2 class="pp-h1" style="text-align:right;">{{ section.settings.heading }}</h2>
+    <p class="pp-body pp-featured-brand__text">{{ section.settings.text }}</p>
+    {%- if section.settings.button_text != blank -%}
+      <a href="{{ section.settings.button_url }}" class="pp-btn pp-btn--primary">{{ section.settings.button_text }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PP Featured Brand",
+  "class": "pp-featured-brand-section",
+  "settings": [
+    { "type": "image_picker", "id": "background_image", "label": "תמונת רקע" },
+    { "type": "text", "id": "heading", "default": "המזון האיכותי ביותר במחיר המשתלם ביותר!", "label": "כותרת" },
+    { "type": "textarea", "id": "text", "default": "בחרנו עבורכם מזון מובחר לכלבים ולחתולים, עשיר ברכיבים תזונתיים חיוניים, שמספק אנרגיה, ברק ובריאות יומיומית בלי לשלם יותר ממה שצריך. איכות אמיתית, במחיר שמרגיש נכון.", "label": "טקסט" },
+    { "type": "text", "id": "button_text", "default": "קנה עכשיו", "label": "טקסט כפתור" },
+    { "type": "url", "id": "button_url", "label": "קישור כפתור" }
+  ],
+  "presets": [{ "name": "PP Featured Brand" }]
+}
+{% endschema %}

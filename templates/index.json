@@ -1,386 +1,97 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "hero": {
-      "type": "hero-home",
-      "blocks": {
-        "slide-1": {
-          "type": "slide",
-          "settings": {
-            "subtitle": "מוצרים טבעיים לחיות מחמד",
-            "heading": "המוצרים הטובים ביותר לחיות שלכם!",
-            "text": "מרכיבים אורגניים באיכות הגבוהה ביותר למגוון מוצרים טבעיים 100% לחיות מחמד.",
-            "button_text": "גלו את המוצרים",
-            "button_url": ""
-          }
-        },
-        "slide-2": {
-          "type": "slide",
-          "settings": {
-            "subtitle": "מוצרים טבעיים לחיות מחמד",
-            "heading": "המוצרים הטובים ביותר לחיות שלכם!",
-            "text": "מרכיבים אורגניים באיכות הגבוהה ביותר למגוון מוצרים טבעיים 100% לחיות מחמד.",
-            "button_text": "גלו את המוצרים",
-            "button_url": ""
-          }
-        },
-        "slide-3": {
-          "type": "slide",
-          "settings": {
-            "subtitle": "מוצרים טבעיים לחיות מחמד",
-            "heading": "המוצרים הטובים ביותר לחיות שלכם!",
-            "text": "מרכיבים אורגניים באיכות הגבוהה ביותר למגוון מוצרים טבעיים 100% לחיות מחמד.",
-            "button_text": "גלו את המוצרים",
-            "button_url": ""
-          }
-        }
-      },
-      "block_order": [
-        "slide-1",
-        "slide-2",
-        "slide-3"
-      ],
-      "settings": {}
-    },
-    "category-grid": {
-      "type": "category-grid",
-      "blocks": {
-        "cat-1": {
-          "type": "category",
-          "settings": {
-            "title": "אוכל לכלבים",
-            "subtitle": "10+ מוצרים זמינים",
-            "image": "shopify://shop_images/Gemini_Generated_Image_ykj6efykj6efykj6_69e53905-11a8-4708-a480-e2f56ef65167.png",
-            "link": "",
-            "bg_color": "#f9df8a"
-          }
-        },
-        "cat-2": {
-          "type": "category",
-          "settings": {
-            "title": "אוכל לחתולים",
-            "subtitle": "4 מוצרים זמינים",
-            "image": "shopify://shop_images/Gemini_Generated_Image_9s39us9s39us9s39.png",
-            "link": "",
-            "bg_color": "#ceb99d"
-          }
-        },
-        "cat-3": {
-          "type": "category",
-          "settings": {
-            "title": "צעצועים לכלבים",
-            "subtitle": "10+ מוצרים זמינים",
-            "image": "shopify://shop_images/Gemini_Generated_Image_owdne9owdne9owdn.png",
-            "link": "",
-            "bg_color": "#a9edfc"
-          }
-        },
-        "cat-4": {
-          "type": "category",
-          "settings": {
-            "title": "חטיפים",
-            "subtitle": "10+ מוצרים זמינים",
-            "image": "shopify://shop_images/Gemini_Generated_Image_77ucw377ucw377uc.png",
-            "link": "",
-            "bg_color": "#f8ccfb"
-          }
-        },
-        "cat-5": {
-          "type": "category",
-          "settings": {
-            "title": "קערות האכלה",
-            "subtitle": "10+ מוצרים זמינים",
-            "image": "shopify://shop_images/Gemini_Generated_Image_55oqvw55oqvw55oq.png",
-            "link": "",
-            "bg_color": "#d2d7d9"
-          }
-        },
-        "cat-6": {
-          "type": "category",
-          "settings": {
-            "title": "מוצרי טיפוח לכלב",
-            "subtitle": "10+ מוצרים זמינים",
-            "image": "shopify://shop_images/Gemini_Generated_Image_j5nu6dj5nu6dj5nu_1.png",
-            "link": "",
-            "bg_color": "#daefc6"
-          }
-        }
-      },
-      "block_order": [
-        "cat-1",
-        "cat-2",
-        "cat-3",
-        "cat-4",
-        "cat-5",
-        "cat-6"
-      ],
+    "hero-banner": {
+      "type": "hero-banner",
       "settings": {
-        "heading": "חפשו לפי סוג"
+        "heading": "גן עדן לחיות כל מה שהחבר על ארבע צריך במקום אחד!",
+        "text": "אנחנו יודעים כמה הם חשובים לך. לכן יצרנו מקום אחד שבו תמצאי את כל מה שהם צריכים מזון איכותי, מיטות מפנקות, צעצועים, מוצרי טיפוח ואביזרים במחירים נוחים ובשירות שמרגיש אישי. כאן לא קונים סתם מוצר. כאן מפנקים באהבה.",
+        "button_text": "קנה עכשיו"
       }
     },
-    "promo-cards": {
-      "type": "promo-cards",
+    "category-search": {
+      "type": "category-search",
       "blocks": {
-        "card-1": {
-          "type": "card",
-          "settings": {
-            "tag": "10% הנחה",
-            "heading": "מוצרים לכלבים",
-            "button_text": "קנו עכשיו",
-            "link": "",
-            "image": "shopify://shop_images/shape-shape1-61.png"
-          }
-        },
-        "card-2": {
-          "type": "card",
-          "settings": {
-            "tag": "10% הנחה",
-            "heading": "מוצרים לחתולים",
-            "button_text": "קנו עכשיו",
-            "link": "",
-            "image": "shopify://shop_images/cta_3_1.png"
-          }
-        }
+        "cat-1": { "type": "category", "settings": { "title": "מזון לבעלי חיים" } },
+        "cat-2": { "type": "category", "settings": { "title": "חטיפים" } },
+        "cat-3": { "type": "category", "settings": { "title": "צעצועים" } },
+        "cat-4": { "type": "category", "settings": { "title": "מוצרי טיפוח" } },
+        "cat-5": { "type": "category", "settings": { "title": "מיטות" } }
       },
-      "block_order": [
-        "card-1",
-        "card-2"
-      ],
+      "block_order": ["cat-1", "cat-2", "cat-3", "cat-4", "cat-5"],
+      "settings": { "heading": "חפשו מוצר לפי:" }
+    },
+    "promo-cards": {
+      "type": "promo-cards-new",
+      "blocks": {
+        "card-1": { "type": "card", "settings": { "heading": "מוצרים לכלבים", "button_text": "קנה עכשיו" } },
+        "card-2": { "type": "card", "settings": { "heading": "מוצרים לחתולים", "button_text": "קנה עכשיו" } }
+      },
+      "block_order": ["card-1", "card-2"],
       "settings": {}
     },
     "best-sellers": {
-      "type": "best-sellers",
+      "type": "best-sellers-new",
       "settings": {
-        "heading": "המוצרים הנמכרים ביותר",
-        "collection": "הנמכרים-ביותר",
-        "product_count": 12,
-        "button_text": "צפו בכל המוצרים"
+        "heading": "המוצרים הנמכרים ביותר:",
+        "product_count": 4
       }
     },
-    "deals-countdown": {
-      "type": "deals-countdown",
+    "featured-brand": {
+      "type": "featured-brand",
       "settings": {
-        "subtitle": "מבצעי היום",
-        "heading": "המזון הטוב ביותר לחיית המחמד שלך!",
-        "text": "מצאו את כל המבצעים לחיות מחמד. 30% הנחה על קולקציית האביב!",
-        "button_text": "קנו עכשיו",
-        "button_url": "",
-        "timer_heading": "מהרו! המבצע מסתיים בעוד:",
-        "end_date": "12/06/2027"
+        "heading": "המזון האיכותי ביותר במחיר המשתלם ביותר!",
+        "text": "בחרנו עבורכם מזון מובחר לכלבים ולחתולים, עשיר ברכיבים תזונתיים חיוניים, שמספק אנרגיה, ברק ובריאות יומיומית בלי לשלם יותר ממה שצריך. איכות אמיתית, במחיר שמרגיש נכון.",
+        "button_text": "קנה עכשיו"
       }
     },
-    "trending-products": {
-      "type": "trending-products",
+    "food-products": {
+      "type": "food-products",
       "settings": {
-        "heading": "פופולרי השבוע",
-        "collection": "מוצרים-מובילים",
-        "product_count": 12
+        "product_count": 4
       }
     },
-    "cta-banner": {
-      "type": "cta-banner",
+    "new-arrival": {
+      "type": "new-arrival",
       "settings": {
-        "tag": "עד <span>30%</span> הנחה",
-        "heading": "100% מזון מזין אותנטי לחתול!",
-        "text": "מהרו! כמות מוגבלת! השתמשו בקוד: CATE20"
+        "heading": "סטנדרט חדש של תזונה עכשיו במחיר מבצע!",
+        "button_text": "קנה עכשיו"
       }
     },
-    "collection-dog": {
-      "type": "collection-showcase",
+    "additional-products": {
+      "type": "additional-products",
       "settings": {
-        "heading": "קולקציית מזון לכלבים",
-        "collection": "מזון-יבש-לכלבים",
-        "button_text": "צפו בכל המוצרים",
-        "promo_style": "style1",
-        "promo_tag": "עד 40% הנחה",
-        "promo_heading": "מזון בריא לכלבים",
-        "promo_text": "טעים, תזונה מאוזנת.",
-        "promo_button": "קנו עכשיו",
-        "promo_link": ""
-      }
-    },
-    "cta-delivery": {
-      "type": "cta-delivery",
-      "settings": {
-        "heading": "100% מקורי ומשלוח חינם בהזמנה מעל ₪399",
-        "button_text": "קנו עכשיו",
-        "button_url": ""
-      }
-    },
-    "collection-cat": {
-      "type": "collection-showcase",
-      "settings": {
-        "heading": "קולקציית מזון לחתולים",
-        "collection": "מזון-יבש-לחתולים",
-        "button_text": "צפו בכל המוצרים",
-        "promo_style": "style2",
-        "promo_tag": "עד 40% הנחה",
-        "promo_heading": "מזון בריא לחתולים",
-        "promo_text": "טעים, תזונה מאוזנת.",
-        "promo_button": "קנו עכשיו",
-        "promo_link": ""
+        "product_count": 2
       }
     },
     "testimonials": {
-      "type": "testimonials-home",
+      "type": "testimonials-new",
       "blocks": {
-        "testi-1": {
-          "type": "testimonial",
-          "settings": {
-            "name": "דוד כהן",
-            "company": "לקוח מאומת",
-            "review_text": "המוצרים בגודל מושלם לכלב הקטן שלנו. העיצוב חמוד והגומי בתחתית מעולה כי הוא הופך אותם לעמידים יותר.",
-            "rating": 5
-          }
-        },
-        "testi-2": {
-          "type": "testimonial",
-          "settings": {
-            "name": "מירי לוי",
-            "company": "לקוחה מאומתת",
-            "review_text": "שירות מעולה ומשלוח מהיר. המזון באיכות גבוהה והכלב שלי אוהב אותו. ממליצה בחום!",
-            "rating": 5
-          }
-        },
-        "testi-3": {
-          "type": "testimonial",
-          "settings": {
-            "name": "יוסי אברהם",
-            "company": "לקוח מאומת",
-            "review_text": "מחירים מצוינים ומבחר ענק. תמיד מוצא כאן את מה שאני צריך לחתולים שלי. חנות מומלצת!",
-            "rating": 5
-          }
-        }
+        "t-1": { "type": "testimonial", "settings": { "name": "גאיה נ.", "review_text": "הזמנתי מיטה ומזון לכלב שלי והייתי מופתעת מהאיכות. המשלוח הגיע מהר, הכל היה ארוז מושלם והמחיר באמת משתלם. הכי חשוב הכלב שלי פשוט התאהב במיטה החדשה" } },
+        "t-2": { "type": "testimonial", "settings": { "name": "רוני ב.", "review_text": "הזמנתי סט צעצועים והכלב פשוט השתגע משמחה. בטוח שאזמין שוב" } },
+        "t-3": { "type": "testimonial", "settings": { "name": "מאיה ל.", "review_text": "המחירים משתלמים והשירות סופר נעים. כיף לדעת שיש אתר שאפשר לסמוך עליו" } }
       },
-      "block_order": [
-        "testi-1",
-        "testi-2",
-        "testi-3"
-      ],
-      "settings": {
-        "heading": "מה הלקוחות אומרים"
-      }
+      "block_order": ["t-1", "t-2", "t-3"],
+      "settings": { "heading": "לקוחות מספרים" }
     },
-    "brands": {
-      "type": "brands-carousel",
-      "blocks": {
-        "brand-1": {
-          "type": "brand",
-          "settings": {
-            "name": "מותג 1",
-            "link": ""
-          }
-        },
-        "brand-2": {
-          "type": "brand",
-          "settings": {
-            "name": "מותג 2",
-            "link": ""
-          }
-        },
-        "brand-3": {
-          "type": "brand",
-          "settings": {
-            "name": "מותג 3",
-            "link": ""
-          }
-        },
-        "brand-4": {
-          "type": "brand",
-          "settings": {
-            "name": "מותג 4",
-            "link": ""
-          }
-        },
-        "brand-5": {
-          "type": "brand",
-          "settings": {
-            "name": "מותג 5",
-            "link": ""
-          }
-        },
-        "brand-6": {
-          "type": "brand",
-          "settings": {
-            "name": "מותג 6",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "brand-1",
-        "brand-2",
-        "brand-3",
-        "brand-4",
-        "brand-5",
-        "brand-6"
-      ],
+    "pet-guide": {
+      "type": "pet-guide",
       "settings": {
-        "heading": "קנו לפי מותג"
+        "heading": "המדריך לחיים טובים עם כלבים וחתולים",
+        "subtitle": "טיפים מעשיים, מדריכים מפורטים והמלצות מבוססות ניסיון שיעזרו לכם לגדל כלבים וחתולים בריאים, שמחים ומטופחים יותר מבחירת המזון הנכון ועד שגרת טיפוח",
+        "article_count": 4
       }
-    },
-    "features": {
-      "type": "features-bar",
-      "blocks": {
-        "feat-1": {
-          "type": "feature",
-          "settings": {
-            "title": "משלוח חינם",
-            "text": "משלוח חינם בהזמנה מעל ₪120"
-          }
-        },
-        "feat-2": {
-          "type": "feature",
-          "settings": {
-            "title": "אחריות החזר כספי",
-            "text": "אחריות החזר כספי תוך 7 ימים"
-          }
-        },
-        "feat-3": {
-          "type": "feature",
-          "settings": {
-            "title": "מועדון לקוחות",
-            "text": "הנחות מיוחדות לחברי מועדון"
-          }
-        },
-        "feat-4": {
-          "type": "feature",
-          "settings": {
-            "title": "תמיכה אונליין",
-            "text": "תמיכה זמינה 24 שעות ביממה"
-          }
-        }
-      },
-      "block_order": [
-        "feat-1",
-        "feat-2",
-        "feat-3",
-        "feat-4"
-      ],
-      "settings": {}
     }
   },
   "order": [
-    "hero",
-    "category-grid",
+    "hero-banner",
+    "category-search",
     "promo-cards",
     "best-sellers",
-    "deals-countdown",
-    "trending-products",
-    "cta-banner",
-    "collection-dog",
-    "cta-delivery",
-    "collection-cat",
+    "featured-brand",
+    "food-products",
+    "new-arrival",
+    "additional-products",
     "testimonials",
-    "brands",
-    "features"
+    "pet-guide"
   ]
 }

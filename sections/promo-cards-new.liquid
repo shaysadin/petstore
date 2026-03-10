@@ -1,0 +1,44 @@
+<section class="pp-promo-row">
+  {%- for block in section.blocks -%}
+    <div class="pp-promo-card" {{ block.shopify_attributes }}>
+      {%- if block.settings.image -%}
+        <img class="pp-promo-card__bg" src="{{ block.settings.image | image_url: width: 1580 }}" alt="{{ block.settings.heading | escape }}" loading="lazy">
+      {%- endif -%}
+      <div class="pp-promo-card__content">
+        <h2 class="pp-promo-card__title">{{ block.settings.heading }}</h2>
+        {%- if block.settings.button_text != blank -%}
+          <a href="{{ block.settings.button_url }}" class="pp-btn pp-btn--primary">{{ block.settings.button_text }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endfor -%}
+</section>
+
+{% schema %}
+{
+  "name": "PP Promo Cards",
+  "class": "pp-promo-section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "כרטיס",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "תמונת רקע" },
+        { "type": "text", "id": "heading", "label": "כותרת" },
+        { "type": "text", "id": "button_text", "default": "קנה עכשיו", "label": "טקסט כפתור" },
+        { "type": "url", "id": "button_url", "label": "קישור" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PP Promo Cards",
+      "blocks": [
+        { "type": "card", "settings": { "heading": "מוצרים לכלבים", "button_text": "קנה עכשיו" } },
+        { "type": "card", "settings": { "heading": "מוצרים לחתולים", "button_text": "קנה עכשיו" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

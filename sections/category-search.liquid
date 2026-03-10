@@ -1,0 +1,81 @@
+<section class="pp-category-section">
+  {%- comment -%} Brown wave with heading {%- endcomment -%}
+  <div class="pp-category-wave">
+    {% render 'wave-divider', type: 'top', color: '#501E15' %}
+    <div class="pp-category-wave__heading pp-h1" style="color:var(--pp-orange);">
+      {{ section.settings.heading | default: 'חפשו מוצר לפי:' }}
+    </div>
+  </div>
+
+  {%- comment -%} Category cards {%- endcomment -%}
+  <div class="pp-category-grid">
+    {%- for block in section.blocks -%}
+      <a href="{{ block.settings.link }}" class="pp-category-card" {{ block.shopify_attributes }}>
+        <div class="pp-category-card__bottom"></div>
+        <div class="pp-category-card__top">
+          {%- if block.settings.image -%}
+            <img
+              src="{{ block.settings.image | image_url: width: 530 }}"
+              alt="{{ block.settings.title | escape }}"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+        <span class="pp-category-card__label">{{ block.settings.title }}</span>
+      </a>
+    {%- endfor -%}
+  </div>
+
+  {%- comment -%} Bottom wave {%- endcomment -%}
+  {% render 'wave-divider', type: 'bottom', color: '#501E15' %}
+</section>
+
+{% schema %}
+{
+  "name": "PP Category Search",
+  "class": "pp-category-search-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "חפשו מוצר לפי:",
+      "label": "כותרת"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "קטגוריה",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "שם קטגוריה"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "אייקון קטגוריה"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "קישור"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PP Category Search",
+      "blocks": [
+        { "type": "category", "settings": { "title": "מזון לבעלי חיים" } },
+        { "type": "category", "settings": { "title": "חטיפים" } },
+        { "type": "category", "settings": { "title": "צעצועים" } },
+        { "type": "category", "settings": { "title": "מוצרי טיפוח" } },
+        { "type": "category", "settings": { "title": "מיטות" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,28 @@
+{%- comment -%}
+  Renders a blog article card matching the Figma design.
+  Accepts:
+    - article: {Article} Shopify article object (required)
+{%- endcomment -%}
+
+<div class="pp-blog-card">
+  {%- if article.image -%}
+    <img
+      class="pp-blog-card__img"
+      src="{{ article.image | image_url: width: 660 }}"
+      alt="{{ article.image.alt | escape }}"
+      loading="lazy"
+    >
+  {%- else -%}
+    {{ 'lifestyle-1' | placeholder_svg_tag: 'pp-blog-card__img' }}
+  {%- endif -%}
+
+  <div class="pp-blog-card__body">
+    <div class="pp-blog-card__content">
+      <h3 class="pp-blog-card__title">{{ article.title }}</h3>
+      <p class="pp-blog-card__excerpt">{{ article.excerpt_or_content | strip_html | truncate: 80 }}</p>
+    </div>
+    <div class="pp-blog-card__actions">
+      <a href="{{ article.url }}" class="pp-btn pp-btn--outline">קרא עוד</a>
+    </div>
+  </div>
+</div>

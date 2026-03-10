@@ -1,0 +1,66 @@
+{%- comment -%}
+  Renders a product card matching the Figma design.
+  Accepts:
+    - product: {Product} Shopify product object (required)
+{%- endcomment -%}
+
+<div class="pp-product-card">
+  {%- if product.featured_image -%}
+    <img
+      class="pp-product-card__img"
+      src="{{ product.featured_image | image_url: width: 678 }}"
+      alt="{{ product.featured_image.alt | escape }}"
+      loading="lazy"
+      width="339"
+      height="339"
+    >
+  {%- else -%}
+    {{ 'product-1' | placeholder_svg_tag: 'pp-product-card__img' }}
+  {%- endif -%}
+
+  <div class="pp-product-card__body">
+    <div class="pp-product-card__info">
+      <a href="{{ product.url }}" class="pp-product-card__title">
+        {{ product.title }}
+      </a>
+
+      {%- if product.metafields.custom.variant_label != blank -%}
+        <p class="pp-product-card__variant">{{ product.metafields.custom.variant_label }}</p>
+      {%- elsif product.variants.size > 1 -%}
+        <p class="pp-product-card__variant">{{ product.variants.first.title }}</p>
+      {%- endif -%}
+
+      {%- if product.options_by_name['Color'] -%}
+        <div class="pp-product-card__swatches">
+          {%- for value in product.options_by_name['Color'].values -%}
+            <span
+              class="pp-product-card__swatch"
+              style="background-color: {{ value | downcase }};"
+              title="{{ value }}"
+            ></span>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <div class="pp-product-card__price">
+        <span class="pp-product-card__price-current">{{ product.price | money_without_trailing_zeros }}</span>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="pp-product-card__price-compare">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="pp-product-card__actions">
+      <a href="{{ product.url }}" class="pp-btn pp-btn--outline">הוספה לסל</a>
+      <div class="pp-qty">
+        <button class="pp-qty__btn" aria-label="הוסף">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/></svg>
+        </button>
+        <span class="pp-qty__count">1</span>
+        <button class="pp-qty__btn" aria-label="הפחת">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 12.998h14v-2H5z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

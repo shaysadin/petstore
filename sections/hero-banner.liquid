@@ -1,0 +1,64 @@
+<section class="pp-hero">
+  {%- if section.settings.background_image -%}
+    <img
+      class="pp-hero__bg"
+      src="{{ section.settings.background_image | image_url: width: 1920 }}"
+      alt=""
+      loading="eager"
+    >
+  {%- else -%}
+    <div class="pp-hero__bg" style="background: var(--pp-cream);"></div>
+  {%- endif -%}
+
+  <div class="pp-hero__content">
+    <h1 class="pp-h1" style="text-align:right;">{{ section.settings.heading }}</h1>
+    <p class="pp-body pp-hero__text">{{ section.settings.text }}</p>
+    {%- if section.settings.button_text != blank -%}
+      <a href="{{ section.settings.button_url }}" class="pp-btn pp-btn--primary">
+        {{ section.settings.button_text }}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PP Hero Banner",
+  "class": "pp-hero-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "תמונת רקע"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "גן עדן לחיות כל מה שהחבר על ארבע צריך במקום אחד!",
+      "label": "כותרת"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "default": "אנחנו יודעים כמה הם חשובים לך. לכן יצרנו מקום אחד שבו תמצאי את כל מה שהם צריכים מזון איכותי, מיטות מפנקות, צעצועים, מוצרי טיפוח ואביזרים במחירים נוחים ובשירות שמרגיש אישי. כאן לא קונים סתם מוצר. כאן מפנקים באהבה.",
+      "label": "טקסט"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "default": "קנה עכשיו",
+      "label": "טקסט כפתור"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "קישור כפתור"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PP Hero Banner"
+    }
+  ]
+}
+{% endschema %}

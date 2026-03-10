@@ -1,0 +1,48 @@
+{%- assign blog = blogs[section.settings.blog] -%}
+{%- assign article_count = section.settings.article_count | default: 4 -%}
+
+<section class="py-5">
+  <div class="pp-guide-header">
+    <h2 class="pp-h1">{{ section.settings.heading | default: 'המדריך לחיים טובים עם כלבים וחתולים' }}</h2>
+    {%- if section.settings.subtitle != blank -%}
+      <p class="pp-body">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="pp-guide-grid">
+    {%- if blog != blank -%}
+      {%- for article in blog.articles limit: article_count -%}
+        {% render 'blog-card-new', article: article %}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..article_count) -%}
+        <div class="pp-blog-card">
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'pp-blog-card__img' }}
+          <div class="pp-blog-card__body">
+            <div class="pp-blog-card__content">
+              <h3 class="pp-blog-card__title">כתבה לדוגמה</h3>
+              <p class="pp-blog-card__excerpt">גורים לומדים מהר אבל טווח הקשב שלהם קצר. הקפידו על אימונים קצרים</p>
+            </div>
+            <div class="pp-blog-card__actions">
+              <a href="#" class="pp-btn pp-btn--outline">קרא עוד</a>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PP Pet Guide",
+  "class": "pp-pet-guide-section",
+  "settings": [
+    { "type": "text", "id": "heading", "default": "המדריך לחיים טובים עם כלבים וחתולים", "label": "כותרת" },
+    { "type": "textarea", "id": "subtitle", "default": "טיפים מעשיים, מדריכים מפורטים והמלצות מבוססות ניסיון שיעזרו לכם לגדל כלבים וחתולים בריאים, שמחים ומטופחים יותר מבחירת המזון הנכון ועד שגרת טיפוח", "label": "טקסט משנה" },
+    { "type": "blog", "id": "blog", "label": "בלוג" },
+    { "type": "range", "id": "article_count", "min": 2, "max": 8, "step": 1, "default": 4, "label": "מספר כתבות" }
+  ],
+  "presets": [{ "name": "PP Pet Guide" }]
+}
+{% endschema %}

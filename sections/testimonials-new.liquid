@@ -1,0 +1,60 @@
+<section class="pp-testimonials">
+  {%- if section.settings.background_image -%}
+    <img class="pp-testimonials__bg" src="{{ section.settings.background_image | image_url: width: 1920 }}" alt="" loading="lazy">
+  {%- else -%}
+    <div class="pp-testimonials__bg" style="background: linear-gradient(180deg, var(--pp-orange) 0%, #F78A3E 100%);"></div>
+  {%- endif -%}
+
+  <h2 class="pp-h1 pp-testimonials__heading">{{ section.settings.heading | default: 'לקוחות מספרים' }}</h2>
+
+  <div class="pp-testimonials__grid">
+    {%- for block in section.blocks -%}
+      <div class="pp-testi-card" {{ block.shopify_attributes }}>
+        <div class="pp-testi-card__quote">
+          <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.5 7.5H7.5C5.84 7.5 4.5 8.84 4.5 10.5V16.5C4.5 18.16 5.84 19.5 7.5 19.5H13.5V22.5C13.5 26.64 10.14 30 6 30V33C11.79 33 16.5 28.29 16.5 22.5V10.5C16.5 8.84 15.16 7.5 13.5 7.5ZM28.5 7.5H22.5C20.84 7.5 19.5 8.84 19.5 10.5V16.5C19.5 18.16 20.84 19.5 22.5 19.5H28.5V22.5C28.5 26.64 25.14 30 21 30V33C26.79 33 31.5 28.29 31.5 22.5V10.5C31.5 8.84 30.16 7.5 28.5 7.5Z" fill="var(--pp-orange)"/>
+          </svg>
+        </div>
+        <p class="pp-testi-card__text">{{ block.settings.review_text }}</p>
+        <div class="pp-testi-card__reviewer">
+          <span class="pp-testi-card__name">{{ block.settings.name }}</span>
+          {%- if block.settings.avatar -%}
+            <img class="pp-testi-card__avatar" src="{{ block.settings.avatar | image_url: width: 100 }}" alt="{{ block.settings.name | escape }}">
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PP Testimonials",
+  "class": "pp-testimonials-section",
+  "settings": [
+    { "type": "text", "id": "heading", "default": "לקוחות מספרים", "label": "כותרת" },
+    { "type": "image_picker", "id": "background_image", "label": "תמונת רקע" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "עדות",
+      "settings": [
+        { "type": "text", "id": "name", "label": "שם" },
+        { "type": "image_picker", "id": "avatar", "label": "תמונת פרופיל" },
+        { "type": "textarea", "id": "review_text", "label": "טקסט ביקורת" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PP Testimonials",
+      "blocks": [
+        { "type": "testimonial", "settings": { "name": "גאיה נ.", "review_text": "הזמנתי מיטה ומזון לכלב שלי והייתי מופתעת מהאיכות. המשלוח הגיע מהר, הכל היה ארוז מושלם והמחיר באמת משתלם. הכי חשוב הכלב שלי פשוט התאהב במיטה החדשה" } },
+        { "type": "testimonial", "settings": { "name": "רוני ב.", "review_text": "הזמנתי סט צעצועים והכלב פשוט השתגע משמחה. בטוח שאזמין שוב" } },
+        { "type": "testimonial", "settings": { "name": "מאיה ל.", "review_text": "המחירים משתלמים והשירות סופר נעים. כיף לדעת שיש אתר שאפשר לסמוך עליו" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

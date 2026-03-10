@@ -1,0 +1,27 @@
+<section class="pp-new-arrival">
+  <div class="pp-promo-card">
+    {%- if section.settings.image -%}
+      <img class="pp-promo-card__bg" src="{{ section.settings.image | image_url: width: 1580 }}" alt="{{ section.settings.heading | escape }}" loading="lazy">
+    {%- endif -%}
+    <div class="pp-promo-card__content">
+      <h2 class="pp-promo-card__title">{{ section.settings.heading | default: 'סטנדרט חדש של תזונה עכשיו במחיר מבצע!' }}</h2>
+      {%- if section.settings.button_text != blank -%}
+        <a href="{{ section.settings.button_url }}" class="pp-btn pp-btn--primary">{{ section.settings.button_text }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PP New Arrival",
+  "class": "pp-new-arrival-section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "תמונת רקע" },
+    { "type": "text", "id": "heading", "default": "סטנדרט חדש של תזונה עכשיו במחיר מבצע!", "label": "כותרת" },
+    { "type": "text", "id": "button_text", "default": "קנה עכשיו", "label": "טקסט כפתור" },
+    { "type": "url", "id": "button_url", "label": "קישור כפתור" }
+  ],
+  "presets": [{ "name": "PP New Arrival" }]
+}
+{% endschema %}

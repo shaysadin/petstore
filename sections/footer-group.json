@@ -12,11 +12,9 @@
   "name": "t:general.footer",
   "sections": {
     "footer": {
-      "type": "footer",
+      "type": "footer-new",
       "settings": {}
     }
   },
-  "order": [
-    "footer"
-  ]
+  "order": ["footer"]
 }
