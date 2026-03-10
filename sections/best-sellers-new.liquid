@@ -1,7 +1,7 @@
 {%- assign collection = collections[section.settings.collection] -%}
 {%- assign product_count = section.settings.product_count | default: 4 -%}
 
-<section class="py-5">
+<section>
   <h2 class="pp-h1 pp-section-heading">{{ section.settings.heading | default: 'המוצרים הנמכרים ביותר:' }}</h2>
 
   <div class="pp-product-grid">
@@ -12,10 +12,12 @@
     {%- else -%}
       {%- for i in (1..product_count) -%}
         <div class="pp-product-card">
-          {{ 'product-1' | placeholder_svg_tag: 'pp-product-card__img' }}
+          {%- capture prod_img -%}product-{{ i }}.png{%- endcapture -%}
+          <img class="pp-product-card__img" src="{{ prod_img | asset_url }}" alt="מוצר לדוגמה {{ i }}" loading="lazy">
           <div class="pp-product-card__body">
             <div class="pp-product-card__info">
-              <span class="pp-product-card__title">מוצר לדוגמה</span>
+              <span class="pp-product-card__title">מוצר לדוגמה {{ i }}</span>
+              <p class="pp-product-card__variant">מידה: 45 סמ׳ גובה:4 סמ׳</p>
               <div class="pp-product-card__price">
                 <span class="pp-product-card__price-current">₪199</span>
                 <span class="pp-product-card__price-compare">₪259</span>
@@ -23,6 +25,11 @@
             </div>
             <div class="pp-product-card__actions">
               <a href="#" class="pp-btn pp-btn--outline">הוספה לסל</a>
+              <div class="pp-qty">
+                <button class="pp-qty__btn" type="button" aria-label="הוסף"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/></svg></button>
+                <span class="pp-qty__count">1</span>
+                <button class="pp-qty__btn" type="button" aria-label="הפחת"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 12.998h14v-2H5z"/></svg></button>
+              </div>
             </div>
           </div>
         </div>

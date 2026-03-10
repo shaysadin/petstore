@@ -1,33 +1,31 @@
 <section class="pp-category-section">
-  {%- comment -%} Brown wave with heading {%- endcomment -%}
+  {%- comment -%} Brown wave section with heading {%- endcomment -%}
   <div class="pp-category-wave">
-    {% render 'wave-divider', type: 'top', color: '#501E15' %}
-    <div class="pp-category-wave__heading pp-h1" style="color:var(--pp-orange);">
-      {{ section.settings.heading | default: 'חפשו מוצר לפי:' }}
-    </div>
+    <svg style="position:absolute;top:-1px;left:0;width:100%;display:block;" viewBox="0 0 1920 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 200C320 50 640 0 960 80C1280 160 1600 100 1920 200V0H0Z" fill="#FFFFFF"/>
+    </svg>
+    <h2 class="pp-category-wave__heading">{{ section.settings.heading | default: 'חפשו מוצר לפי:' }}</h2>
   </div>
 
   {%- comment -%} Category cards {%- endcomment -%}
   <div class="pp-category-grid">
     {%- for block in section.blocks -%}
-      <a href="{{ block.settings.link }}" class="pp-category-card" {{ block.shopify_attributes }}>
-        <div class="pp-category-card__bottom"></div>
+      <a href="{{ block.settings.link | default: '#' }}" class="pp-category-card" {{ block.shopify_attributes }}>
         <div class="pp-category-card__top">
           {%- if block.settings.image -%}
-            <img
-              src="{{ block.settings.image | image_url: width: 530 }}"
-              alt="{{ block.settings.title | escape }}"
-              loading="lazy"
-            >
+            <img src="{{ block.settings.image | image_url: width: 530 }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+          {%- else -%}
+            {%- assign cat_index = forloop.index -%}
+            {%- if cat_index > 4 -%}{%- assign cat_index = 1 -%}{%- endif -%}
+            {%- capture cat_img -%}cat-3d-{{ cat_index }}.png{%- endcapture -%}
+            <img src="{{ cat_img | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy">
           {%- endif -%}
         </div>
+        <div class="pp-category-card__bottom"></div>
         <span class="pp-category-card__label">{{ block.settings.title }}</span>
       </a>
     {%- endfor -%}
   </div>
-
-  {%- comment -%} Bottom wave {%- endcomment -%}
-  {% render 'wave-divider', type: 'bottom', color: '#501E15' %}
 </section>
 
 {% schema %}
@@ -35,33 +33,16 @@
   "name": "PP Category Search",
   "class": "pp-category-search-section",
   "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "default": "חפשו מוצר לפי:",
-      "label": "כותרת"
-    }
+    { "type": "text", "id": "heading", "default": "חפשו מוצר לפי:", "label": "כותרת" }
   ],
   "blocks": [
     {
       "type": "category",
       "name": "קטגוריה",
       "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "שם קטגוריה"
-        },
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "אייקון קטגוריה"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "קישור"
-        }
+        { "type": "text", "id": "title", "label": "שם קטגוריה" },
+        { "type": "image_picker", "id": "image", "label": "אייקון קטגוריה" },
+        { "type": "url", "id": "link", "label": "קישור" }
       ]
     }
   ],

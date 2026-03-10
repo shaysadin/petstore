@@ -1,7 +1,7 @@
 {%- assign blog = blogs[section.settings.blog] -%}
 {%- assign article_count = section.settings.article_count | default: 4 -%}
 
-<section class="py-5">
+<section>
   <div class="pp-guide-header">
     <h2 class="pp-h1">{{ section.settings.heading | default: 'המדריך לחיים טובים עם כלבים וחתולים' }}</h2>
     {%- if section.settings.subtitle != blank -%}
@@ -17,11 +17,12 @@
     {%- else -%}
       {%- for i in (1..article_count) -%}
         <div class="pp-blog-card">
-          {{ 'lifestyle-1' | placeholder_svg_tag: 'pp-blog-card__img' }}
+          {%- capture blog_img -%}blog-{{ i }}.png{%- endcapture -%}
+          <img class="pp-blog-card__img" src="{{ blog_img | asset_url }}" alt="כתבה לדוגמה {{ i }}" loading="lazy">
           <div class="pp-blog-card__body">
             <div class="pp-blog-card__content">
-              <h3 class="pp-blog-card__title">כתבה לדוגמה</h3>
-              <p class="pp-blog-card__excerpt">גורים לומדים מהר אבל טווח הקשב שלהם קצר. הקפידו על אימונים קצרים</p>
+              <h3 class="pp-blog-card__title">כתבה לדוגמה {{ i }}</h3>
+              <p class="pp-blog-card__excerpt">גורים לומדים מהר אבל טווח הקשב שלהם קצר. הקפידו על אימונים קצרים ומהנים</p>
             </div>
             <div class="pp-blog-card__actions">
               <a href="#" class="pp-btn pp-btn--outline">קרא עוד</a>
@@ -30,6 +31,10 @@
         </div>
       {%- endfor -%}
     {%- endif -%}
+  </div>
+
+  <div style="text-align:center;padding:20px 0 40px;">
+    <a href="{{ section.settings.blog_url | default: '/blogs' }}" class="pp-btn pp-btn--outline">לכל הכתבות</a>
   </div>
 </section>
 

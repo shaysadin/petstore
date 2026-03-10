@@ -1,12 +1,12 @@
 {%- assign collection = collections[section.settings.collection] -%}
 {%- assign product_count = section.settings.product_count | default: 2 -%}
 
-<section class="py-5">
+<section>
   {%- if section.settings.heading != blank -%}
     <h2 class="pp-h1 pp-section-heading">{{ section.settings.heading }}</h2>
   {%- endif -%}
 
-  <div class="pp-product-grid" style="gap:82px;">
+  <div class="pp-product-grid">
     {%- if collection != blank -%}
       {%- for product in collection.products limit: product_count -%}
         {% render 'product-card-new', product: product %}
@@ -14,7 +14,9 @@
     {%- else -%}
       {%- for i in (1..product_count) -%}
         <div class="pp-product-card">
-          {{ 'product-1' | placeholder_svg_tag: 'pp-product-card__img' }}
+          {%- assign add_idx = i | plus: 2 -%}
+          {%- capture add_img -%}product-{{ add_idx }}.png{%- endcapture -%}
+          <img class="pp-product-card__img" src="{{ add_img | asset_url }}" alt="מוצר לדוגמה" loading="lazy">
           <div class="pp-product-card__body">
             <div class="pp-product-card__info">
               <span class="pp-product-card__title">מוצר לדוגמה</span>

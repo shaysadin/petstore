@@ -1,0 +1,70 @@
+{%- assign collection = collections[section.settings.collection] -%}
+{%- assign product_count = section.settings.product_count | default: 2 -%}
+
+<section class="pp-new-arrival-row">
+  {%- comment -%} Left side: promo card {%- endcomment -%}
+  <div class="pp-promo-card">
+    {%- if section.settings.image -%}
+      <img class="pp-promo-card__bg" src="{{ section.settings.image | image_url: width: 1580 }}" alt="{{ section.settings.heading | escape }}" loading="lazy">
+    {%- else -%}
+      <img class="pp-promo-card__bg" src="{{ 'new-arrival-bg.png' | asset_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy">
+    {%- endif -%}
+    <div class="pp-promo-card__content">
+      <h2 class="pp-promo-card__title">{{ section.settings.heading | default: 'סטנדרט חדש של תזונה עכשיו במחיר מבצע!' }}</h2>
+      {%- if section.settings.button_text != blank -%}
+        <a href="{{ section.settings.button_url | default: '#' }}" class="pp-btn pp-btn--primary">{{ section.settings.button_text }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} Right side: 2 product cards {%- endcomment -%}
+  <div class="pp-new-arrival-row__products">
+    {%- if collection != blank -%}
+      {%- for product in collection.products limit: product_count -%}
+        {% render 'product-card-new', product: product %}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..product_count) -%}
+        <div class="pp-product-card">
+          {%- assign add_idx = i | plus: 2 -%}
+          {%- capture add_img -%}product-{{ add_idx }}.png{%- endcapture -%}
+          <img class="pp-product-card__img" src="{{ add_img | asset_url }}" alt="מוצר לדוגמה" loading="lazy">
+          <div class="pp-product-card__body">
+            <div class="pp-product-card__info">
+              <span class="pp-product-card__title">מוצר לדוגמה</span>
+              <p class="pp-product-card__variant">מידה: 45 סמ׳ גובה:4 סמ׳</p>
+              <div class="pp-product-card__price">
+                <span class="pp-product-card__price-current">₪199</span>
+                <span class="pp-product-card__price-compare">₪259</span>
+              </div>
+            </div>
+            <div class="pp-product-card__actions">
+              <a href="#" class="pp-btn pp-btn--outline">הוספה לסל</a>
+              <div class="pp-qty">
+                <button class="pp-qty__btn" type="button" aria-label="הוסף"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/></svg></button>
+                <span class="pp-qty__count">1</span>
+                <button class="pp-qty__btn" type="button" aria-label="הפחת"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 12.998h14v-2H5z"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PP New Arrival Row",
+  "class": "pp-new-arrival-row-section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "תמונת רקע" },
+    { "type": "text", "id": "heading", "default": "סטנדרט חדש של תזונה עכשיו במחיר מבצע!", "label": "כותרת" },
+    { "type": "text", "id": "button_text", "default": "קנה עכשיו", "label": "טקסט כפתור" },
+    { "type": "url", "id": "button_url", "label": "קישור כפתור" },
+    { "type": "collection", "id": "collection", "label": "קולקציה מוצרים" },
+    { "type": "range", "id": "product_count", "min": 1, "max": 4, "step": 1, "default": 2, "label": "מספר מוצרים" }
+  ],
+  "presets": [{ "name": "PP New Arrival Row" }]
+}
+{% endschema %}

@@ -1,18 +1,16 @@
 {%- comment -%}
-  SVG wave divider for section transitions.
-  Accepts:
-    - type: 'top' or 'bottom' (default: 'top')
-    - color: hex color (default: #501E15)
+  SVG wave divider.
+  Accepts: type ('top'/'bottom'), color (hex, default #501E15)
 {%- endcomment -%}
 
 {%- assign wave_color = color | default: '#501E15' -%}
 
 {%- if type == 'bottom' -%}
-<svg class="pp-wave pp-wave--bottom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 531" preserveAspectRatio="none" style="display:block;width:100%;">
-  <path d="M0 0C0 0 400 531 960 531C1520 531 1920 0 1920 0V531H0V0Z" fill="{{ wave_color }}"/>
+<svg style="display:block;width:100%;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 200" preserveAspectRatio="none">
+  <path d="M0 0C320 150 640 200 960 120C1280 40 1600 100 1920 0V200H0Z" fill="{{ wave_color }}"/>
 </svg>
 {%- else -%}
-<svg class="pp-wave pp-wave--top" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 531" preserveAspectRatio="none" style="display:block;width:100%;">
-  <path d="M0 531C0 531 400 0 960 0C1520 0 1920 531 1920 531V0H0V531Z" fill="{{ wave_color }}"/>
+<svg style="display:block;width:100%;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 200" preserveAspectRatio="none">
+  <path d="M0 200C320 50 640 0 960 80C1280 160 1600 100 1920 200V0H0Z" fill="{{ wave_color }}"/>
 </svg>
 {%- endif -%}

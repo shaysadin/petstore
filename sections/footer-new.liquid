@@ -1,63 +1,7 @@
 <footer class="pp-footer">
   <div class="pp-footer__top">
-    {%- comment -%} Newsletter (left in RTL = appears on left) {%- endcomment -%}
-    <div class="pp-footer__newsletter">
-      <h2 class="pp-h2" style="text-align:right;">{{ section.settings.newsletter_heading | default: 'רוצים לפנק חכם יותר? הצטרפו לניוזלטר שלנו וקבלו מבצעים והטבות מיוחדות' }}</h2>
-      {%- form 'customer', id: 'pp-newsletter' -%}
-        <div class="pp-footer__email-row">
-          <input type="email" name="contact[email]" class="pp-footer__email-input" placeholder="{{ section.settings.email_placeholder | default: 'הקלד את המייל שלך' }}" required>
-        </div>
-        <button type="submit" class="pp-btn pp-btn--primary">{{ section.settings.submit_text | default: 'שלח' }}</button>
-      {%- endform -%}
-    </div>
-
-    {%- comment -%} Footer columns (right in RTL) {%- endcomment -%}
+    {%- comment -%} Footer columns (right side in RTL visual) {%- endcomment -%}
     <div class="pp-footer__columns">
-      {%- comment -%} Contact column {%- endcomment -%}
-      <div class="pp-footer__col">
-        <span class="pp-footer-heading">צור קשר</span>
-        {%- if section.settings.phone != blank -%}
-          <div class="pp-footer__contact-item">
-            <span class="pp-footer-text">{{ section.settings.phone }}</span>
-            <svg class="pp-footer__contact-icon" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M29.7 22.77V26.77C29.7 27.3 29.49 27.81 29.11 28.19C28.73 28.57 28.22 28.77 27.7 28.77C22.64 28.52 17.78 26.83 13.7 23.91C9.9 21.23 6.74 18.07 4.06 14.27C1.12 10.17 -0.57 5.29 -0.82 0.21C-0.82 -0.31 -0.62 -0.82 -0.24 -1.2C0.14 -1.58 0.65 -1.79 1.18 -1.79H5.18C6.14 -1.79 6.97 -1.09 7.11 -0.14C7.38 1.73 7.94 3.55 8.77 5.26C9.07 5.88 8.91 6.63 8.38 7.08L6.62 8.84C9.09 13.26 12.72 16.89 17.14 19.36L18.9 17.6C19.35 17.07 20.1 16.91 20.72 17.21C22.43 18.04 24.25 18.6 26.12 18.87C27.09 19.01 27.8 19.86 27.8 20.83L29.7 22.77Z" stroke="var(--pp-brown)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        {%- endif -%}
-        {%- if section.settings.email != blank -%}
-          <div class="pp-footer__contact-item">
-            <span class="pp-footer-text">{{ section.settings.email }}</span>
-            <svg class="pp-footer__contact-icon" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4.125 5.5H28.875C30.3888 5.5 31.625 6.73625 31.625 8.25V24.75C31.625 26.2637 30.3888 27.5 28.875 27.5H4.125C2.61125 27.5 1.375 26.2637 1.375 24.75V8.25C1.375 6.73625 2.61125 5.5 4.125 5.5Z" stroke="var(--pp-brown)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M31.625 8.25L16.5 17.875L1.375 8.25" stroke="var(--pp-brown)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        {%- endif -%}
-
-        {%- comment -%} Social icons {%- endcomment -%}
-        <div class="pp-footer__social">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'social_link' -%}
-              <a href="{{ block.settings.url }}" class="pp-footer__social-icon" target="_blank" rel="noopener" {{ block.shopify_attributes }}>
-                {%- if block.settings.icon -%}
-                  <img src="{{ block.settings.icon | image_url: width: 100 }}" alt="{{ block.settings.platform | escape }}" width="50" height="50">
-                {%- endif -%}
-              </a>
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-      </div>
-
-      {%- comment -%} Discover column {%- endcomment -%}
-      <div class="pp-footer__col">
-        <span class="pp-footer-heading">גלה עוד</span>
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'discover_link' -%}
-            <a href="{{ block.settings.url }}" class="pp-footer-text" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-
       {%- comment -%} Sitemap column {%- endcomment -%}
       <div class="pp-footer__col">
         <span class="pp-footer-heading">מפת אתר</span>
@@ -74,23 +18,84 @@
           <a href="/pages/privacy" class="pp-footer-text">מדיניות/פרטיות</a>
         {%- endif -%}
       </div>
+
+      {%- comment -%} Discover column {%- endcomment -%}
+      <div class="pp-footer__col">
+        <span class="pp-footer-heading">גלה עוד</span>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'discover_link' -%}
+            <a href="{{ block.settings.url | default: '#' }}" class="pp-footer-text" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- comment -%} Contact column {%- endcomment -%}
+      <div class="pp-footer__col">
+        <span class="pp-footer-heading">צור קשר</span>
+        {%- if section.settings.phone != blank -%}
+          <div class="pp-footer__contact-item">
+            <span class="pp-footer-text">{{ section.settings.phone }}</span>
+            <svg class="pp-footer__contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 16.92V19.92C22 20.48 21.47 20.95 20.91 20.99C15.73 20.5 10.83 18.37 6.97 14.93C3.42 11.77 1.12 7.77 0.61 3.37C0.56 2.82 1.04 2.35 1.6 2.35H4.6C5.1 2.35 5.53 2.71 5.61 3.2C5.94 5.14 6.61 7.01 7.58 8.72C7.79 9.1 7.69 9.57 7.36 9.84L5.6 11.28C7.85 15.37 11.17 18.38 15.48 20.29L16.9 18.48C17.17 18.14 17.65 18.03 18.04 18.25C19.73 19.2 21.59 19.87 23.52 20.2C24.01 20.28 24.38 20.72 24.38 21.22" stroke="#501E15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.email != blank -%}
+          <div class="pp-footer__contact-item">
+            <span class="pp-footer-text">{{ section.settings.email }}</span>
+            <svg class="pp-footer__contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="#501E15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M22 6L12 13L2 6" stroke="#501E15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Social icons {%- endcomment -%}
+        <div class="pp-footer__social">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'social_link' -%}
+              <a href="{{ block.settings.url | default: '#' }}" class="pp-footer__social-icon" target="_blank" rel="noopener" {{ block.shopify_attributes }}>
+                {%- if block.settings.icon -%}
+                  <img src="{{ block.settings.icon | image_url: width: 100 }}" alt="{{ block.settings.platform | escape }}" width="50" height="50">
+                {%- else -%}
+                  {%- assign social_idx = forloop.index -%}
+                  {%- if social_idx > 6 -%}{%- assign social_idx = 1 -%}{%- endif -%}
+                  {%- capture social_img -%}social-{{ social_idx }}.png{%- endcapture -%}
+                  <img src="{{ social_img | asset_url }}" alt="{{ block.settings.platform | escape }}" width="50" height="50">
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Newsletter (left side in RTL visual) {%- endcomment -%}
+    <div class="pp-footer__newsletter">
+      <h2 class="pp-h2" style="text-align:right;">{{ section.settings.newsletter_heading | default: 'רוצים לפנק חכם יותר? הצטרפו לניוזלטר שלנו וקבלו מבצעים והטבות מיוחדות' }}</h2>
+      {%- form 'customer', id: 'pp-newsletter' -%}
+        <div class="pp-footer__email-row">
+          <button type="submit" class="pp-btn pp-btn--primary">{{ section.settings.submit_text | default: 'שלח' }}</button>
+          <input type="email" name="contact[email]" class="pp-footer__email-input" placeholder="{{ section.settings.email_placeholder | default: 'הקלד את המייל שלך' }}" required>
+        </div>
+      {%- endform -%}
     </div>
   </div>
 
   <hr class="pp-footer__divider">
 
   <div class="pp-footer__bottom">
-    {%- if section.settings.logo -%}
-      <img src="{{ section.settings.logo | image_url: width: 424 }}" alt="{{ shop.name }}" style="height:23px;">
-    {%- else -%}
-      <span class="pp-footer-text" style="font-weight:700;">{{ shop.name }}</span>
-    {%- endif -%}
-
     <div class="pp-footer__payments">
       {%- for type in shop.enabled_payment_types -%}
         {{ type | payment_type_svg_tag: class: 'pp-footer__payment-icon' }}
       {%- endfor -%}
     </div>
+
+    {%- if section.settings.logo -%}
+      <img src="{{ section.settings.logo | image_url: width: 424 }}" alt="{{ shop.name }}" style="height:23px;">
+    {%- else -%}
+      <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" style="height:23px;">
+    {%- endif -%}
   </div>
 </footer>
 

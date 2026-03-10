@@ -50,16 +50,11 @@
         "product_count": 4
       }
     },
-    "new-arrival": {
-      "type": "new-arrival",
+    "new-arrival-row": {
+      "type": "new-arrival-row",
       "settings": {
         "heading": "סטנדרט חדש של תזונה עכשיו במחיר מבצע!",
-        "button_text": "קנה עכשיו"
-      }
-    },
-    "additional-products": {
-      "type": "additional-products",
-      "settings": {
+        "button_text": "קנה עכשיו",
         "product_count": 2
       }
     },
@@ -89,8 +84,7 @@
     "best-sellers",
     "featured-brand",
     "food-products",
-    "new-arrival",
-    "additional-products",
+    "new-arrival-row",
     "testimonials",
     "pet-guide"
   ]

@@ -1,16 +1,28 @@
+<div class="pp-featured-brand__wave-wrap">
+  <svg viewBox="0 0 1920 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:120px;">
+    <path d="M0 120C320 30 640 0 960 50C1280 100 1600 60 1920 120V0H0Z" fill="#FFFFFF"/>
+  </svg>
+</div>
 <section class="pp-featured-brand">
   {%- if section.settings.background_image -%}
     <img class="pp-featured-brand__bg" src="{{ section.settings.background_image | image_url: width: 1920 }}" alt="" loading="lazy">
+  {%- else -%}
+    <img class="pp-featured-brand__bg" src="{{ 'featured-brand-bg.png' | asset_url }}" alt="" loading="lazy">
   {%- endif -%}
 
   <div class="pp-featured-brand__content">
-    <h2 class="pp-h1" style="text-align:right;">{{ section.settings.heading }}</h2>
+    <h2 class="pp-h1">{{ section.settings.heading }}</h2>
     <p class="pp-body pp-featured-brand__text">{{ section.settings.text }}</p>
     {%- if section.settings.button_text != blank -%}
-      <a href="{{ section.settings.button_url }}" class="pp-btn pp-btn--primary">{{ section.settings.button_text }}</a>
+      <a href="{{ section.settings.button_url | default: '#' }}" class="pp-btn pp-btn--primary">{{ section.settings.button_text }}</a>
     {%- endif -%}
   </div>
 </section>
+<div class="pp-featured-brand__wave-wrap">
+  <svg viewBox="0 0 1920 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:120px;transform:rotate(180deg);">
+    <path d="M0 120C320 30 640 0 960 50C1280 100 1600 60 1920 120V0H0Z" fill="#FFFFFF"/>
+  </svg>
+</div>
 
 {% schema %}
 {

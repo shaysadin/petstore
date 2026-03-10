@@ -1,20 +1,23 @@
 {%- comment -%}
   Renders a blog article card matching the Figma design.
-  Accepts:
-    - article: {Article} Shopify article object (required)
+  Accepts: article {Article} (required)
 {%- endcomment -%}
 
 <div class="pp-blog-card">
-  {%- if article.image -%}
-    <img
-      class="pp-blog-card__img"
-      src="{{ article.image | image_url: width: 660 }}"
-      alt="{{ article.image.alt | escape }}"
-      loading="lazy"
-    >
-  {%- else -%}
-    {{ 'lifestyle-1' | placeholder_svg_tag: 'pp-blog-card__img' }}
-  {%- endif -%}
+  <a href="{{ article.url }}">
+    {%- if article.image -%}
+      <img
+        class="pp-blog-card__img"
+        src="{{ article.image | image_url: width: 660 }}"
+        alt="{{ article.image.alt | escape }}"
+        loading="lazy"
+      >
+    {%- else -%}
+      <div style="width:100%;aspect-ratio:1/1;background:var(--pp-cream);display:flex;align-items:center;justify-content:center;padding:12px;">
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    {%- endif -%}
+  </a>
 
   <div class="pp-blog-card__body">
     <div class="pp-blog-card__content">
