@@ -664,7 +664,7 @@ a.pp-btn:hover {
   gap: 75px;
   justify-content: center;
   align-items: stretch;
-  padding: 60px 132px;
+  padding: 40px 132px;
   max-width: 1920px;
   margin: 0 auto;
 }
@@ -677,7 +677,7 @@ a.pp-btn:hover {
 .pp-best-sellers-section,
 .pp-food-products-section {
   background: var(--pp-white);
-  padding: 60px 0 80px;
+  padding: 40px 0 40px;
 }
 .pp-product-grid {
   display: flex;
@@ -691,7 +691,7 @@ a.pp-btn:hover {
 }
 .pp-section-heading {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 86px;
 }
 
 /* --- Featured Brand --- */
@@ -736,7 +736,7 @@ a.pp-btn:hover {
   gap: 82px;
   justify-content: center;
   align-items: flex-start;
-  padding: 0 132px 80px;
+  padding: 0 132px 40px;
   max-width: 1920px;
   margin: 0 auto;
 }
@@ -793,11 +793,11 @@ a.pp-btn:hover {
 /* --- Pet Guide --- */
 .pp-pet-guide-section {
   background: var(--pp-white);
-  padding: 80px 0 60px;
+  padding: 80px 0 40px;
 }
 .pp-guide-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 73px;
   max-width: 730px;
   margin-left: auto;
   margin-right: auto;
@@ -812,7 +812,7 @@ a.pp-btn:hover {
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
-  padding: 0 132px 60px;
+  padding: 0 132px 73px;
   max-width: 1920px;
   margin: 0 auto;
 }
@@ -821,7 +821,7 @@ a.pp-btn:hover {
 .pp-footer-section { /* wrapper from schema class */ }
 .pp-footer {
   background: var(--pp-cream);
-  padding: 81px 80px 40px;
+  padding: 81px 80px 60px;
 }
 .pp-footer__top {
   display: flex;
