@@ -520,6 +520,7 @@ a.pp-btn:hover {
   position: sticky;
   top: 0;
   z-index: 1000;
+  overflow: visible !important;
 }
 .pp-navbar {
   background: var(--pp-orange);
@@ -529,6 +530,7 @@ a.pp-btn:hover {
   align-items: center;
   padding: 0;
   z-index: 1000;
+  overflow: visible !important;
 }
 .pp-navbar__logo-wrap { flex-shrink: 0; }
 .pp-navbar__logo { height: 21.364px; }
@@ -1352,7 +1354,7 @@ a.pp-btn:hover {
   }
   .pp-hero__inner {
     flex-direction: column;
-    padding: 24px 20px 0;
+    padding: 48px 20px 0;
     height: auto;
     min-height: auto;
     gap: 14px;
@@ -1758,7 +1760,7 @@ a.pp-btn:hover {
 
   /* --- Hero --- */
   .pp-hero { aspect-ratio: 360 / 590; overflow: visible; }
-  .pp-hero__inner { padding: 20px 16px 0; gap: 10px; }
+  .pp-hero__inner { padding: 48px 16px 0; gap: 10px; }
   .pp-hero__content { width: 100%; max-width: 100%; gap: 10px; }
   .pp-hero__content .pp-h1 { font-size: 24px; line-height: 1.25; }
   .pp-hero__text { font-size: 12px; line-height: 1.5; }

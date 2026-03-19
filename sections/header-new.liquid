@@ -46,11 +46,12 @@
   .pp-navbar__dropdown:hover::after {
     display: block;
   }
-  .pp-navbar__dropdown:hover .pp-navbar__dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(50%) translateY(0);
-    pointer-events: auto;
+  .pp-navbar__dropdown:hover > .pp-navbar__dropdown-menu {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateX(50%) translateY(0) !important;
+    pointer-events: auto !important;
+    display: block !important;
   }
   .pp-navbar__dropdown-link {
     display: block;
