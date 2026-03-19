@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero-banner": {
@@ -5,28 +14,84 @@
       "settings": {
         "heading": "גן עדן לחיות כל מה שהחבר על ארבע צריך במקום אחד!",
         "text": "אנחנו יודעים כמה הם חשובים לך. לכן יצרנו מקום אחד שבו תמצאי את כל מה שהם צריכים מזון איכותי, מיטות מפנקות, צעצועים, מוצרי טיפוח ואביזרים במחירים נוחים ובשירות שמרגיש אישי. כאן לא קונים סתם מוצר. כאן מפנקים באהבה.",
-        "button_text": "קנה עכשיו"
+        "button_text": "קנה עכשיו",
+        "button_url": ""
       }
     },
     "category-search": {
       "type": "category-search",
       "blocks": {
-        "cat-1": { "type": "category", "settings": { "title": "מזון לבעלי חיים", "link": "/collections/מזון-יבש" } },
-        "cat-2": { "type": "category", "settings": { "title": "חטיפים", "link": "/collections/חטיפים" } },
-        "cat-3": { "type": "category", "settings": { "title": "צעצועים", "link": "/collections/צעצועים" } },
-        "cat-4": { "type": "category", "settings": { "title": "מוצרי טיפוח", "link": "/collections/מוצרי-טיפוח" } },
-        "cat-5": { "type": "category", "settings": { "title": "מיטות", "link": "/collections/מיטות" } }
+        "cat-1": {
+          "type": "category",
+          "settings": {
+            "title": "מזון לבעלי חיים",
+            "link": "/collections/מזון-יבש"
+          }
+        },
+        "cat-2": {
+          "type": "category",
+          "settings": {
+            "title": "חטיפים",
+            "link": "/collections/חטיפים"
+          }
+        },
+        "cat-3": {
+          "type": "category",
+          "settings": {
+            "title": "צעצועים",
+            "link": "/collections/צעצועים"
+          }
+        },
+        "cat-4": {
+          "type": "category",
+          "settings": {
+            "title": "מוצרי טיפוח",
+            "link": "/collections/מוצרי-טיפוח"
+          }
+        },
+        "cat-5": {
+          "type": "category",
+          "settings": {
+            "title": "מיטות",
+            "link": "/collections/מיטות"
+          }
+        }
       },
-      "block_order": ["cat-1", "cat-2", "cat-3", "cat-4", "cat-5"],
-      "settings": { "heading": "חפשו מוצר לפי:" }
+      "block_order": [
+        "cat-1",
+        "cat-2",
+        "cat-3",
+        "cat-4",
+        "cat-5"
+      ],
+      "settings": {
+        "heading": "חפשו מוצר לפי:"
+      }
     },
     "promo-cards": {
       "type": "promo-cards-new",
       "blocks": {
-        "card-1": { "type": "card", "settings": { "heading": "מוצרים לכלבים", "button_text": "קנה עכשיו", "button_url": "/collections/מוצרים-לכלבים" } },
-        "card-2": { "type": "card", "settings": { "heading": "מוצרים לחתולים", "button_text": "קנה עכשיו", "button_url": "/collections/מוצרים-לחתולים" } }
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "heading": "מוצרים לכלבים",
+            "button_text": "קנה עכשיו",
+            "button_url": "/collections/מוצרים-לכלבים"
+          }
+        },
+        "card-2": {
+          "type": "card",
+          "settings": {
+            "heading": "מוצרים לחתולים",
+            "button_text": "קנה עכשיו",
+            "button_url": "/collections/מוצרים-לחתולים"
+          }
+        }
       },
-      "block_order": ["card-1", "card-2"],
+      "block_order": [
+        "card-1",
+        "card-2"
+      ],
       "settings": {}
     },
     "best-sellers": {
@@ -67,18 +132,43 @@
     "testimonials": {
       "type": "testimonials-new",
       "blocks": {
-        "t-1": { "type": "testimonial", "settings": { "name": "גאיה נ.", "review_text": "הזמנתי מיטה ומזון לכלב שלי והייתי מופתעת מהאיכות. המשלוח הגיע מהר, הכל היה ארוז מושלם והמחיר באמת משתלם. הכי חשוב הכלב שלי פשוט התאהב במיטה החדשה" } },
-        "t-2": { "type": "testimonial", "settings": { "name": "רוני ב.", "review_text": "הזמנתי סט צעצועים והכלב פשוט השתגע משמחה. בטוח שאזמין שוב" } },
-        "t-3": { "type": "testimonial", "settings": { "name": "מאיה ל.", "review_text": "המחירים משתלמים והשירות סופר נעים. כיף לדעת שיש אתר שאפשר לסמוך עליו" } }
+        "t-1": {
+          "type": "testimonial",
+          "settings": {
+            "name": "גאיה נ.",
+            "review_text": "הזמנתי מיטה ומזון לכלב שלי והייתי מופתעת מהאיכות. המשלוח הגיע מהר, הכל היה ארוז מושלם והמחיר באמת משתלם. הכי חשוב הכלב שלי פשוט התאהב במיטה החדשה"
+          }
+        },
+        "t-2": {
+          "type": "testimonial",
+          "settings": {
+            "name": "רוני ב.",
+            "review_text": "הזמנתי סט צעצועים והכלב פשוט השתגע משמחה. בטוח שאזמין שוב"
+          }
+        },
+        "t-3": {
+          "type": "testimonial",
+          "settings": {
+            "name": "מאיה ל.",
+            "review_text": "המחירים משתלמים והשירות סופר נעים. כיף לדעת שיש אתר שאפשר לסמוך עליו"
+          }
+        }
       },
-      "block_order": ["t-1", "t-2", "t-3"],
-      "settings": { "heading": "לקוחות מספרים" }
+      "block_order": [
+        "t-1",
+        "t-2",
+        "t-3"
+      ],
+      "settings": {
+        "heading": "לקוחות מספרים"
+      }
     },
     "pet-guide": {
       "type": "pet-guide",
       "settings": {
         "heading": "המדריך לחיים טובים עם כלבים וחתולים",
         "subtitle": "טיפים מעשיים, מדריכים מפורטים והמלצות מבוססות ניסיון שיעזרו לכם לגדל כלבים וחתולים בריאים, שמחים ומטופחים יותר מבחירת המזון הנכון ועד שגרת טיפוח",
+        "blog": "מדריך-לכלבים-וחתולים",
         "article_count": 4
       }
     }
