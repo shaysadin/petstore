@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    {%- comment -%} Fonts: Fredoka (Hebrew-friendly) {%- endcomment -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+
     {%- comment -%} Preload critical hero image for fast LCP {%- endcomment -%}
     <link rel="preload" href="{{ 'hero-bg.png' | asset_url }}" as="image" media="(min-width: 769px)">
     <link rel="preload" href="{{ 'hero-bg-mobile.png' | asset_url }}" as="image" media="(max-width: 768px)">
