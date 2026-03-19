@@ -941,7 +941,7 @@ body.home3_pet_shop > header {
   background-position: bottom center;
   background-repeat: no-repeat;
   background-color: var(--pp-cream);
-  padding: 80px 0 120px;
+  padding: 90px 0 160px;
 }
 .pp-testimonials__cream-bottom { display: none; }
 .pp-testimonials__bg {
