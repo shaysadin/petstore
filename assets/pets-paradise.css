@@ -2157,31 +2157,27 @@ body {
 /* === Scroll-triggered reveal === */
 .pp-reveal {
   opacity: 0;
-  transform: translateY(28px) translateZ(0);
-  will-change: opacity, transform;
-  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .pp-reveal.pp-visible {
   opacity: 1;
-  transform: translateY(0) translateZ(0);
-  will-change: auto;
+  transform: none;
 }
 
 /* === Word-by-word blur-in for headings === */
 .pp-blur-word {
   display: inline-block;
   opacity: 0;
-  filter: blur(10px);
-  transform: translateY(6px) translateZ(0);
-  will-change: opacity, filter, transform;
-  transition: opacity 0.45s ease, filter 0.5s ease, transform 0.45s ease;
+  filter: blur(8px);
+  transform: translateY(5px);
+  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
 }
 .pp-blur-word.pp-word-visible {
   opacity: 1;
-  filter: blur(0);
-  transform: translateY(0) translateZ(0);
-  will-change: auto;
+  filter: none;
+  transform: none;
 }
 
 /* === Category Card Hover === */

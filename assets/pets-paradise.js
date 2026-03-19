@@ -444,13 +444,29 @@
       }
     }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
 
-    // Word observer for blur-in headings
+    // Word observer for blur-in headings — also triggers sibling subtitle/button after
     var wordObserver = new IntersectionObserver(function(entries) {
       for (var i = 0; i < entries.length; i++) {
         if (entries[i].isIntersecting) {
-          var words = entries[i].target.querySelectorAll('.pp-blur-word');
+          var heading = entries[i].target;
+          var words = heading.querySelectorAll('.pp-blur-word');
           for (var j = 0; j < words.length; j++) words[j].classList.add('pp-word-visible');
-          wordObserver.unobserve(entries[i].target);
+
+          // After last word animates, reveal siblings (subtitle, button)
+          var totalWordTime = words.length * 90 + 400;
+          var parent = heading.parentElement;
+          if (parent) {
+            var siblings = parent.children;
+            var delay = totalWordTime;
+            for (var s = 0; s < siblings.length; s++) {
+              if (siblings[s] !== heading && siblings[s].classList.contains('pp-reveal')) {
+                siblings[s].style.transitionDelay = delay + 'ms';
+                siblings[s].classList.add('pp-visible');
+                delay += 120;
+              }
+            }
+          }
+          wordObserver.unobserve(heading);
         }
       }
     }, { threshold: 0.25 });
@@ -485,9 +501,12 @@
       }
     });
 
-    // Individual elements — subtitles, descriptions, buttons, sections
-    markReveal('.pp-hero__text', 200);
-    markReveal('.pp-hero .pp-btn', 400);
+    // Hero subtitle + button — will be triggered by heading word observer
+    document.querySelectorAll('.pp-hero__text, .pp-hero .pp-btn').forEach(function(el) {
+      el.classList.add('pp-reveal');
+    });
+
+    // Individual elements — subtitles, buttons, sections
     markReveal('.pp-featured-brand__content', 0);
     markReveal('.pp-featured-brand__text', 150);
     markReveal('.pp-featured-brand__content .pp-btn', 300);
@@ -497,13 +516,6 @@
     markReveal('.pp-guide-header p', 100);
     markReveal('.pp-pet-guide-section .pp-btn', 200);
     markReveal('.pp-footer__newsletter', 0);
-    markReveal('.pp-carousel__dots', 300);
-
-    // Product cards in carousels
-    document.querySelectorAll('.pp-carousel__slide').forEach(function(slide) {
-      slide.classList.add('pp-reveal');
-      observer.observe(slide);
-    });
 
     // --- Word-by-word blur-in headings ---
     var headingSels = [
