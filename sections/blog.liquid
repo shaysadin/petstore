@@ -1,35 +1,351 @@
-{% comment %}
-  This section is used in the blog template to render the blog page listing all
-  articles within a blog.
+<div class="pp-blog-hero">
+  <div class="pp-blog-hero__inner">
+    <nav class="pp-breadcrumb">
+      <a href="/">דף הבית</a>
+      <span class="pp-breadcrumb__sep">&rsaquo;</span>
+      <span>{{ blog.title }}</span>
+    </nav>
+    <h1 class="pp-blog-hero__title">הבלוג שלנו</h1>
+    <p class="pp-blog-hero__subtitle">טיפים, מידע והשראה לבעלי חיות מחמד</p>
+  </div>
+  <div class="pp-blog-hero__paw">🐾</div>
+</div>
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/blog
-{% endcomment %}
-
-<h1>{{ blog.title }}</h1>
-
-{% paginate blog.articles by 5 %}
-  {% for article in blog.articles %}
-    <div>
-      {% if article.image %}
-        {{ article.image | image_url: width: 1000 | image_tag }}
-      {% endif %}
-      <h2>
-        {{ article.title | link_to: article.url }}
-      </h2>
-      {% assign date = article.published_at | time_tag: format: 'date' %}
-      <p>{{ 'blog.article_metadata_html' | t: date: date, author: article.author }}</p>
-      <p>{{ article.excerpt }}</p>
-    </div>
-  {% endfor %}
+{% paginate blog.articles by 9 %}
+<section class="pp-blog-section">
+  <div class="pp-blog-grid">
+    {%- for article in blog.articles -%}
+      <article class="pp-blog-card" style="animation-delay: {{ forloop.index0 | times: 80 }}ms">
+        <a href="{{ article.url }}" class="pp-blog-card__img-link">
+          {%- if article.image -%}
+            <img
+              src="{{ article.image | image_url: width: 600 }}"
+              alt="{{ article.image.alt | default: article.title | escape }}"
+              class="pp-blog-card__img"
+              loading="lazy"
+            >
+          {%- else -%}
+            <div class="pp-blog-card__img-placeholder">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+          {%- endif -%}
+        </a>
+        <div class="pp-blog-card__body">
+          <time class="pp-blog-card__date" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+            {{ article.published_at | date: '%d/%m/%Y' }}
+          </time>
+          <h2 class="pp-blog-card__title">
+            <a href="{{ article.url }}">{{ article.title }}</a>
+          </h2>
+          {%- if article.excerpt != blank -%}
+            <p class="pp-blog-card__excerpt">{{ article.excerpt | strip_html | truncate: 120 }}</p>
+          {%- endif -%}
+          <a href="{{ article.url }}" class="pp-blog-card__link">
+            קרא עוד
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </a>
+        </div>
+      </article>
+    {%- else -%}
+      <div class="pp-blog-grid__empty">
+        <div class="pp-blog-grid__empty-icon">📝</div>
+        <p class="pp-blog-grid__empty-text">אין עדיין כתבות בבלוג.</p>
+      </div>
+    {%- endfor -%}
+  </div>
 
   {%- if paginate.pages > 1 -%}
-    {{- paginate | default_pagination -}}
+    <div class="pp-pagination">
+      {%- if paginate.previous -%}
+        <a href="{{ paginate.previous.url }}" class="pp-pagination__arrow pp-pagination__arrow--next" aria-label="עמוד קודם">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      {%- endif -%}
+      {%- for part in paginate.parts -%}
+        {%- if part.is_link -%}
+          <a href="{{ part.url }}" class="pp-pagination__num">{{ part.title }}</a>
+        {%- else -%}
+          <span class="pp-pagination__num pp-pagination__num--active">{{ part.title }}</span>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if paginate.next -%}
+        <a href="{{ paginate.next.url }}" class="pp-pagination__arrow pp-pagination__arrow--prev" aria-label="עמוד הבא">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      {%- endif -%}
+    </div>
   {%- endif -%}
+</section>
 {% endpaginate %}
+
+<style>
+  /* === Blog Hero === */
+  .pp-blog-hero {
+    background: var(--pp-brown);
+    padding: 48px 40px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .pp-blog-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .pp-blog-hero__title {
+    font-family: var(--pp-font);
+    font-weight: 800;
+    font-size: clamp(32px, 5vw, 52px);
+    color: var(--pp-orange);
+    margin: 12px 0 14px;
+    line-height: 1.15;
+  }
+  .pp-blog-hero__subtitle {
+    font-family: var(--pp-font);
+    font-size: 16px;
+    color: var(--pp-cream);
+    opacity: 0.85;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  .pp-blog-hero__paw {
+    position: absolute;
+    bottom: -20px;
+    left: 10%;
+    font-size: 120px;
+    opacity: 0.06;
+    transform: rotate(-15deg);
+    pointer-events: none;
+  }
+
+  /* === Breadcrumb (in hero) === */
+  .pp-blog-hero .pp-breadcrumb {
+    font-family: var(--pp-font);
+    font-size: 14px;
+    color: var(--pp-cream);
+    opacity: 0.7;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    align-items: center;
+  }
+  .pp-blog-hero .pp-breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .pp-blog-hero .pp-breadcrumb a:hover { opacity: 1; text-decoration: underline; }
+  .pp-blog-hero .pp-breadcrumb__sep { margin: 0 2px; font-size: 16px; }
+
+  /* === Blog Section === */
+  .pp-blog-section {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 40px 40px 80px;
+    background: var(--pp-white);
+  }
+
+  /* === Blog Grid === */
+  .pp-blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  /* === Blog Card === */
+  .pp-blog-card {
+    background: var(--pp-white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: ppFadeInUp 0.5s ease both;
+    display: flex;
+    flex-direction: column;
+  }
+  .pp-blog-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(80, 30, 21, 0.14);
+  }
+  .pp-blog-card__img-link {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16/10;
+    background: var(--pp-cream);
+  }
+  .pp-blog-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .pp-blog-card:hover .pp-blog-card__img {
+    transform: scale(1.05);
+  }
+  .pp-blog-card__img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pp-brown);
+    opacity: 0.2;
+  }
+  .pp-blog-card__body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .pp-blog-card__date {
+    font-family: var(--pp-font);
+    font-size: 13px;
+    color: var(--pp-orange);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .pp-blog-card__title {
+    font-family: var(--pp-font);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--pp-brown);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .pp-blog-card__title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .pp-blog-card__title a:hover {
+    color: var(--pp-orange);
+  }
+  .pp-blog-card__excerpt {
+    font-family: var(--pp-font);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--pp-brown);
+    opacity: 0.7;
+    margin-bottom: 16px;
+    flex: 1;
+  }
+  .pp-blog-card__link {
+    font-family: var(--pp-font);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--pp-orange);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.2s;
+  }
+  .pp-blog-card__link:hover {
+    gap: 10px;
+  }
+
+  /* === Empty State === */
+  .pp-blog-grid__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+  }
+  .pp-blog-grid__empty-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+  }
+  .pp-blog-grid__empty-text {
+    font-family: var(--pp-font);
+    font-size: 18px;
+    color: var(--pp-brown);
+  }
+
+  /* === Pagination === */
+  .pp-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 56px;
+    font-family: var(--pp-font);
+  }
+  .pp-pagination__num {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--pp-brown);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    background: transparent;
+  }
+  .pp-pagination__num:hover {
+    background: var(--pp-cream);
+    color: var(--pp-orange);
+  }
+  .pp-pagination__num--active {
+    background: var(--pp-orange) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(247, 92, 2, 0.3);
+  }
+  .pp-pagination__arrow {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    color: var(--pp-brown);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .pp-pagination__arrow:hover {
+    background: var(--pp-cream);
+    color: var(--pp-orange);
+  }
+
+  /* === Animation === */
+  @keyframes ppFadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === Responsive === */
+  @media (max-width: 1024px) {
+    .pp-blog-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  }
+  @media (max-width: 768px) {
+    .pp-blog-hero { padding: 32px 20px 40px; }
+    .pp-blog-hero__title { font-size: 32px; }
+    .pp-blog-hero__paw { font-size: 80px; bottom: -10px; }
+    .pp-blog-section { padding: 24px 16px 60px; }
+    .pp-blog-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .pp-blog-card__body { padding: 18px; }
+    .pp-blog-card__title { font-size: 17px; }
+    .pp-blog-card__excerpt { font-size: 14px; }
+    .pp-blog-hero .pp-breadcrumb { font-size: 13px; }
+  }
+  @media (max-width: 480px) {
+    .pp-blog-hero { padding: 24px 16px 32px; }
+    .pp-blog-hero__title { font-size: 28px; }
+    .pp-blog-section { padding: 20px 12px 48px; }
+    .pp-blog-grid { grid-template-columns: 1fr; gap: 20px; }
+    .pp-blog-card__body { padding: 20px; }
+    .pp-blog-card__title { font-size: 19px; }
+    .pp-pagination__num, .pp-pagination__arrow { width: 36px; height: 36px; font-size: 14px; border-radius: 10px; }
+  }
+</style>
 
 {% schema %}
 {
-  "name": "t:general.blog",
+  "name": "Blog",
   "settings": []
 }
 {% endschema %}

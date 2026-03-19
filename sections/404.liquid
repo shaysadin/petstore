@@ -1,23 +1,141 @@
-{% comment %}
-  This section is used in the 404 template to render page shown when customers
-  enter an invalid store URL.
+{% doc %}
+  404 error page with pet-themed design and call-to-action.
+{% enddoc %}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/404
-{% endcomment %}
+<style>
+  .pp-404 {
+    background: var(--pp-cream);
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+  }
 
-<h1>{{ '404.title' | t }}</h1>
+  .pp-404__content {
+    text-align: center;
+    max-width: 520px;
+  }
 
-<p>
-  {{ '404.not_found' | t }}
-</p>
+  .pp-404__paws {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+    opacity: 0.3;
+    letter-spacing: 12px;
+    line-height: 1;
+  }
 
-<a href="{{ routes.all_products_collection_url }}">
-  {{ '404.back_to_shopping' | t }}
-</a>
+  .pp-404__number {
+    font-family: var(--pp-font);
+    font-size: 8rem;
+    font-weight: 900;
+    color: var(--pp-orange);
+    line-height: 1;
+    margin: 0 0 8px;
+    text-shadow: 0 4px 24px rgba(247, 92, 2, 0.15);
+  }
+
+  .pp-404__heading {
+    font-family: var(--pp-font);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--pp-brown);
+    margin: 0 0 12px;
+  }
+
+  .pp-404__subtitle {
+    font-family: var(--pp-font);
+    font-size: 1.1rem;
+    color: #7a6a62;
+    margin: 0 0 36px;
+    line-height: 1.6;
+  }
+
+  .pp-404__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 36px;
+    background: var(--pp-orange);
+    color: var(--pp-white);
+    font-family: var(--pp-font);
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 16px rgba(247, 92, 2, 0.2);
+  }
+
+  .pp-404__btn:hover {
+    background: var(--pp-brown);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(80, 30, 21, 0.2);
+    color: var(--pp-white);
+  }
+
+  .pp-404__btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .pp-404__bottom-paws {
+    margin-top: 48px;
+    font-size: 1.5rem;
+    opacity: 0.15;
+    letter-spacing: 20px;
+    line-height: 1;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .pp-404__number {
+      font-size: 5rem;
+    }
+
+    .pp-404__heading {
+      font-size: 1.35rem;
+    }
+
+    .pp-404__subtitle {
+      font-size: 1rem;
+    }
+
+    .pp-404__btn {
+      padding: 12px 28px;
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<section class="pp-404">
+  <div class="pp-404__content">
+    <div class="pp-404__paws" aria-hidden="true">🐾 🐾 🐾</div>
+
+    <p class="pp-404__number">404</p>
+
+    <h1 class="pp-404__heading">אופס! העמוד לא נמצא</h1>
+
+    <p class="pp-404__subtitle">נראה שהדף שחיפשת הלך לטייל... 🐕</p>
+
+    <a href="/" class="pp-404__btn pp-btn--primary">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      חזרה לדף הבית
+    </a>
+
+    <div class="pp-404__bottom-paws" aria-hidden="true">🐾 🐾 🐾 🐾 🐾</div>
+  </div>
+</section>
 
 {% schema %}
 {
-  "name": "t:general.404",
+  "name": "404",
   "settings": []
 }
 {% endschema %}

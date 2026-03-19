@@ -1,40 +1,48 @@
 {%- assign products_per_page = section.settings.products_per_page | default: 20 -%}
 
-<div class="pp-collection-header">
-  <h1 class="pp-h1">{{ collection.title }}</h1>
-  {%- if collection.description != blank -%}
-    <p class="pp-body pp-collection-header__desc">{{ collection.description | strip_html | truncate: 200 }}</p>
-  {%- endif -%}
-  <nav class="pp-breadcrumb">
-    <a href="/">דף הבית</a>
-    <span class="pp-breadcrumb__sep">/</span>
-    <span>{{ collection.title }}</span>
-  </nav>
+<div class="pp-collection-hero">
+  <div class="pp-collection-hero__inner">
+    <nav class="pp-breadcrumb">
+      <a href="/">דף הבית</a>
+      <span class="pp-breadcrumb__sep">&rsaquo;</span>
+      <span>{{ collection.title }}</span>
+    </nav>
+    <h1 class="pp-collection-hero__title">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <p class="pp-collection-hero__desc">{{ collection.description | strip_html | truncate: 200 }}</p>
+    {%- endif -%}
+  </div>
+  <div class="pp-collection-hero__paw">🐾</div>
 </div>
 
 {% paginate collection.products by products_per_page %}
 <section class="pp-collection-section">
   <div class="pp-collection-toolbar">
     <p class="pp-collection-toolbar__count">
-      מציג {{ paginate.current_offset | plus: 1 }}&ndash;{% assign page_end = paginate.current_offset | plus: paginate.page_size %}{% if page_end > collection.products_count %}{{ collection.products_count }}{% else %}{{ page_end }}{% endif %} מתוך {{ collection.products_count }} תוצאות
+      <span class="pp-collection-toolbar__count-num">{{ collection.products_count }}</span> מוצרים
     </p>
-    <form class="pp-collection-toolbar__sort">
-      <select name="sort_by" onchange="window.location.href=this.value">
-        {%- for option in collection.sort_options -%}
-          <option value="{{ option.url }}"{% if collection.sort_by == option.value %} selected{% endif %}>{{ option.name }}</option>
-        {%- endfor -%}
-      </select>
-    </form>
+    <div class="pp-collection-toolbar__actions">
+      <form class="pp-collection-toolbar__sort">
+        <label class="pp-collection-toolbar__sort-label">מיון:</label>
+        <select name="sort_by" onchange="window.location.href=this.value">
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.url }}"{% if collection.sort_by == option.value %} selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+      </form>
+    </div>
   </div>
 
   <div class="pp-collection-grid">
     {%- for product in collection.products -%}
-      <div class="pp-collection-grid__item">
+      <div class="pp-collection-grid__item" style="animation-delay: {{ forloop.index0 | times: 60 }}ms">
         {% render 'product-card-new', product: product %}
       </div>
     {%- else -%}
       <div class="pp-collection-grid__empty">
-        <p>לא נמצאו מוצרים בקולקציה זו.</p>
+        <div class="pp-collection-grid__empty-icon">🔍</div>
+        <p class="pp-collection-grid__empty-text">לא נמצאו מוצרים בקולקציה זו.</p>
+        <a href="/collections/all" class="pp-btn pp-btn--primary">לכל המוצרים</a>
       </div>
     {%- endfor -%}
   </div>
@@ -42,8 +50,8 @@
   {%- if paginate.pages > 1 -%}
     <div class="pp-pagination">
       {%- if paginate.previous -%}
-        <a href="{{ paginate.previous.url }}" class="pp-pagination__arrow">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <a href="{{ paginate.previous.url }}" class="pp-pagination__arrow pp-pagination__arrow--next" aria-label="עמוד קודם">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       {%- endif -%}
       {%- for part in paginate.parts -%}
@@ -54,8 +62,8 @@
         {%- endif -%}
       {%- endfor -%}
       {%- if paginate.next -%}
-        <a href="{{ paginate.next.url }}" class="pp-pagination__arrow">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <a href="{{ paginate.next.url }}" class="pp-pagination__arrow pp-pagination__arrow--prev" aria-label="עמוד הבא">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       {%- endif -%}
     </div>
@@ -64,114 +72,250 @@
 {% endpaginate %}
 
 <style>
-  .pp-collection-header {
-    background: var(--pp-cream);
-    padding: 60px 34px 40px;
+  /* === Collection Hero === */
+  .pp-collection-hero {
+    background: var(--pp-brown);
+    padding: 48px 40px 56px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
   }
-  .pp-collection-header .pp-h1 { margin-bottom: 10px; }
-  .pp-collection-header__desc {
-    color: var(--pp-brown);
-    opacity: 0.7;
-    max-width: 600px;
-    margin: 0 auto 16px;
+  .pp-collection-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .pp-collection-hero__title {
+    font-family: var(--pp-font);
+    font-weight: 800;
+    font-size: clamp(32px, 5vw, 52px);
+    color: var(--pp-orange);
+    margin: 12px 0 14px;
+    line-height: 1.15;
+  }
+  .pp-collection-hero__desc {
     font-family: var(--pp-font);
     font-size: 16px;
+    color: var(--pp-cream);
+    opacity: 0.85;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.6;
   }
+  .pp-collection-hero__paw {
+    position: absolute;
+    bottom: -20px;
+    left: 10%;
+    font-size: 120px;
+    opacity: 0.06;
+    transform: rotate(-15deg);
+    pointer-events: none;
+  }
+
+  /* === Breadcrumb === */
   .pp-breadcrumb {
     font-family: var(--pp-font);
     font-size: 14px;
-    color: var(--pp-brown);
-    opacity: 0.6;
+    color: var(--pp-cream);
+    opacity: 0.7;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    align-items: center;
   }
-  .pp-breadcrumb a { color: inherit; text-decoration: none; }
-  .pp-breadcrumb a:hover { text-decoration: underline; }
-  .pp-breadcrumb__sep { margin: 0 8px; }
+  .pp-breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .pp-breadcrumb a:hover { opacity: 1; text-decoration: underline; }
+  .pp-breadcrumb__sep { margin: 0 2px; font-size: 16px; }
+
+  /* === Collection Section === */
   .pp-collection-section {
     max-width: 1440px;
     margin: 0 auto;
-    padding: 40px 34px 80px;
+    padding: 36px 40px 80px;
+    background: var(--pp-white);
   }
+
+  /* === Toolbar === */
   .pp-collection-toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(80, 30, 21, 0.08);
     font-family: var(--pp-font);
   }
   .pp-collection-toolbar__count {
+    font-size: 15px;
+    color: var(--pp-brown);
+    font-weight: 500;
+  }
+  .pp-collection-toolbar__count-num {
+    font-weight: 700;
+    color: var(--pp-orange);
+    font-size: 18px;
+  }
+  .pp-collection-toolbar__actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .pp-collection-toolbar__sort {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pp-collection-toolbar__sort-label {
     font-size: 14px;
     color: var(--pp-brown);
-    opacity: 0.7;
+    font-weight: 600;
   }
   .pp-collection-toolbar__sort select {
     font-family: var(--pp-font);
     font-size: 14px;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #fff;
+    padding: 10px 16px;
+    border: 1.5px solid rgba(80, 30, 21, 0.15);
+    border-radius: 12px;
+    background: var(--pp-cream);
     color: var(--pp-brown);
+    cursor: pointer;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23501E15' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 12px center;
+    padding-left: 32px;
   }
+  .pp-collection-toolbar__sort select:hover,
+  .pp-collection-toolbar__sort select:focus {
+    border-color: var(--pp-orange);
+    outline: none;
+  }
+
+  /* === Product Grid === */
   .pp-collection-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    gap: 28px;
   }
+  .pp-collection-grid__item {
+    animation: ppFadeInUp 0.5s ease both;
+  }
+  .pp-collection-grid__item .pp-product-card {
+    width: 100% !important;
+    height: 100%;
+    min-height: 0;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .pp-collection-grid__item .pp-product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(80, 30, 21, 0.12) !important;
+  }
+
+  /* === Empty State === */
   .pp-collection-grid__empty {
     grid-column: 1 / -1;
     text-align: center;
-    padding: 60px 20px;
-    font-family: var(--pp-font);
-    color: var(--pp-brown);
+    padding: 80px 20px;
   }
+  .pp-collection-grid__empty-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+  }
+  .pp-collection-grid__empty-text {
+    font-family: var(--pp-font);
+    font-size: 18px;
+    color: var(--pp-brown);
+    margin-bottom: 24px;
+  }
+
+  /* === Pagination === */
   .pp-pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    margin-top: 50px;
+    gap: 6px;
+    margin-top: 56px;
     font-family: var(--pp-font);
   }
   .pp-pagination__num {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
+    border-radius: 12px;
     font-size: 15px;
     font-weight: 600;
     color: var(--pp-brown);
     text-decoration: none;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
+    background: transparent;
   }
-  .pp-pagination__num:hover { background: var(--pp-cream); }
+  .pp-pagination__num:hover {
+    background: var(--pp-cream);
+    color: var(--pp-orange);
+  }
   .pp-pagination__num--active {
-    background: var(--pp-orange);
-    color: #fff;
+    background: var(--pp-orange) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(247, 92, 2, 0.3);
   }
   .pp-pagination__arrow {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
+    border-radius: 12px;
     color: var(--pp-brown);
     text-decoration: none;
+    transition: all 0.2s ease;
   }
-  .pp-pagination__arrow:hover { background: var(--pp-cream); }
+  .pp-pagination__arrow:hover {
+    background: var(--pp-cream);
+    color: var(--pp-orange);
+  }
+
+  /* === Animation === */
+  @keyframes ppFadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* === Responsive === */
   @media (max-width: 1200px) {
-    .pp-collection-grid { grid-template-columns: repeat(3, 1fr); }
+    .pp-collection-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
   }
   @media (max-width: 768px) {
-    .pp-collection-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .pp-collection-header { padding: 40px 16px 24px; }
+    .pp-collection-hero { padding: 32px 20px 40px; }
+    .pp-collection-hero__title { font-size: 32px; }
+    .pp-collection-hero__paw { font-size: 80px; bottom: -10px; }
     .pp-collection-section { padding: 24px 16px 60px; }
+    .pp-collection-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .pp-collection-grid__item .pp-product-card { min-height: auto !important; }
+    .pp-collection-toolbar { flex-direction: column; gap: 12px; align-items: flex-end; }
+    .pp-collection-toolbar__count { align-self: flex-end; }
+    .pp-breadcrumb { font-size: 13px; }
   }
   @media (max-width: 480px) {
-    .pp-collection-grid { grid-template-columns: 1fr; }
+    .pp-collection-hero { padding: 24px 16px 32px; }
+    .pp-collection-hero__title { font-size: 28px; }
+    .pp-collection-grid { gap: 12px; }
+    .pp-collection-section { padding: 20px 12px 48px; }
+    .pp-pagination__num, .pp-pagination__arrow { width: 36px; height: 36px; font-size: 14px; border-radius: 10px; }
   }
 </style>
 

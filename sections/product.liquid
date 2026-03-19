@@ -1,10 +1,10 @@
 <div class="pp-product-page">
   <nav class="pp-breadcrumb">
     <a href="/">דף הבית</a>
-    <span class="pp-breadcrumb__sep">/</span>
+    <span class="pp-breadcrumb__sep">&rsaquo;</span>
     {%- if product.collections.size > 0 -%}
       <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
-      <span class="pp-breadcrumb__sep">/</span>
+      <span class="pp-breadcrumb__sep">&rsaquo;</span>
     {%- endif -%}
     <span>{{ product.title }}</span>
   </nav>
@@ -32,26 +32,33 @@
 
     {%- comment -%} Product info {%- endcomment -%}
     <div class="pp-product-page__info">
-      <h1 class="pp-product-page__title">{{ product.title }}</h1>
-
-      <div class="pp-product-page__price">
-        <span class="pp-product-page__price-current">{{ product.price | money_without_trailing_zeros }}</span>
-        {%- if product.compare_at_price > product.price -%}
-          <span class="pp-product-page__price-compare">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
-        {%- endif -%}
-      </div>
-
-      {%- if product.description != blank -%}
-        <div class="pp-product-page__desc">{{ product.description }}</div>
-      {%- endif -%}
-
       <div class="pp-product-page__availability">
         {%- if product.available -%}
           <span class="pp-product-page__stock pp-product-page__stock--in">במלאי</span>
         {%- else -%}
           <span class="pp-product-page__stock pp-product-page__stock--out">אזל מהמלאי</span>
         {%- endif -%}
+        {%- if product.compare_at_price > product.price -%}
+          <span class="pp-product-page__badge pp-product-page__badge--sale">מבצע!</span>
+        {%- endif -%}
       </div>
+
+      <h1 class="pp-product-page__title">{{ product.title }}</h1>
+
+      <div class="pp-product-page__price">
+        <span class="pp-product-page__price-current">{{ product.price | money_without_trailing_zeros }}</span>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="pp-product-page__price-compare">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+          {%- assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+          <span class="pp-product-page__price-savings">חיסכון של {{ savings }}%</span>
+        {%- endif -%}
+      </div>
+
+      <div class="pp-product-page__divider"></div>
+
+      {%- if product.description != blank -%}
+        <div class="pp-product-page__desc">{{ product.description }}</div>
+      {%- endif -%}
 
       {% form 'product', product %}
         {{ form.errors | default_errors }}
@@ -76,18 +83,34 @@
         <div class="pp-product-page__actions">
           <div class="pp-qty pp-qty--large">
             <button class="pp-qty__btn pp-qty__plus" type="button" aria-label="הוסף">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/></svg>
             </button>
             <input type="number" name="quantity" value="1" min="1" max="100" class="pp-qty__input">
             <button class="pp-qty__btn pp-qty__minus" type="button" aria-label="הפחת">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 12.998h14v-2H5z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M5 12.998h14v-2H5z"/></svg>
             </button>
           </div>
           <button type="submit" class="pp-btn pp-btn--primary pp-product-page__add-btn"{% unless product.available %} disabled{% endunless %}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
             {%- if product.available -%}הוסף לסל{%- else -%}אזל מהמלאי{%- endif -%}
           </button>
         </div>
       {% endform %}
+
+      <div class="pp-product-page__trust">
+        <div class="pp-product-page__trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          <span>משלוח מהיר</span>
+        </div>
+        <div class="pp-product-page__trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>תשלום מאובטח</span>
+        </div>
+        <div class="pp-product-page__trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>אחריות מלאה</span>
+        </div>
+      </div>
 
       <div class="pp-product-page__meta">
         {%- if product.vendor != blank -%}
@@ -109,40 +132,51 @@
 </div>
 
 <style>
+  /* === Product Page === */
   .pp-product-page {
     max-width: 1440px;
     margin: 0 auto;
-    padding: 30px 34px 80px;
+    padding: 30px 40px 80px;
   }
   .pp-product-page .pp-breadcrumb {
     font-family: var(--pp-font);
     font-size: 14px;
     color: var(--pp-brown);
     opacity: 0.6;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
+    display: flex;
+    gap: 4px;
+    align-items: center;
   }
-  .pp-product-page .pp-breadcrumb a { color: inherit; text-decoration: none; }
-  .pp-product-page .pp-breadcrumb a:hover { text-decoration: underline; }
-  .pp-product-page .pp-breadcrumb__sep { margin: 0 8px; }
+  .pp-product-page .pp-breadcrumb a { color: inherit; text-decoration: none; transition: opacity 0.2s; }
+  .pp-product-page .pp-breadcrumb a:hover { opacity: 1; text-decoration: underline; }
+  .pp-product-page .pp-breadcrumb__sep { margin: 0 2px; font-size: 16px; }
 
   .pp-product-page__inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 64px;
     align-items: start;
   }
-  .pp-product-page__gallery { position: sticky; top: 100px; }
+
+  /* === Gallery === */
+  .pp-product-page__gallery {
+    position: sticky;
+    top: 100px;
+  }
   .pp-product-page__main-img {
     background: var(--pp-cream);
     border-radius: 20px;
     overflow: hidden;
     margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   }
   .pp-product-page__main-img img {
     width: 100%;
     display: block;
     aspect-ratio: 1/1;
     object-fit: contain;
+    transition: opacity 0.3s ease;
   }
   .pp-product-page__thumbs {
     display: flex;
@@ -158,56 +192,37 @@
     cursor: pointer;
     background: var(--pp-cream);
     padding: 0;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, transform 0.2s;
   }
-  .pp-product-page__thumb.active { border-color: var(--pp-orange); }
+  .pp-product-page__thumb:hover {
+    transform: translateY(-2px);
+  }
+  .pp-product-page__thumb.active {
+    border-color: var(--pp-orange);
+    box-shadow: 0 2px 8px rgba(247, 92, 2, 0.2);
+  }
   .pp-product-page__thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
-  .pp-product-page__title {
-    font-family: var(--pp-heading-font);
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--pp-brown);
-    margin-bottom: 16px;
+
+  /* === Product Info === */
+  .pp-product-page__info {
+    padding-top: 8px;
   }
-  .pp-product-page__price {
+  .pp-product-page__availability {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 10px;
+    margin-bottom: 16px;
   }
-  .pp-product-page__price-current {
-    font-family: var(--pp-font);
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--pp-orange);
-  }
-  .pp-product-page__price-compare {
-    font-family: var(--pp-font);
-    font-size: 20px;
-    color: var(--pp-brown);
-    opacity: 0.4;
-    text-decoration: line-through;
-  }
-  .pp-product-page__desc {
-    font-family: var(--pp-font);
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--pp-brown);
-    margin-bottom: 20px;
-    text-align: right;
-  }
-  .pp-product-page__desc * { text-align: right !important; }
-  .pp-product-page__availability { margin-bottom: 24px; }
   .pp-product-page__stock {
     font-family: var(--pp-font);
     font-weight: 600;
-    font-size: 15px;
-    padding: 6px 16px;
+    font-size: 13px;
+    padding: 5px 14px;
     border-radius: 20px;
     display: inline-block;
   }
@@ -219,6 +234,71 @@
     background: #fbe9e7;
     color: #c62828;
   }
+  .pp-product-page__badge {
+    font-family: var(--pp-font);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+  .pp-product-page__badge--sale {
+    background: var(--pp-orange);
+    color: #fff;
+  }
+  .pp-product-page__title {
+    font-family: var(--pp-font);
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--pp-brown);
+    margin-bottom: 20px;
+    line-height: 1.25;
+  }
+  .pp-product-page__price {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .pp-product-page__price-current {
+    font-family: var(--pp-font);
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--pp-orange);
+  }
+  .pp-product-page__price-compare {
+    font-family: var(--pp-font);
+    font-size: 20px;
+    color: var(--pp-brown);
+    opacity: 0.4;
+    text-decoration: line-through;
+  }
+  .pp-product-page__price-savings {
+    font-family: var(--pp-font);
+    font-size: 14px;
+    font-weight: 600;
+    color: #2e7d32;
+    background: #e8f5e9;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .pp-product-page__divider {
+    height: 1px;
+    background: rgba(80, 30, 21, 0.08);
+    margin-bottom: 24px;
+  }
+  .pp-product-page__desc {
+    font-family: var(--pp-font);
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--pp-brown);
+    margin-bottom: 28px;
+    text-align: right;
+  }
+  .pp-product-page__desc * { text-align: right !important; }
+
+  /* === Variant Options === */
   .pp-product-page__option {
     margin-bottom: 20px;
   }
@@ -235,11 +315,26 @@
     padding: 12px 16px;
     font-family: var(--pp-font);
     font-size: 15px;
-    border: 1px solid #ddd;
+    border: 1.5px solid rgba(80, 30, 21, 0.15);
     border-radius: 12px;
-    background: #fff;
+    background: var(--pp-cream);
     color: var(--pp-brown);
+    cursor: pointer;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23501E15' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 12px center;
+    padding-left: 32px;
   }
+  .pp-product-page__select:hover,
+  .pp-product-page__select:focus {
+    border-color: var(--pp-orange);
+    outline: none;
+  }
+
+  /* === Actions === */
   .pp-product-page__actions {
     display: flex;
     align-items: center;
@@ -248,11 +343,17 @@
   }
   .pp-qty--large {
     gap: 0;
-    border: 2px solid var(--pp-orange);
+    border: 2px solid rgba(80, 30, 21, 0.15);
     border-radius: 12px;
     overflow: hidden;
     display: flex;
     align-items: center;
+    background: var(--pp-cream);
+    transition: border-color 0.2s;
+  }
+  .pp-qty--large:hover,
+  .pp-qty--large:focus-within {
+    border-color: var(--pp-orange);
   }
   .pp-qty--large .pp-qty__btn {
     width: 48px;
@@ -264,6 +365,10 @@
     align-items: center;
     justify-content: center;
     color: var(--pp-orange);
+    transition: background 0.2s;
+  }
+  .pp-qty--large .pp-qty__btn:hover {
+    background: rgba(247, 92, 2, 0.08);
   }
   .pp-qty--large .pp-qty__input {
     width: 50px;
@@ -284,9 +389,43 @@
   .pp-product-page__add-btn {
     flex: 1;
     height: 52px;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
+  .pp-product-page__add-btn:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(247, 92, 2, 0.35);
+  }
+
+  /* === Trust Badges === */
+  .pp-product-page__trust {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    margin-bottom: 24px;
+    border-top: 1px solid rgba(80, 30, 21, 0.08);
+    border-bottom: 1px solid rgba(80, 30, 21, 0.08);
+  }
+  .pp-product-page__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--pp-font);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--pp-brown);
+  }
+  .pp-product-page__trust-item svg {
+    color: var(--pp-orange);
+    flex-shrink: 0;
+  }
+
+  /* === Meta === */
   .pp-product-page__meta {
     font-family: var(--pp-font);
     font-size: 14px;
@@ -298,18 +437,31 @@
   }
   .pp-product-page__meta a { color: var(--pp-orange); text-decoration: none; }
   .pp-product-page__meta a:hover { text-decoration: underline; }
+
+  /* === Responsive === */
   @media (max-width: 992px) {
     .pp-product-page__inner {
       grid-template-columns: 1fr;
-      gap: 30px;
+      gap: 32px;
     }
     .pp-product-page__gallery { position: static; }
   }
   @media (max-width: 768px) {
     .pp-product-page { padding: 20px 16px 60px; }
-    .pp-product-page__title { font-size: 24px; }
-    .pp-product-page__price-current { font-size: 24px; }
-    .pp-product-page__thumb { width: 60px; height: 60px; }
+    .pp-product-page__title { font-size: 26px; }
+    .pp-product-page__price-current { font-size: 26px; }
+    .pp-product-page__thumb { width: 64px; height: 64px; }
+    .pp-product-page__trust { flex-direction: column; gap: 12px; }
+    .pp-product-page__actions { flex-direction: column; }
+    .pp-product-page__add-btn { width: 100%; }
+    .pp-qty--large { align-self: stretch; justify-content: center; }
+  }
+  @media (max-width: 480px) {
+    .pp-product-page { padding: 16px 12px 48px; }
+    .pp-product-page__title { font-size: 22px; }
+    .pp-product-page__price-current { font-size: 22px; }
+    .pp-product-page__thumb { width: 56px; height: 56px; border-radius: 10px; }
+    .pp-product-page .pp-breadcrumb { font-size: 13px; }
   }
 </style>
 
@@ -321,13 +473,16 @@
 
     thumbs.forEach(function(thumb) {
       thumb.addEventListener('click', function() {
-        mainImg.src = this.getAttribute('data-src');
+        mainImg.style.opacity = '0';
+        setTimeout(function() {
+          mainImg.src = thumb.getAttribute('data-src');
+          mainImg.style.opacity = '1';
+        }, 150);
         thumbs.forEach(function(t) { t.classList.remove('active'); });
-        this.classList.add('active');
+        thumb.classList.add('active');
       });
     });
 
-    // Product page quantity buttons
     var qtyInput = document.querySelector('.pp-qty--large .pp-qty__input');
     if (qtyInput) {
       var plusBtn = document.querySelector('.pp-qty--large .pp-qty__plus');
