@@ -570,8 +570,12 @@
     });
   }
 
-  // Init after paint
-  requestAnimationFrame(function() {
-    requestAnimationFrame(initScrollAnimations);
-  });
+  // Init animations after first paint + idle
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(initScrollAnimations, { timeout: 200 });
+  } else {
+    requestAnimationFrame(function() {
+      requestAnimationFrame(initScrollAnimations);
+    });
+  }
 })();

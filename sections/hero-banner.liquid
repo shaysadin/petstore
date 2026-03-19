@@ -1,10 +1,10 @@
 <section class="pp-hero">
   {%- if section.settings.background_image -%}
-    <img class="pp-hero__bg pp-hero__bg--desktop" src="{{ section.settings.background_image | image_url: width: 1920 }}" alt="" loading="eager">
+    <img class="pp-hero__bg pp-hero__bg--desktop" src="{{ section.settings.background_image | image_url: width: 1920 }}" alt="" loading="eager" fetchpriority="high" decoding="async">
   {%- else -%}
-    <img class="pp-hero__bg pp-hero__bg--desktop" src="{{ 'hero-bg.png' | asset_url }}" alt="" loading="eager">
+    <img class="pp-hero__bg pp-hero__bg--desktop" src="{{ 'hero-bg.png' | asset_url }}" alt="" loading="eager" fetchpriority="high" decoding="async">
   {%- endif -%}
-  <img class="pp-hero__bg pp-hero__bg--mobile" src="{{ 'hero-bg-mobile.png' | asset_url }}" alt="" loading="eager">
+  <img class="pp-hero__bg pp-hero__bg--mobile" src="{{ 'hero-bg-mobile.png' | asset_url }}" alt="" loading="eager" fetchpriority="high" decoding="async">
 
   <div class="pp-hero__inner">
     {%- comment -%} Text content (right side in RTL) {%- endcomment -%}

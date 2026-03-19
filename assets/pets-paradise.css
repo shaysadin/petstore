@@ -515,6 +515,19 @@ a.pp-btn:hover {
   height: 41px;
 }
 
+/* --- Paint containment for below-fold sections --- */
+.pp-promo-section,
+.pp-best-sellers-section,
+.pp-food-products-section,
+.pp-featured-brand-section,
+.pp-new-arrival-row-section,
+.pp-testimonials-section,
+.pp-pet-guide-section,
+.pp-footer-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
 /* =====================
    SECTION LAYOUTS
    ===================== */
@@ -1938,9 +1951,9 @@ a.pp-btn:hover {
   display: flex;
   gap: 82px;
   transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-  will-change: transform;
   direction: ltr; /* Force LTR so translateX math is predictable */
   align-items: stretch; /* Equal height slides */
+  backface-visibility: hidden;
 }
 .pp-carousel__track.no-transition {
   transition: none !important;
@@ -2167,26 +2180,30 @@ body {
 .pp-reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 .pp-reveal.pp-visible {
   opacity: 1;
   transform: none;
+  will-change: auto;
 }
 
 /* === Word-by-word blur-in for headings === */
 .pp-blur-word {
   display: inline-block;
   opacity: 0;
-  filter: blur(8px);
+  filter: blur(6px);
   transform: translateY(5px);
-  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease;
+  will-change: opacity, filter, transform;
 }
 .pp-blur-word.pp-word-visible {
   opacity: 1;
   filter: none;
   transform: none;
+  will-change: auto;
 }
 
 /* === Category Card Hover === */
