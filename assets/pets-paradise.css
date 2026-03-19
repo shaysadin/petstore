@@ -2154,64 +2154,34 @@ body {
    ENTRANCE ANIMATIONS & MICRO-INTERACTIONS
    ============================================= */
 
-/* === Scroll-triggered reveal states === */
+/* === Scroll-triggered reveal === */
 .pp-reveal {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(28px) translateZ(0);
+  will-change: opacity, transform;
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .pp-reveal.pp-visible {
   opacity: 1;
-  transform: translateY(0);
-}
-
-/* Stagger children */
-.pp-stagger > .pp-reveal:nth-child(1) { transition-delay: 0ms; }
-.pp-stagger > .pp-reveal:nth-child(2) { transition-delay: 80ms; }
-.pp-stagger > .pp-reveal:nth-child(3) { transition-delay: 160ms; }
-.pp-stagger > .pp-reveal:nth-child(4) { transition-delay: 240ms; }
-.pp-stagger > .pp-reveal:nth-child(5) { transition-delay: 320ms; }
-.pp-stagger > .pp-reveal:nth-child(6) { transition-delay: 400ms; }
-.pp-stagger > .pp-reveal:nth-child(7) { transition-delay: 480ms; }
-.pp-stagger > .pp-reveal:nth-child(8) { transition-delay: 560ms; }
-
-/* Scale-up variant */
-.pp-reveal--scale {
-  opacity: 0;
-  transform: scale(0.88);
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.pp-reveal--scale.pp-visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Slide-from-right for RTL */
-.pp-reveal--right {
-  opacity: 0;
-  transform: translateX(-40px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.pp-reveal--right.pp-visible {
-  opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0) translateZ(0);
+  will-change: auto;
 }
 
 /* === Word-by-word blur-in for headings === */
 .pp-blur-word {
   display: inline-block;
   opacity: 0;
-  filter: blur(12px);
-  transform: translateY(8px);
-  transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease;
+  filter: blur(10px);
+  transform: translateY(6px) translateZ(0);
+  will-change: opacity, filter, transform;
+  transition: opacity 0.45s ease, filter 0.5s ease, transform 0.45s ease;
 }
 .pp-blur-word.pp-word-visible {
   opacity: 1;
   filter: blur(0);
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
+  will-change: auto;
 }
 
 /* === Category Card Hover === */

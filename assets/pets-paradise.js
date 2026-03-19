@@ -434,44 +434,79 @@
   function initScrollAnimations() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    // 1. Mark elements for reveal animation
-    var revealSelectors = [
-      '.pp-category-card',
-      '.pp-promo-card',
-      '.pp-product-card',
-      '.pp-testi-card',
-      '.pp-blog-card',
-      '.pp-featured-brand__content',
-      '.pp-new-arrival-row > *',
-      '.pp-guide-header',
-      '.pp-footer__newsletter',
-      '.pp-pet-guide-section .pp-btn'
-    ];
-
-    revealSelectors.forEach(function(sel) {
-      document.querySelectorAll(sel).forEach(function(el) {
-        if (!el.classList.contains('pp-reveal')) {
-          el.classList.add('pp-reveal');
+    // Single observer for all reveal elements
+    var observer = new IntersectionObserver(function(entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          entries[i].target.classList.add('pp-visible');
+          observer.unobserve(entries[i].target);
         }
-      });
-    });
+      }
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
 
-    // Mark stagger parents
-    var staggerParents = [
-      '.pp-category-grid',
-      '.pp-promo-row',
-      '.pp-testimonials__grid',
-      '.pp-guide-grid',
-      '.pp-carousel__track'
+    // Word observer for blur-in headings
+    var wordObserver = new IntersectionObserver(function(entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          var words = entries[i].target.querySelectorAll('.pp-blur-word');
+          for (var j = 0; j < words.length; j++) words[j].classList.add('pp-word-visible');
+          wordObserver.unobserve(entries[i].target);
+        }
+      }
+    }, { threshold: 0.25 });
+
+    // --- Mark reveal elements with stagger delays ---
+    function markReveal(sel, baseDelay) {
+      var els = document.querySelectorAll(sel);
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.classList.contains('pp-reveal')) continue;
+        el.classList.add('pp-reveal');
+        if (typeof baseDelay === 'number') {
+          el.style.transitionDelay = (baseDelay + i * 80) + 'ms';
+        }
+        observer.observe(el);
+      }
+    }
+
+    // Cards — staggered within their containers
+    var staggerGroups = [
+      '.pp-category-grid > .pp-category-card',
+      '.pp-promo-row > .pp-promo-card',
+      '.pp-testimonials__grid > .pp-testi-card',
+      '.pp-guide-grid > .pp-blog-card'
     ];
-    staggerParents.forEach(function(sel) {
-      document.querySelectorAll(sel).forEach(function(el) {
-        el.classList.add('pp-stagger');
-      });
+    staggerGroups.forEach(function(sel) {
+      var els = document.querySelectorAll(sel);
+      for (var i = 0; i < els.length; i++) {
+        els[i].classList.add('pp-reveal');
+        els[i].style.transitionDelay = (i * 80) + 'ms';
+        observer.observe(els[i]);
+      }
     });
 
-    // 2. Word-by-word blur-in for headings
-    var headingSelectors = [
+    // Individual elements — subtitles, descriptions, buttons, sections
+    markReveal('.pp-hero__text', 200);
+    markReveal('.pp-hero .pp-btn', 400);
+    markReveal('.pp-featured-brand__content', 0);
+    markReveal('.pp-featured-brand__text', 150);
+    markReveal('.pp-featured-brand__content .pp-btn', 300);
+    markReveal('.pp-new-arrival-row > .pp-promo-card', 0);
+    markReveal('.pp-new-arrival-row__products', 150);
+    markReveal('.pp-guide-header', 0);
+    markReveal('.pp-guide-header p', 100);
+    markReveal('.pp-pet-guide-section .pp-btn', 200);
+    markReveal('.pp-footer__newsletter', 0);
+    markReveal('.pp-carousel__dots', 300);
+
+    // Product cards in carousels
+    document.querySelectorAll('.pp-carousel__slide').forEach(function(slide) {
+      slide.classList.add('pp-reveal');
+      observer.observe(slide);
+    });
+
+    // --- Word-by-word blur-in headings ---
+    var headingSels = [
       '.pp-hero__content .pp-h1',
       '.pp-category-wave__heading',
       '.pp-section-heading',
@@ -479,75 +514,33 @@
       '.pp-featured-brand__content .pp-h1'
     ];
 
-    headingSelectors.forEach(function(sel) {
-      document.querySelectorAll(sel).forEach(function(heading) {
-        if (heading.dataset.ppSplit) return;
-        heading.dataset.ppSplit = 'true';
+    headingSels.forEach(function(sel) {
+      var headings = document.querySelectorAll(sel);
+      for (var h = 0; h < headings.length; h++) {
+        var heading = headings[h];
+        if (heading.dataset.ppSplit) continue;
+        heading.dataset.ppSplit = '1';
 
         var text = heading.textContent.trim();
         var words = text.split(/\s+/);
-        heading.innerHTML = '';
+        heading.textContent = '';
 
-        words.forEach(function(word, i) {
+        for (var w = 0; w < words.length; w++) {
           var span = document.createElement('span');
           span.className = 'pp-blur-word';
-          span.textContent = word;
-          span.style.transitionDelay = (i * 100) + 'ms';
+          span.textContent = words[w];
+          span.style.transitionDelay = (w * 90) + 'ms';
           heading.appendChild(span);
-          // Add space between words
-          if (i < words.length - 1) {
-            heading.appendChild(document.createTextNode(' '));
-          }
-        });
-      });
-    });
-
-    // 3. IntersectionObserver for reveals
-    var revealObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('pp-visible');
-          revealObserver.unobserve(entry.target);
+          if (w < words.length - 1) heading.appendChild(document.createTextNode(' '));
         }
-      });
-    }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -40px 0px'
-    });
 
-    document.querySelectorAll('.pp-reveal, .pp-reveal--scale, .pp-reveal--right').forEach(function(el) {
-      revealObserver.observe(el);
-    });
-
-    // 4. Observer for blur-word headings
-    var wordObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          var words = entry.target.querySelectorAll('.pp-blur-word');
-          words.forEach(function(word) {
-            word.classList.add('pp-word-visible');
-          });
-          wordObserver.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.3,
-      rootMargin: '0px 0px -20px 0px'
-    });
-
-    headingSelectors.forEach(function(sel) {
-      document.querySelectorAll(sel).forEach(function(heading) {
         wordObserver.observe(heading);
-      });
+      }
     });
   }
 
-  // Init animations after a slight delay to let page render
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(initScrollAnimations, 200);
-    });
-  } else {
-    setTimeout(initScrollAnimations, 200);
-  }
+  // Init after paint
+  requestAnimationFrame(function() {
+    requestAnimationFrame(initScrollAnimations);
+  });
 })();
