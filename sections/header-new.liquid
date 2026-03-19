@@ -1,5 +1,57 @@
 <style>
   .pp-header-section .shopify-section-header-group { display: contents; }
+
+  /* === Dropdown Menu === */
+  .pp-navbar__dropdown {
+    position: relative;
+  }
+  .pp-navbar__dropdown .pp-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .pp-navbar__dropdown .pp-nav-link svg {
+    transition: transform 0.25s ease;
+  }
+  .pp-navbar__dropdown:hover .pp-nav-link svg {
+    transform: rotate(180deg);
+  }
+  .pp-navbar__dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 220px;
+    background: var(--pp-white);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(80, 30, 21, 0.15);
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    z-index: 100;
+    direction: rtl;
+  }
+  .pp-navbar__dropdown:hover .pp-navbar__dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .pp-navbar__dropdown-link {
+    display: block;
+    padding: 10px 20px;
+    font-family: var(--pp-font);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--pp-brown);
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s, padding-right 0.15s;
+  }
+  .pp-navbar__dropdown-link:hover {
+    background: var(--pp-cream);
+    color: var(--pp-orange);
+    padding-right: 24px;
+  }
   .pp-navbar__cart-count {
     position: absolute;
     top: -6px;
@@ -497,14 +549,28 @@
       </a>
     </div>
 
-    {%- comment -%} Nav links (desktop) {%- endcomment -%}
+    {%- comment -%} Nav links (desktop) with dropdowns {%- endcomment -%}
     {%- assign nav_menu = linklists[section.settings.menu] -%}
     <nav class="pp-navbar__nav d-none d-lg-flex">
       {%- if nav_menu.links.size > 0 -%}
         {%- for link in nav_menu.links -%}
-          <div class="pp-navbar__nav-item">
-            <a href="{{ link.url }}" class="pp-nav-link" title="{{ link.title }}">{{ link.title | truncate: 20, '...' }}</a>
-          </div>
+          {%- if link.links.size > 0 -%}
+            <div class="pp-navbar__nav-item pp-navbar__dropdown">
+              <a href="{{ link.url }}" class="pp-nav-link" title="{{ link.title }}">
+                {{ link.title }}
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-right:4px;"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </a>
+              <div class="pp-navbar__dropdown-menu">
+                {%- for child in link.links -%}
+                  <a href="{{ child.url }}" class="pp-navbar__dropdown-link">{{ child.title }}</a>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- else -%}
+            <div class="pp-navbar__nav-item">
+              <a href="{{ link.url }}" class="pp-nav-link" title="{{ link.title }}">{{ link.title }}</a>
+            </div>
+          {%- endif -%}
         {%- endfor -%}
       {%- endif -%}
     </nav>
