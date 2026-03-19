@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Onest:wght@100..900&display=swap" rel="stylesheet">
 
+    <link rel="preload" href="{{ 'testimonials-wave-desktop.png' | asset_url }}" as="image">
+
     {%- comment -%} CSS: vendor then theme (RTL for Hebrew) {%- endcomment -%}
     {{ 'bootstrap.rtl.min.css' | asset_url | stylesheet_tag }}
     {{ 'fontawesome.min.css' | asset_url | stylesheet_tag }}

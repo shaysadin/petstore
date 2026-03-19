@@ -509,7 +509,6 @@
     var staggerGroups = [
       '.pp-category-grid > .pp-category-card',
       '.pp-promo-row > .pp-promo-card',
-      '.pp-testimonials__grid > .pp-testi-card',
       '.pp-guide-grid > .pp-blog-card'
     ];
     staggerGroups.forEach(function(sel) {
