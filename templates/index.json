@@ -11,11 +11,11 @@
     "category-search": {
       "type": "category-search",
       "blocks": {
-        "cat-1": { "type": "category", "settings": { "title": "מזון לבעלי חיים" } },
-        "cat-2": { "type": "category", "settings": { "title": "חטיפים" } },
-        "cat-3": { "type": "category", "settings": { "title": "צעצועים" } },
-        "cat-4": { "type": "category", "settings": { "title": "מוצרי טיפוח" } },
-        "cat-5": { "type": "category", "settings": { "title": "מיטות" } }
+        "cat-1": { "type": "category", "settings": { "title": "מזון לבעלי חיים", "link": "/collections/מזון-יבש" } },
+        "cat-2": { "type": "category", "settings": { "title": "חטיפים", "link": "/collections/חטיפים" } },
+        "cat-3": { "type": "category", "settings": { "title": "צעצועים", "link": "/collections/צעצועים" } },
+        "cat-4": { "type": "category", "settings": { "title": "מוצרי טיפוח", "link": "/collections/מוצרי-טיפוח" } },
+        "cat-5": { "type": "category", "settings": { "title": "מיטות", "link": "/collections/מיטות" } }
       },
       "block_order": ["cat-1", "cat-2", "cat-3", "cat-4", "cat-5"],
       "settings": { "heading": "חפשו מוצר לפי:" }
@@ -23,8 +23,8 @@
     "promo-cards": {
       "type": "promo-cards-new",
       "blocks": {
-        "card-1": { "type": "card", "settings": { "heading": "מוצרים לכלבים", "button_text": "קנה עכשיו" } },
-        "card-2": { "type": "card", "settings": { "heading": "מוצרים לחתולים", "button_text": "קנה עכשיו" } }
+        "card-1": { "type": "card", "settings": { "heading": "מוצרים לכלבים", "button_text": "קנה עכשיו", "button_url": "/collections/מוצרים-לכלבים" } },
+        "card-2": { "type": "card", "settings": { "heading": "מוצרים לחתולים", "button_text": "קנה עכשיו", "button_url": "/collections/מוצרים-לחתולים" } }
       },
       "block_order": ["card-1", "card-2"],
       "settings": {}
@@ -33,7 +33,8 @@
       "type": "best-sellers-new",
       "settings": {
         "heading": "המוצרים הנמכרים ביותר:",
-        "product_count": 4
+        "collection": "הנמכרים-ביותר",
+        "product_count": 8
       }
     },
     "featured-brand": {
@@ -41,13 +42,16 @@
       "settings": {
         "heading": "המזון האיכותי ביותר במחיר המשתלם ביותר!",
         "text": "בחרנו עבורכם מזון מובחר לכלבים ולחתולים, עשיר ברכיבים תזונתיים חיוניים, שמספק אנרגיה, ברק ובריאות יומיומית בלי לשלם יותר ממה שצריך. איכות אמיתית, במחיר שמרגיש נכון.",
-        "button_text": "קנה עכשיו"
+        "button_text": "קנה עכשיו",
+        "button_url": "/collections/מזון-יבש"
       }
     },
     "food-products": {
       "type": "food-products",
       "settings": {
-        "product_count": 4
+        "heading": "מזון לכלבים ולחתולים",
+        "collection": "מזון-יבש",
+        "product_count": 8
       }
     },
     "new-arrival-row": {
@@ -55,6 +59,8 @@
       "settings": {
         "heading": "סטנדרט חדש של תזונה עכשיו במחיר מבצע!",
         "button_text": "קנה עכשיו",
+        "button_url": "/collections/מוצרים-מובילים",
+        "collection": "מוצרים-מובילים",
         "product_count": 2
       }
     },

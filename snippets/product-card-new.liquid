@@ -3,7 +3,9 @@
   Accepts: product {Product} (required)
 {%- endcomment -%}
 
-<div class="pp-product-card">
+{%- assign first_variant = product.selected_or_first_available_variant -%}
+
+<div class="pp-product-card" data-product-id="{{ product.id }}" data-variant-id="{{ first_variant.id }}">
   <a href="{{ product.url }}">
     {%- if product.featured_image -%}
       <img
@@ -48,16 +50,26 @@
     </div>
 
     <div class="pp-product-card__actions">
-      <a href="{{ product.url }}" class="pp-btn pp-btn--outline">הוספה לסל</a>
       <div class="pp-qty">
-        <button class="pp-qty__btn" type="button" aria-label="הוסף">
+        <button class="pp-qty__btn pp-qty__plus" type="button" aria-label="הוסף">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/></svg>
         </button>
         <span class="pp-qty__count">1</span>
-        <button class="pp-qty__btn" type="button" aria-label="הפחת">
+        <button class="pp-qty__btn pp-qty__minus" type="button" aria-label="הפחת">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 12.998h14v-2H5z"/></svg>
         </button>
       </div>
+      <button type="button"
+        class="pp-btn pp-btn--outline pp-add-to-cart"
+        data-variant-id="{{ first_variant.id }}"
+        data-product-title="{{ product.title | escape }}"
+        {%- unless first_variant.available %} disabled{% endunless -%}>
+        {%- if first_variant.available -%}
+          הוספה לסל
+        {%- else -%}
+          אזל מהמלאי
+        {%- endif -%}
+      </button>
     </div>
   </div>
 </div>

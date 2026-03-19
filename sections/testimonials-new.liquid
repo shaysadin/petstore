@@ -1,9 +1,10 @@
 <section class="pp-testimonials">
   {%- if section.settings.background_image -%}
-    <img class="pp-testimonials__bg" src="{{ section.settings.background_image | image_url: width: 1920 }}" alt="" loading="lazy">
+    <img class="pp-testimonials__bg pp-testimonials__bg--desktop" src="{{ section.settings.background_image | image_url: width: 1920 }}" alt="" loading="lazy">
   {%- else -%}
-    <img class="pp-testimonials__bg" src="{{ 'testimonials-bg.png' | asset_url }}" alt="" loading="lazy">
+    <img class="pp-testimonials__bg pp-testimonials__bg--desktop" src="{{ 'testimonials-bg.png' | asset_url }}" alt="" loading="lazy">
   {%- endif -%}
+  <img class="pp-testimonials__bg pp-testimonials__bg--mobile" src="{{ 'testimonials-bg-mobile.png' | asset_url }}" alt="" loading="lazy">
 
   <h2 class="pp-h1 pp-testimonials__heading">{{ section.settings.heading | default: 'לקוחות מספרים' }}</h2>
 
@@ -29,6 +30,11 @@
         </div>
       </div>
     {%- endfor -%}
+  </div>
+  <div class="pp-testimonials__cream-bottom">
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 100 L100 100 L0 70 C35 20 65 65 100 25 Z" fill="#F75C02"/>
+    </svg>
   </div>
 </section>
 

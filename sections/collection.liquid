@@ -1,86 +1,179 @@
-{% doc %}
-  Collection page with breadcrumb, sort bar, product grid, and pagination.
-{% enddoc %}
+{%- assign products_per_page = section.settings.products_per_page | default: 20 -%}
 
-<script>document.body.classList.add('has-breadcrumb');</script>
-
-<div class="breadcumb-wrapper">
-  <div class="breadcumb-bg-thumb" data-overlay="title" data-opacity="5" data-bg-src="{{ 'breadcumb-bg-3.png' | asset_url }}"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-xxl-12">
-        <div class="breadcumb-content">
-          <h1 class="breadcumb-title text-anim" data-cue="slideInUp" data-delay="100">{{ collection.title }}</h1>
-          <ul class="breadcumb-menu">
-            <li><a href="/">דף הבית</a></li>
-            <li>{{ collection.title }}</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="pp-collection-header">
+  <h1 class="pp-h1">{{ collection.title }}</h1>
+  {%- if collection.description != blank -%}
+    <p class="pp-body pp-collection-header__desc">{{ collection.description | strip_html | truncate: 200 }}</p>
+  {%- endif -%}
+  <nav class="pp-breadcrumb">
+    <a href="/">דף הבית</a>
+    <span class="pp-breadcrumb__sep">/</span>
+    <span>{{ collection.title }}</span>
+  </nav>
 </div>
 
-{%- assign products_per_page = section.settings.products_per_page | default: 20 -%}
 {% paginate collection.products by products_per_page %}
-<section class="th-product-wrapper space-top space-extra-bottom">
-  <div class="container th-container">
-    <div class="row">
-      <div class="col-12">
-        <div class="th-sort-bar">
-          <div class="row justify-content-between align-items-center">
-            <div class="col-md">
-              <p class="woocommerce-result-count">
-                מציג {{ paginate.current_offset | plus: 1 }}&ndash;{% assign page_end = paginate.current_offset | plus: paginate.page_size %}{% if page_end > collection.products_count %}{{ collection.products_count }}{% else %}{{ page_end }}{% endif %} מתוך {{ collection.products_count }} תוצאות
-              </p>
-            </div>
-            <div class="col-md-auto">
-              <form class="woocommerce-ordering">
-                <select name="sort_by" class="orderby" onchange="window.location.href=this.value">
-                  {%- for option in collection.sort_options -%}
-                    <option value="{{ option.url }}"{% if collection.sort_by == option.value %} selected{% endif %}>{{ option.name }}</option>
-                  {%- endfor -%}
-                </select>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row gy-40">
-      {%- for product in collection.products -%}
-        <div class="col-xl-3 col-lg-4 col-sm-6" data-cue="slideInUp">
-          {% render 'product-card', product: product %}
-        </div>
-      {%- else -%}
-        <div class="col-12 text-center py-5">
-          <p>לא נמצאו מוצרים בקולקציה זו.</p>
-        </div>
-      {%- endfor -%}
-    </div>
-
-    {%- if paginate.pages > 1 -%}
-      <div class="th-pagination text-center mt-60">
-        <ul>
-          {%- if paginate.previous -%}
-            <li><a href="{{ paginate.previous.url }}"><i class="far fa-arrow-left"></i></a></li>
-          {%- endif -%}
-          {%- for part in paginate.parts -%}
-            {%- if part.is_link -%}
-              <li><a href="{{ part.url }}">{{ part.title }}</a></li>
-            {%- else -%}
-              <li class="active"><span>{{ part.title }}</span></li>
-            {%- endif -%}
-          {%- endfor -%}
-          {%- if paginate.next -%}
-            <li><a href="{{ paginate.next.url }}"><i class="far fa-arrow-right"></i></a></li>
-          {%- endif -%}
-        </ul>
-      </div>
-    {%- endif -%}
+<section class="pp-collection-section">
+  <div class="pp-collection-toolbar">
+    <p class="pp-collection-toolbar__count">
+      מציג {{ paginate.current_offset | plus: 1 }}&ndash;{% assign page_end = paginate.current_offset | plus: paginate.page_size %}{% if page_end > collection.products_count %}{{ collection.products_count }}{% else %}{{ page_end }}{% endif %} מתוך {{ collection.products_count }} תוצאות
+    </p>
+    <form class="pp-collection-toolbar__sort">
+      <select name="sort_by" onchange="window.location.href=this.value">
+        {%- for option in collection.sort_options -%}
+          <option value="{{ option.url }}"{% if collection.sort_by == option.value %} selected{% endif %}>{{ option.name }}</option>
+        {%- endfor -%}
+      </select>
+    </form>
   </div>
+
+  <div class="pp-collection-grid">
+    {%- for product in collection.products -%}
+      <div class="pp-collection-grid__item">
+        {% render 'product-card-new', product: product %}
+      </div>
+    {%- else -%}
+      <div class="pp-collection-grid__empty">
+        <p>לא נמצאו מוצרים בקולקציה זו.</p>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if paginate.pages > 1 -%}
+    <div class="pp-pagination">
+      {%- if paginate.previous -%}
+        <a href="{{ paginate.previous.url }}" class="pp-pagination__arrow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </a>
+      {%- endif -%}
+      {%- for part in paginate.parts -%}
+        {%- if part.is_link -%}
+          <a href="{{ part.url }}" class="pp-pagination__num">{{ part.title }}</a>
+        {%- else -%}
+          <span class="pp-pagination__num pp-pagination__num--active">{{ part.title }}</span>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if paginate.next -%}
+        <a href="{{ paginate.next.url }}" class="pp-pagination__arrow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
 </section>
 {% endpaginate %}
+
+<style>
+  .pp-collection-header {
+    background: var(--pp-cream);
+    padding: 60px 34px 40px;
+    text-align: center;
+  }
+  .pp-collection-header .pp-h1 { margin-bottom: 10px; }
+  .pp-collection-header__desc {
+    color: var(--pp-brown);
+    opacity: 0.7;
+    max-width: 600px;
+    margin: 0 auto 16px;
+    font-family: var(--pp-font);
+    font-size: 16px;
+  }
+  .pp-breadcrumb {
+    font-family: var(--pp-font);
+    font-size: 14px;
+    color: var(--pp-brown);
+    opacity: 0.6;
+  }
+  .pp-breadcrumb a { color: inherit; text-decoration: none; }
+  .pp-breadcrumb a:hover { text-decoration: underline; }
+  .pp-breadcrumb__sep { margin: 0 8px; }
+  .pp-collection-section {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 40px 34px 80px;
+  }
+  .pp-collection-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    font-family: var(--pp-font);
+  }
+  .pp-collection-toolbar__count {
+    font-size: 14px;
+    color: var(--pp-brown);
+    opacity: 0.7;
+  }
+  .pp-collection-toolbar__sort select {
+    font-family: var(--pp-font);
+    font-size: 14px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--pp-brown);
+  }
+  .pp-collection-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+  .pp-collection-grid__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    font-family: var(--pp-font);
+    color: var(--pp-brown);
+  }
+  .pp-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 50px;
+    font-family: var(--pp-font);
+  }
+  .pp-pagination__num {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--pp-brown);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .pp-pagination__num:hover { background: var(--pp-cream); }
+  .pp-pagination__num--active {
+    background: var(--pp-orange);
+    color: #fff;
+  }
+  .pp-pagination__arrow {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--pp-brown);
+    text-decoration: none;
+  }
+  .pp-pagination__arrow:hover { background: var(--pp-cream); }
+  @media (max-width: 1200px) {
+    .pp-collection-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .pp-collection-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .pp-collection-header { padding: 40px 16px 24px; }
+    .pp-collection-section { padding: 24px 16px 60px; }
+  }
+  @media (max-width: 480px) {
+    .pp-collection-grid { grid-template-columns: 1fr; }
+  }
+</style>
 
 {% schema %}
 {
@@ -89,7 +182,7 @@
     {
       "type": "range",
       "id": "products_per_page",
-      "label": "Products per page",
+      "label": "מוצרים בעמוד",
       "min": 8,
       "max": 40,
       "step": 4,

@@ -1,82 +1,93 @@
 <footer class="pp-footer">
   <div class="pp-footer__top">
     {%- comment -%} Footer columns (right side in RTL visual) {%- endcomment -%}
-    <div class="pp-footer__columns">
-      {%- comment -%} Sitemap column {%- endcomment -%}
-      <div class="pp-footer__col">
-        <span class="pp-footer-heading">מפת אתר</span>
-        {%- if section.settings.footer_menu != blank -%}
-          {%- for link in section.settings.footer_menu.links -%}
-            <a href="{{ link.url }}" class="pp-footer-text">{{ link.title }}</a>
+    <div class="pp-footer__right-section">
+      <div class="pp-footer__columns">
+        {%- comment -%} Sitemap column {%- endcomment -%}
+        <div class="pp-footer__col">
+          <span class="pp-footer-heading">מפת אתר</span>
+          {%- if section.settings.footer_menu != blank -%}
+            {%- for link in section.settings.footer_menu.links -%}
+              <a href="{{ link.url }}" class="pp-footer-text">{{ link.title }}</a>
+            {%- endfor -%}
+          {%- else -%}
+            <a href="/" class="pp-footer-text">ראשי</a>
+            <a href="/pages/about" class="pp-footer-text">אודותינו</a>
+            <a href="/pages/terms" class="pp-footer-text">תקנון</a>
+            <a href="/pages/accessibility" class="pp-footer-text">נגישות</a>
+            <a href="/collections" class="pp-footer-text">קטלוג</a>
+            <a href="/pages/privacy" class="pp-footer-text">מדיניות/פרטיות</a>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Discover column {%- endcomment -%}
+        <div class="pp-footer__col">
+          <span class="pp-footer-heading">גלה עוד</span>
+          {%- assign has_discover = false -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'discover_link' -%}
+              {%- assign has_discover = true -%}
+            {%- endif -%}
           {%- endfor -%}
-        {%- else -%}
-          <a href="/" class="pp-footer-text">ראשי</a>
-          <a href="/pages/about" class="pp-footer-text">אודותינו</a>
-          <a href="/pages/terms" class="pp-footer-text">תקנון</a>
-          <a href="/pages/accessibility" class="pp-footer-text">נגישות</a>
-          <a href="/collections" class="pp-footer-text">קטלוג</a>
-          <a href="/pages/privacy" class="pp-footer-text">מדיניות/פרטיות</a>
-        {%- endif -%}
+          {%- if has_discover -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'discover_link' -%}
+                <a href="{{ block.settings.url | default: '#' }}" class="pp-footer-text" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            <a href="/collections/dogs" class="pp-footer-text">כלבים</a>
+            <a href="/collections/cats" class="pp-footer-text">חתולים</a>
+            <a href="/blogs/news" class="pp-footer-text">בלוג</a>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Contact column {%- endcomment -%}
+        <div class="pp-footer__col">
+          <span class="pp-footer-heading">צור קשר</span>
+          {%- if section.settings.phone != blank -%}
+            <div class="pp-footer__contact-item">
+              <span class="pp-footer-text">{{ section.settings.phone }}</span>
+              <svg class="pp-footer__contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92V19.92C22 20.48 21.47 20.95 20.91 20.99C15.73 20.5 10.83 18.37 6.97 14.93C3.42 11.77 1.12 7.77 0.61 3.37C0.56 2.82 1.04 2.35 1.6 2.35H4.6C5.1 2.35 5.53 2.71 5.61 3.2C5.94 5.14 6.61 7.01 7.58 8.72C7.79 9.1 7.69 9.57 7.36 9.84L5.6 11.28C7.85 15.37 11.17 18.38 15.48 20.29L16.9 18.48C17.17 18.14 17.65 18.03 18.04 18.25C19.73 19.2 21.59 19.87 23.52 20.2C24.01 20.28 24.38 20.72 24.38 21.22" stroke="#501E15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.email != blank -%}
+            <div class="pp-footer__contact-item">
+              <span class="pp-footer-text">{{ section.settings.email }}</span>
+              <svg class="pp-footer__contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="#501E15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M22 6L12 13L2 6" stroke="#501E15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          {%- endif -%}
+        </div>
       </div>
 
-      {%- comment -%} Discover column {%- endcomment -%}
-      <div class="pp-footer__col">
-        <span class="pp-footer-heading">גלה עוד</span>
+      {%- comment -%} Social icons row below all columns {%- endcomment -%}
+      <div class="pp-footer__social">
         {%- for block in section.blocks -%}
-          {%- if block.type == 'discover_link' -%}
-            <a href="{{ block.settings.url | default: '#' }}" class="pp-footer-text" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+          {%- if block.type == 'social_link' -%}
+            <a href="{{ block.settings.url | default: '#' }}" class="pp-footer__social-icon" target="_blank" rel="noopener" {{ block.shopify_attributes }}>
+              {%- if block.settings.icon -%}
+                <img src="{{ block.settings.icon | image_url: width: 100 }}" alt="{{ block.settings.platform | escape }}" width="50" height="50">
+              {%- else -%}
+                <span class="pp-footer__social-placeholder" aria-label="{{ block.settings.platform | escape }}"></span>
+              {%- endif -%}
+            </a>
           {%- endif -%}
         {%- endfor -%}
       </div>
-
-      {%- comment -%} Contact column {%- endcomment -%}
-      <div class="pp-footer__col">
-        <span class="pp-footer-heading">צור קשר</span>
-        {%- if section.settings.phone != blank -%}
-          <div class="pp-footer__contact-item">
-            <span class="pp-footer-text">{{ section.settings.phone }}</span>
-            <svg class="pp-footer__contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M22 16.92V19.92C22 20.48 21.47 20.95 20.91 20.99C15.73 20.5 10.83 18.37 6.97 14.93C3.42 11.77 1.12 7.77 0.61 3.37C0.56 2.82 1.04 2.35 1.6 2.35H4.6C5.1 2.35 5.53 2.71 5.61 3.2C5.94 5.14 6.61 7.01 7.58 8.72C7.79 9.1 7.69 9.57 7.36 9.84L5.6 11.28C7.85 15.37 11.17 18.38 15.48 20.29L16.9 18.48C17.17 18.14 17.65 18.03 18.04 18.25C19.73 19.2 21.59 19.87 23.52 20.2C24.01 20.28 24.38 20.72 24.38 21.22" stroke="#501E15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        {%- endif -%}
-        {%- if section.settings.email != blank -%}
-          <div class="pp-footer__contact-item">
-            <span class="pp-footer-text">{{ section.settings.email }}</span>
-            <svg class="pp-footer__contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="#501E15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M22 6L12 13L2 6" stroke="#501E15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        {%- endif -%}
-
-        {%- comment -%} Social icons {%- endcomment -%}
-        <div class="pp-footer__social">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'social_link' -%}
-              <a href="{{ block.settings.url | default: '#' }}" class="pp-footer__social-icon" target="_blank" rel="noopener" {{ block.shopify_attributes }}>
-                {%- if block.settings.icon -%}
-                  <img src="{{ block.settings.icon | image_url: width: 100 }}" alt="{{ block.settings.platform | escape }}" width="50" height="50">
-                {%- else -%}
-                  {%- assign social_idx = forloop.index -%}
-                  {%- if social_idx > 6 -%}{%- assign social_idx = 1 -%}{%- endif -%}
-                  {%- capture social_img -%}social-{{ social_idx }}.png{%- endcapture -%}
-                  <img src="{{ social_img | asset_url }}" alt="{{ block.settings.platform | escape }}" width="50" height="50">
-                {%- endif -%}
-              </a>
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-      </div>
     </div>
 
-    {%- comment -%} Newsletter (left side in RTL visual) {%- endcomment -%}
+    {%- comment -%} Newsletter (left side in RTL visual, comes after columns in HTML) {%- endcomment -%}
     <div class="pp-footer__newsletter">
       <h2 class="pp-h2" style="text-align:right;">{{ section.settings.newsletter_heading | default: 'רוצים לפנק חכם יותר? הצטרפו לניוזלטר שלנו וקבלו מבצעים והטבות מיוחדות' }}</h2>
       {%- form 'customer', id: 'pp-newsletter' -%}
-        <div class="pp-footer__email-row">
-          <button type="submit" class="pp-btn pp-btn--primary">{{ section.settings.submit_text | default: 'שלח' }}</button>
+        <div class="pp-footer__email-form">
           <input type="email" name="contact[email]" class="pp-footer__email-input" placeholder="{{ section.settings.email_placeholder | default: 'הקלד את המייל שלך' }}" required>
+          <button type="submit" class="pp-btn pp-btn--primary pp-footer__submit-btn">{{ section.settings.submit_text | default: 'שלח' }}</button>
         </div>
       {%- endform -%}
     </div>
@@ -85,17 +96,45 @@
   <hr class="pp-footer__divider">
 
   <div class="pp-footer__bottom">
+    {%- if section.settings.logo -%}
+      <img src="{{ section.settings.logo | image_url: width: 424 }}" alt="{{ shop.name }}" class="pp-footer__logo">
+    {%- else -%}
+      <span class="pp-footer__logo-text">Pets Paradise</span>
+    {%- endif -%}
+
     <div class="pp-footer__payments">
       {%- for type in shop.enabled_payment_types -%}
         {{ type | payment_type_svg_tag: class: 'pp-footer__payment-icon' }}
       {%- endfor -%}
+      {%- comment -%} Hardcoded payment icons matching Figma design {%- endcomment -%}
+      <svg class="pp-footer__payment-icon" viewBox="0 0 48 30" xmlns="http://www.w3.org/2000/svg" aria-label="Visa">
+        <rect width="48" height="30" rx="4" fill="#1A1F71"/>
+        <text x="24" y="19" text-anchor="middle" fill="#FFFFFF" font-family="Arial,sans-serif" font-weight="700" font-size="12">VISA</text>
+      </svg>
+      <svg class="pp-footer__payment-icon" viewBox="0 0 48 30" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard">
+        <rect width="48" height="30" rx="4" fill="#252525"/>
+        <circle cx="19" cy="15" r="9" fill="#EB001B"/>
+        <circle cx="29" cy="15" r="9" fill="#F79E1B"/>
+        <circle cx="24" cy="15" r="5.5" fill="#FF5F00"/>
+      </svg>
+      <svg class="pp-footer__payment-icon" viewBox="0 0 48 30" xmlns="http://www.w3.org/2000/svg" aria-label="American Express">
+        <rect width="48" height="30" rx="4" fill="#006FCF"/>
+        <text x="24" y="14" text-anchor="middle" fill="#FFFFFF" font-family="Arial,sans-serif" font-weight="700" font-size="6">AMERICAN</text>
+        <text x="24" y="22" text-anchor="middle" fill="#FFFFFF" font-family="Arial,sans-serif" font-weight="700" font-size="6">EXPRESS</text>
+      </svg>
+      <svg class="pp-footer__payment-icon" viewBox="0 0 48 30" xmlns="http://www.w3.org/2000/svg" aria-label="bit">
+        <rect width="48" height="30" rx="4" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+        <text x="24" y="19" text-anchor="middle" fill="#3CB8E0" font-family="Arial,sans-serif" font-weight="700" font-size="13">bit</text>
+      </svg>
+      <svg class="pp-footer__payment-icon" viewBox="0 0 48 30" xmlns="http://www.w3.org/2000/svg" aria-label="Apple Pay">
+        <rect width="48" height="30" rx="4" fill="#000000"/>
+        <text x="24" y="19" text-anchor="middle" fill="#FFFFFF" font-family="Arial,sans-serif" font-weight="600" font-size="9"> Pay</text>
+      </svg>
+      <svg class="pp-footer__payment-icon" viewBox="0 0 48 30" xmlns="http://www.w3.org/2000/svg" aria-label="Google Pay">
+        <rect width="48" height="30" rx="4" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+        <text x="24" y="19" text-anchor="middle" fill="#5F6368" font-family="Arial,sans-serif" font-weight="600" font-size="8">G Pay</text>
+      </svg>
     </div>
-
-    {%- if section.settings.logo -%}
-      <img src="{{ section.settings.logo | image_url: width: 424 }}" alt="{{ shop.name }}" style="height:23px;">
-    {%- else -%}
-      <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" style="height:23px;">
-    {%- endif -%}
   </div>
 </footer>
 

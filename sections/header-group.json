@@ -4,7 +4,9 @@
   "sections": {
     "header": {
       "type": "header-new",
-      "settings": {}
+      "settings": {
+        "menu": "main-menu"
+      }
     }
   },
   "order": ["header"]

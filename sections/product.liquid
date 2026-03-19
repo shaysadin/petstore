@@ -1,597 +1,344 @@
-{% doc %}
-  Product details page with images, variant selector, add to cart, and meta info.
-{% enddoc %}
+<div class="pp-product-page">
+  <nav class="pp-breadcrumb">
+    <a href="/">דף הבית</a>
+    <span class="pp-breadcrumb__sep">/</span>
+    {%- if product.collections.size > 0 -%}
+      <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
+      <span class="pp-breadcrumb__sep">/</span>
+    {%- endif -%}
+    <span>{{ product.title }}</span>
+  </nav>
 
-<script>document.body.classList.add('has-breadcrumb');</script>
-
-<div class="breadcumb-wrapper">
-  <div class="breadcumb-bg-thumb" data-overlay="title" data-opacity="5" data-bg-src="{{ 'breadcumb-bg-3.png' | asset_url }}"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-xxl-12">
-        <div class="breadcumb-content">
-          <h1 class="breadcumb-title text-anim" data-cue="slideInUp" data-delay="100">{{ product.title }}</h1>
-          <ul class="breadcumb-menu">
-            <li><a href="/">דף הבית</a></li>
-            <li><a href="/collections/all">מוצרים</a></li>
-            <li>{{ product.title }}</li>
-          </ul>
+  <div class="pp-product-page__inner">
+    {%- comment -%} Product images {%- endcomment -%}
+    <div class="pp-product-page__gallery">
+      <div class="pp-product-page__main-img">
+        {%- if product.featured_image -%}
+          <img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" id="pp-main-img">
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="pp-product-page__thumbs">
+          {%- for image in product.images -%}
+            <button class="pp-product-page__thumb{% if forloop.first %} active{% endif %}" data-src="{{ image | image_url: width: 900 }}">
+              <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy">
+            </button>
+          {%- endfor -%}
         </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Product info {%- endcomment -%}
+    <div class="pp-product-page__info">
+      <h1 class="pp-product-page__title">{{ product.title }}</h1>
+
+      <div class="pp-product-page__price">
+        <span class="pp-product-page__price-current">{{ product.price | money_without_trailing_zeros }}</span>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="pp-product-page__price-compare">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if product.description != blank -%}
+        <div class="pp-product-page__desc">{{ product.description }}</div>
+      {%- endif -%}
+
+      <div class="pp-product-page__availability">
+        {%- if product.available -%}
+          <span class="pp-product-page__stock pp-product-page__stock--in">במלאי</span>
+        {%- else -%}
+          <span class="pp-product-page__stock pp-product-page__stock--out">אזל מהמלאי</span>
+        {%- endif -%}
+      </div>
+
+      {% form 'product', product %}
+        {{ form.errors | default_errors }}
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <div class="pp-product-page__option">
+              <label class="pp-product-page__option-label">{{ option.name }}</label>
+              <select name="id" class="pp-product-page__select">
+                {%- for variant in product.variants -%}
+                  <option value="{{ variant.id }}"{% if variant == product.selected_or_first_available_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>
+                    {{ variant.title }} - {{ variant.price | money_without_trailing_zeros }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        {%- endunless -%}
+
+        <div class="pp-product-page__actions">
+          <div class="pp-qty pp-qty--large">
+            <button class="pp-qty__btn pp-qty__plus" type="button" aria-label="הוסף">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/></svg>
+            </button>
+            <input type="number" name="quantity" value="1" min="1" max="100" class="pp-qty__input">
+            <button class="pp-qty__btn pp-qty__minus" type="button" aria-label="הפחת">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 12.998h14v-2H5z"/></svg>
+            </button>
+          </div>
+          <button type="submit" class="pp-btn pp-btn--primary pp-product-page__add-btn"{% unless product.available %} disabled{% endunless %}>
+            {%- if product.available -%}הוסף לסל{%- else -%}אזל מהמלאי{%- endif -%}
+          </button>
+        </div>
+      {% endform %}
+
+      <div class="pp-product-page__meta">
+        {%- if product.vendor != blank -%}
+          <span>יצרן: <a href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a></span>
+        {%- endif -%}
+        {%- if product.type != blank -%}
+          <span>סוג: <a href="{{ product.type | url_for_type }}">{{ product.type }}</a></span>
+        {%- endif -%}
+        {%- if product.tags.size > 0 -%}
+          <span>תגיות:
+            {%- for tag in product.tags -%}
+              <a href="/collections/all/{{ tag | handle }}">{{ tag }}{% unless forloop.last %}, {% endunless %}</a>
+            {%- endfor -%}
+          </span>
+        {%- endif -%}
       </div>
     </div>
   </div>
 </div>
 
-<section class="product-details space-top space-extra-bottom">
-  <div class="container th-container">
-    <div class="row gx-60">
-      {%- comment -%} Product images {%- endcomment -%}
-      <div class="col-lg-6 product-img-col">
-        <div class="product-img-sticky">
-          <div class="product-big-img" id="productMainImg">
-            <div class="img product-img-clickable">
-              {%- if product.featured_image -%}
-                <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" id="main-product-image" data-index="0">
-              {%- else -%}
-                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-              {%- endif -%}
-            </div>
-          </div>
-          {%- if product.images.size > 1 -%}
-            <div class="product-thumb-slider mt-20">
-              <div class="swiper th-slider" id="productThumbSlider" data-slider-options='{"slidesPerView":4,"spaceBetween":10,"loop":false,"autoplay":false,"breakpoints":{"0":{"slidesPerView":3,"spaceBetween":8},"576":{"slidesPerView":4,"spaceBetween":10},"992":{"slidesPerView":5,"spaceBetween":10}}}'>
-                <div class="swiper-wrapper">
-                  {%- for image in product.images -%}
-                    <div class="swiper-slide">
-                      <div class="product-thumb{% if forloop.first %} active{% endif %}" data-img="{{ image | image_url: width: 800 }}" data-index="{{ forloop.index0 }}">
-                        <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy">
-                      </div>
-                    </div>
-                  {%- endfor -%}
-                </div>
-              </div>
-            </div>
-          {%- endif -%}
-        </div>
-      </div>
-
-      {%- comment -%} Fullscreen lightbox {%- endcomment -%}
-      <div class="product-lightbox" id="productLightbox">
-        <button class="lightbox-close" id="lightboxClose"><i class="far fa-times"></i></button>
-        <div class="lightbox-counter" id="lightboxCounter"></div>
-        <div class="lightbox-main">
-          <div class="swiper" id="lightboxSlider">
-            <div class="swiper-wrapper">
-              {%- for image in product.images -%}
-                <div class="swiper-slide">
-                  <div class="lightbox-slide">
-                    <img src="{{ image | image_url: width: 1600 }}" alt="{{ image.alt | escape }}">
-                  </div>
-                </div>
-              {%- endfor -%}
-            </div>
-          </div>
-          <button class="lightbox-arrow lightbox-prev" id="lightboxPrev"><i class="far fa-arrow-right"></i></button>
-          <button class="lightbox-arrow lightbox-next" id="lightboxNext"><i class="far fa-arrow-left"></i></button>
-        </div>
-        {%- if product.images.size > 1 -%}
-          <div class="lightbox-thumbs">
-            {%- for image in product.images -%}
-              <div class="lightbox-thumb{% if forloop.first %} active{% endif %}" data-lb-index="{{ forloop.index0 }}">
-                <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}">
-              </div>
-            {%- endfor -%}
-          </div>
-        {%- endif -%}
-      </div>
-
-      {%- comment -%} Product info {%- endcomment -%}
-      <div class="col-lg-6">
-        <div class="product-about">
-          <h2 class="product-title">{{ product.title }}</h2>
-          <div class="product-rating">
-            <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
-              <span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span>
-            </div>
-          </div>
-          <p class="price">
-            {%- if product.compare_at_price > product.price -%}
-              <del>{{ product.compare_at_price | money }}</del>
-            {%- endif -%}
-            {{ product.price | money }}
-          </p>
-          <div class="text">{{ product.description }}</div>
-          <div class="mt-2 link-inherit">
-            <p>
-              <strong class="text-title me-3">זמינות:</strong>
-              {%- if product.available -%}
-                <span class="stock in-stock"><i class="far fa-check-square me-2 ms-1"></i>במלאי</span>
-              {%- else -%}
-                <span class="stock out-of-stock"><i class="far fa-times-square me-2 ms-1"></i>אזל מהמלאי</span>
-              {%- endif -%}
-            </p>
-          </div>
-
-          {% form 'product', product %}
-            {{ form.errors | default_errors }}
-
-            {%- unless product.has_only_default_variant -%}
-              {%- for option in product.options_with_values -%}
-                <div class="mb-3">
-                  <label class="form-label fw-bold" for="option-{{ option.name | handle }}">{{ option.name }}</label>
-                  <select name="id" id="option-{{ option.name | handle }}" class="form-select">
-                    {%- for variant in product.variants -%}
-                      <option value="{{ variant.id }}"{% if variant == product.selected_or_first_available_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>
-                        {{ variant.title }} - {{ variant.price | money }}
-                      </option>
-                    {%- endfor -%}
-                  </select>
-                </div>
-              {%- endfor -%}
-            {%- else -%}
-              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-            {%- endunless -%}
-
-            <div class="actions">
-              <div class="quantity">
-                <input type="number" class="qty-input" step="1" min="1" max="100" name="quantity" value="1" title="כמות">
-                <button type="button" class="quantity-plus qty-btn"><i class="far fa-chevron-up"></i></button>
-                <button type="button" class="quantity-minus qty-btn"><i class="far fa-chevron-down"></i></button>
-              </div>
-              <button type="submit" class="th-btn"{% unless product.available %} disabled{% endunless %}>
-                {%- if product.available -%}הוסף לסל{%- else -%}אזל{%- endif -%}
-              </button>
-              <button type="button" class="icon-btn wishlist-btn" data-product-id="{{ product.id }}"><i class="far fa-heart"></i></button>
-            </div>
-          {% endform %}
-
-          <div class="product_meta">
-            {%- if product.selected_or_first_available_variant.sku != blank -%}
-              <span class="sku_wrapper">מק״ט: <span class="sku">{{ product.selected_or_first_available_variant.sku }}</span></span>
-            {%- endif -%}
-            {%- if product.vendor != blank -%}
-              <span>יצרן: <a href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a></span>
-            {%- endif -%}
-            {%- if product.type != blank -%}
-              <span>סוג: <a href="{{ product.type | url_for_type }}">{{ product.type }}</a></span>
-            {%- endif -%}
-            {%- if product.tags.size > 0 -%}
-              <span>תגיות:
-                {%- for tag in product.tags -%}
-                  <a href="/collections/all/{{ tag | handle }}">{{ tag }}{% unless forloop.last %}, {% endunless %}</a>
-                {%- endfor -%}
-              </span>
-            {%- endif -%}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {%- comment -%} Related products {%- endcomment -%}
-    {%- if recommendations.products.size > 0 -%}
-      <div class="mt-80">
-        <div class="title-area2 text-center mb-55">
-          <h2 class="sec-title">
-            <img src="{{ 'shape-home-3-sub-img.png' | asset_url }}" alt="">
-            מוצרים דומים
-          </h2>
-        </div>
-        <div class="slider-area">
-          <div class="swiper th-slider has-shadow" id="relatedSlider" data-slider-options='{"breakpoints":{"0":{"slidesPerView":2},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"3"},"1200":{"slidesPerView":"5"}}}'>
-            <div class="swiper-wrapper">
-              {%- for product in recommendations.products limit: 10 -%}
-                <div class="swiper-slide">
-                  {% render 'product-card', product: product %}
-                </div>
-              {%- endfor -%}
-            </div>
-          </div>
-          <button data-slider-prev="#relatedSlider" class="slider-arrow slider-prev"><i class="far fa-arrow-right"></i></button>
-          <button data-slider-next="#relatedSlider" class="slider-arrow slider-next"><i class="far fa-arrow-left"></i></button>
-        </div>
-      </div>
-    {%- endif -%}
-  </div>
-</section>
-
 <style>
-  /* Product description always right-aligned */
-  .product-about .text {
+  .pp-product-page {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 30px 34px 80px;
+  }
+  .pp-product-page .pp-breadcrumb {
+    font-family: var(--pp-font);
+    font-size: 14px;
+    color: var(--pp-brown);
+    opacity: 0.6;
+    margin-bottom: 30px;
+  }
+  .pp-product-page .pp-breadcrumb a { color: inherit; text-decoration: none; }
+  .pp-product-page .pp-breadcrumb a:hover { text-decoration: underline; }
+  .pp-product-page .pp-breadcrumb__sep { margin: 0 8px; }
+
+  .pp-product-page__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .pp-product-page__gallery { position: sticky; top: 100px; }
+  .pp-product-page__main-img {
+    background: var(--pp-cream);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .pp-product-page__main-img img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+  }
+  .pp-product-page__thumbs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .pp-product-page__thumb {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    background: var(--pp-cream);
+    padding: 0;
+    transition: border-color 0.2s;
+  }
+  .pp-product-page__thumb.active { border-color: var(--pp-orange); }
+  .pp-product-page__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pp-product-page__title {
+    font-family: var(--pp-heading-font);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--pp-brown);
+    margin-bottom: 16px;
+  }
+  .pp-product-page__price {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .pp-product-page__price-current {
+    font-family: var(--pp-font);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--pp-orange);
+  }
+  .pp-product-page__price-compare {
+    font-family: var(--pp-font);
+    font-size: 20px;
+    color: var(--pp-brown);
+    opacity: 0.4;
+    text-decoration: line-through;
+  }
+  .pp-product-page__desc {
+    font-family: var(--pp-font);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--pp-brown);
+    margin-bottom: 20px;
     text-align: right;
   }
-  .product-about .text * {
-    text-align: right !important;
+  .pp-product-page__desc * { text-align: right !important; }
+  .pp-product-page__availability { margin-bottom: 24px; }
+  .pp-product-page__stock {
+    font-family: var(--pp-font);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    display: inline-block;
   }
-
-  /* Image column padding fix for RTL */
-  @media (min-width: 992px) {
-    .product-img-col {
-      align-self: flex-start;
-      padding-right: 0;
-      padding-left: var(--bs-gutter-x);
-    }
+  .pp-product-page__stock--in {
+    background: #e8f5e9;
+    color: #2e7d32;
   }
-  .product-img-sticky.is-stuck {
-    position: fixed;
-    z-index: 2;
+  .pp-product-page__stock--out {
+    background: #fbe9e7;
+    color: #c62828;
   }
-
-  /* Main image clickable */
-  .product-img-clickable {
-    cursor: pointer;
-    position: relative;
+  .pp-product-page__option {
+    margin-bottom: 20px;
   }
-  .product-img-clickable img#main-product-image {
-    width: 100%;
+  .pp-product-page__option-label {
+    font-family: var(--pp-font);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--pp-brown);
+    margin-bottom: 8px;
     display: block;
+  }
+  .pp-product-page__select {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: var(--pp-font);
+    font-size: 15px;
+    border: 1px solid #ddd;
     border-radius: 12px;
+    background: #fff;
+    color: var(--pp-brown);
   }
-  .product-img-clickable::after {
-    content: "\f002";
-    font-family: var(--icon-font);
-    font-weight: 400;
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    width: 40px;
-    height: 40px;
-    background: var(--white-color);
-    border-radius: 50%;
+  .pp-product-page__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 28px 0;
+  }
+  .pp-qty--large {
+    gap: 0;
+    border: 2px solid var(--pp-orange);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .pp-qty--large .pp-qty__btn {
+    width: 48px;
+    height: 48px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    color: var(--title-color);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    color: var(--pp-orange);
   }
-  .product-img-clickable:hover::after {
-    opacity: 1;
+  .pp-qty--large .pp-qty__input {
+    width: 50px;
+    text-align: center;
+    border: none;
+    font-family: var(--pp-font);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--pp-brown);
+    -moz-appearance: textfield;
+    background: transparent;
   }
-
-  /* Thumbnail slider */
-  .product-thumb {
-    cursor: pointer;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: border-color 0.3s ease;
+  .pp-qty--large .pp-qty__input::-webkit-outer-spin-button,
+  .pp-qty--large .pp-qty__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
-  .product-thumb.active {
-    border-color: var(--theme-color);
-  }
-  .product-thumb img {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* Fullscreen lightbox */
-  .product-lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: rgba(0, 0, 0, 0.92);
-    flex-direction: column;
-  }
-  .product-lightbox.active {
-    display: flex;
-  }
-  .lightbox-main {
+  .pp-product-page__add-btn {
     flex: 1;
-    position: relative;
-    min-height: 0;
+    height: 52px;
+    font-size: 18px;
+    font-weight: 700;
   }
-  .lightbox-main .swiper {
-    width: 100%;
-    height: 100%;
-  }
-  .lightbox-slide {
+  .pp-product-page__meta {
+    font-family: var(--pp-font);
+    font-size: 14px;
+    color: var(--pp-brown);
+    opacity: 0.6;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 50px 80px;
+    flex-direction: column;
+    gap: 6px;
   }
-  .lightbox-slide img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border-radius: 8px;
-  }
-  .lightbox-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    z-index: 10;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 28px;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.2s;
-  }
-  .lightbox-close:hover {
-    opacity: 0.7;
-  }
-  .lightbox-counter {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 10;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 500;
-  }
-  .lightbox-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    background: rgba(255,255,255,0.15);
-    border: none;
-    color: #fff;
-    font-size: 22px;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
-  }
-  .lightbox-arrow:hover {
-    background: rgba(255,255,255,0.3);
-  }
-  .lightbox-prev { right: 20px; }
-  .lightbox-next { left: 20px; }
-
-  /* Lightbox thumbnails */
-  .lightbox-thumbs {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    padding: 15px 20px 20px;
-    overflow-x: auto;
-    flex-shrink: 0;
-  }
-  .lightbox-thumb {
-    width: 70px;
-    height: 70px;
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 2px solid transparent;
-    opacity: 0.5;
-    transition: opacity 0.3s ease, border-color 0.3s ease;
-    flex-shrink: 0;
-  }
-  .lightbox-thumb.active {
-    border-color: var(--theme-color);
-    opacity: 1;
-  }
-  .lightbox-thumb:hover {
-    opacity: 0.85;
-  }
-  .lightbox-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  @media (max-width: 767px) {
-    .lightbox-slide {
-      padding: 40px 15px;
+  .pp-product-page__meta a { color: var(--pp-orange); text-decoration: none; }
+  .pp-product-page__meta a:hover { text-decoration: underline; }
+  @media (max-width: 992px) {
+    .pp-product-page__inner {
+      grid-template-columns: 1fr;
+      gap: 30px;
     }
-    .lightbox-arrow {
-      width: 40px;
-      height: 40px;
-      font-size: 18px;
-    }
-    .lightbox-prev { right: 10px; }
-    .lightbox-next { left: 10px; }
-    .lightbox-thumb {
-      width: 55px;
-      height: 55px;
-    }
-    .lightbox-thumbs {
-      gap: 8px;
-      padding: 10px 15px 15px;
-    }
+    .pp-product-page__gallery { position: static; }
+  }
+  @media (max-width: 768px) {
+    .pp-product-page { padding: 20px 16px 60px; }
+    .pp-product-page__title { font-size: 24px; }
+    .pp-product-page__price-current { font-size: 24px; }
+    .pp-product-page__thumb { width: 60px; height: 60px; }
   }
 </style>
 
 <script>
-  window.addEventListener('load', function() {
-    var thumbs = document.querySelectorAll('.product-thumb');
-    var mainImg = document.getElementById('main-product-image');
-    var currentIndex = 0;
+  document.addEventListener('DOMContentLoaded', function() {
+    var thumbs = document.querySelectorAll('.pp-product-page__thumb');
+    var mainImg = document.getElementById('pp-main-img');
+    if (!mainImg) return;
 
-    /* Thumbnail click → swap main image */
     thumbs.forEach(function(thumb) {
       thumb.addEventListener('click', function() {
-        var newSrc = this.getAttribute('data-img');
-        var idx = parseInt(this.getAttribute('data-index'), 10);
-        if (mainImg && newSrc) {
-          mainImg.src = newSrc;
-          mainImg.setAttribute('data-index', idx);
-          currentIndex = idx;
-        }
+        mainImg.src = this.getAttribute('data-src');
         thumbs.forEach(function(t) { t.classList.remove('active'); });
         this.classList.add('active');
       });
     });
 
-    /* Lightbox */
-    var lightbox = document.getElementById('productLightbox');
-    var closeBtn = document.getElementById('lightboxClose');
-    var prevBtn = document.getElementById('lightboxPrev');
-    var nextBtn = document.getElementById('lightboxNext');
-    var counter = document.getElementById('lightboxCounter');
-    var lbThumbs = document.querySelectorAll('.lightbox-thumb');
-    var lightboxSwiper = null;
-
-    function syncLbThumbs(idx) {
-      lbThumbs.forEach(function(t) { t.classList.remove('active'); });
-      if (lbThumbs[idx]) lbThumbs[idx].classList.add('active');
-    }
-
-    function updateCounter(idx) {
-      var total = lightbox.querySelectorAll('#lightboxSlider .swiper-slide').length;
-      if (counter) counter.textContent = (idx + 1) + ' / ' + total;
-      syncLbThumbs(idx);
-    }
-
-    function openLightbox(startIndex) {
-      if (!lightbox) return;
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
-
-      if (!lightboxSwiper) {
-        lightboxSwiper = new Swiper('#lightboxSlider', {
-          initialSlide: startIndex || 0,
-          slidesPerView: 1,
-          loop: false,
-          effect: 'fade',
-          fadeEffect: { crossFade: true },
-          on: {
-            slideChange: function() {
-              updateCounter(this.activeIndex);
-            }
-          }
-        });
-      } else {
-        lightboxSwiper.slideTo(startIndex || 0, 0);
-      }
-      updateCounter(startIndex || 0);
-    }
-
-    function closeLightbox() {
-      if (!lightbox) return;
-      lightbox.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    /* Click main image → open lightbox */
-    var mainImgWrap = document.querySelector('.product-img-clickable');
-    if (mainImgWrap) {
-      mainImgWrap.addEventListener('click', function() {
-        var idx = parseInt(mainImg.getAttribute('data-index') || '0', 10);
-        openLightbox(idx);
+    // Product page quantity buttons
+    var qtyInput = document.querySelector('.pp-qty--large .pp-qty__input');
+    if (qtyInput) {
+      var plusBtn = document.querySelector('.pp-qty--large .pp-qty__plus');
+      var minusBtn = document.querySelector('.pp-qty--large .pp-qty__minus');
+      if (plusBtn) plusBtn.addEventListener('click', function() {
+        qtyInput.value = parseInt(qtyInput.value, 10) + 1;
       });
-    }
-
-    /* Lightbox thumbnail clicks */
-    lbThumbs.forEach(function(thumb) {
-      thumb.addEventListener('click', function() {
-        var idx = parseInt(this.getAttribute('data-lb-index'), 10);
-        if (lightboxSwiper) lightboxSwiper.slideTo(idx);
+      if (minusBtn) minusBtn.addEventListener('click', function() {
+        var v = parseInt(qtyInput.value, 10);
+        if (v > 1) qtyInput.value = v - 1;
       });
-    });
-
-    /* Lightbox controls */
-    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-    if (prevBtn) prevBtn.addEventListener('click', function() {
-      if (lightboxSwiper) lightboxSwiper.slidePrev();
-    });
-    if (nextBtn) nextBtn.addEventListener('click', function() {
-      if (lightboxSwiper) lightboxSwiper.slideNext();
-    });
-
-    /* Close on backdrop click */
-    if (lightbox) {
-      lightbox.addEventListener('click', function(e) {
-        if (e.target === lightbox || e.target.classList.contains('lightbox-slide')) {
-          closeLightbox();
-        }
-      });
-    }
-
-    /* Close on Escape key */
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeLightbox();
-      if (lightboxSwiper && lightbox.classList.contains('active')) {
-        if (e.key === 'ArrowLeft') lightboxSwiper.slideNext();
-        if (e.key === 'ArrowRight') lightboxSwiper.slidePrev();
-      }
-    });
-
-    /* JS-based sticky for product images (desktop only) */
-    if (window.innerWidth > 991) {
-      var stickyEl = document.querySelector('.product-img-sticky');
-      var col = document.querySelector('.product-img-col');
-      var section = document.querySelector('.product-details');
-      if (stickyEl && col && section) {
-        var headerH = document.querySelector('.th-header') ? document.querySelector('.th-header').offsetHeight : 80;
-        var gap = 20;
-        var topOffset = headerH + gap;
-        /* Capture natural dimensions before any sticky changes */
-        var naturalWidth = stickyEl.offsetWidth;
-        var naturalRight = document.documentElement.clientWidth - col.getBoundingClientRect().right;
-        var colTopAbsolute = col.getBoundingClientRect().top + window.pageYOffset;
-
-        function recalc() {
-          /* Temporarily unstick to get true measurements */
-          stickyEl.classList.remove('is-stuck');
-          stickyEl.style.cssText = '';
-          naturalWidth = stickyEl.offsetWidth;
-          naturalRight = document.documentElement.clientWidth - col.getBoundingClientRect().right;
-          colTopAbsolute = col.getBoundingClientRect().top + window.pageYOffset;
-          headerH = document.querySelector('.th-header') ? document.querySelector('.th-header').offsetHeight : 80;
-          topOffset = headerH + gap;
-          handleSticky();
-        }
-
-        window.addEventListener('resize', recalc);
-
-        function handleSticky() {
-          if (window.innerWidth <= 991) {
-            stickyEl.classList.remove('is-stuck');
-            stickyEl.style.cssText = '';
-            return;
-          }
-
-          var sectionRect = section.getBoundingClientRect();
-          var elH = stickyEl.offsetHeight;
-          var scrollTop = window.pageYOffset;
-
-          /* Not enough content to scroll - skip */
-          var row = col.parentElement;
-          if (!row) return;
-          var infoCol = row.querySelector('.col-lg-6:not(.product-img-col)');
-          if (infoCol && infoCol.offsetHeight <= elH + 50) return;
-
-          /* Where section ends */
-          var sectionBottomAbs = sectionRect.bottom + scrollTop;
-          var maxFixedTop = sectionBottomAbs - elH - gap;
-
-          if (scrollTop + topOffset > colTopAbsolute) {
-            /* Should be sticky */
-            var fixedTop = Math.min(topOffset, sectionRect.bottom - elH - gap);
-            stickyEl.classList.add('is-stuck');
-            stickyEl.style.top = fixedTop + 'px';
-            stickyEl.style.width = naturalWidth + 'px';
-            stickyEl.style.right = naturalRight + 'px';
-          } else {
-            /* Back to normal */
-            stickyEl.classList.remove('is-stuck');
-            stickyEl.style.cssText = '';
-          }
-        }
-
-        window.addEventListener('scroll', handleSticky, { passive: true });
-        handleSticky();
-      }
     }
   });
 </script>

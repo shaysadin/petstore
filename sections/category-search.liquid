@@ -1,9 +1,6 @@
 <section class="pp-category-section">
-  {%- comment -%} Brown wave section with heading {%- endcomment -%}
+  {%- comment -%} Brown section with heading — NO top wave, curve is at BOTTOM {%- endcomment -%}
   <div class="pp-category-wave">
-    <svg style="position:absolute;top:-1px;left:0;width:100%;display:block;" viewBox="0 0 1920 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 200C320 100 640 20 960 60C1280 100 1600 160 1920 200V0H0Z" fill="#FFFFFF"/>
-    </svg>
     <h2 class="pp-category-wave__heading">{{ section.settings.heading | default: 'חפשו מוצר לפי:' }}</h2>
   </div>
 
@@ -15,16 +12,24 @@
           {%- if block.settings.image -%}
             <img src="{{ block.settings.image | image_url: width: 530 }}" alt="{{ block.settings.title | escape }}" loading="lazy">
           {%- else -%}
-            {%- assign cat_index = forloop.index -%}
-            {%- if cat_index > 4 -%}{%- assign cat_index = 1 -%}{%- endif -%}
-            {%- capture cat_img -%}cat-3d-{{ cat_index }}.png{%- endcapture -%}
-            <img src="{{ cat_img | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+            {%- comment -%} Fallback images mapped to match Figma design order {%- endcomment -%}
+            {%- assign cat_images = 'cat-3d-4.png,cat-3d-3.png,cat-3d-2.png,cat-3d-1.png,hero-dog.png' | split: ',' -%}
+            {%- assign img_idx = forloop.index0 -%}
+            {%- if img_idx >= cat_images.size -%}{%- assign img_idx = img_idx | modulo: cat_images.size -%}{%- endif -%}
+            <img src="{{ cat_images[img_idx] | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy">
           {%- endif -%}
         </div>
         <div class="pp-category-card__bottom"></div>
         <span class="pp-category-card__label">{{ block.settings.title }}</span>
       </a>
     {%- endfor -%}
+  </div>
+
+  {%- comment -%} White curve at BOTTOM — mirrors best-sellers cream-top but flipped downward {%- endcomment -%}
+  <div class="pp-category-section__white-bottom">
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 100 L100 100 L100 72 C65 70 35 15 0 25 Z" fill="#FFFFFF"/>
+    </svg>
   </div>
 </section>
 

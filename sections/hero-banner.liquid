@@ -1,9 +1,10 @@
 <section class="pp-hero">
   {%- if section.settings.background_image -%}
-    <img class="pp-hero__bg" src="{{ section.settings.background_image | image_url: width: 1920 }}" alt="" loading="eager">
+    <img class="pp-hero__bg pp-hero__bg--desktop" src="{{ section.settings.background_image | image_url: width: 1920 }}" alt="" loading="eager">
   {%- else -%}
-    <img class="pp-hero__bg" src="{{ 'hero-bg.png' | asset_url }}" alt="" loading="eager">
+    <img class="pp-hero__bg pp-hero__bg--desktop" src="{{ 'hero-bg.png' | asset_url }}" alt="" loading="eager">
   {%- endif -%}
+  <img class="pp-hero__bg pp-hero__bg--mobile" src="{{ 'hero-bg-mobile.png' | asset_url }}" alt="" loading="eager">
 
   <div class="pp-hero__inner">
     {%- comment -%} Text content (right side in RTL) {%- endcomment -%}
@@ -17,14 +18,12 @@
       {%- endif -%}
     </div>
 
-    {%- comment -%} Hero image (left side in RTL) {%- endcomment -%}
-    <div class="pp-hero__image-wrap">
-      {%- if section.settings.hero_image -%}
+    {%- comment -%} Hero image (left side in RTL) - only show if uploaded via admin {%- endcomment -%}
+    {%- if section.settings.hero_image -%}
+      <div class="pp-hero__image-wrap">
         <img src="{{ section.settings.hero_image | image_url: width: 1200 }}" alt="" loading="eager">
-      {%- else -%}
-        <img src="{{ 'hero-dog.png' | asset_url }}" alt="" loading="eager">
-      {%- endif -%}
-    </div>
+      </div>
+    {%- endif -%}
   </div>
 </section>
 
