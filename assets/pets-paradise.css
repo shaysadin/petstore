@@ -123,9 +123,13 @@ a.pp-btn:hover {
   font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.5px;
-  color: var(--pp-white);
+  color: var(--pp-brown);
   text-decoration: none;
   white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.pp-nav-link:hover {
+  color: var(--pp-white);
 }
 .pp-footer-text {
   font-family: var(--pp-font);
@@ -538,7 +542,7 @@ a.pp-btn:hover {
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
   font-weight: 600;
-  color: var(--pp-white);
+  color: var(--pp-brown);
   white-space: nowrap;
   letter-spacing: 0.5px;
 }
@@ -591,9 +595,13 @@ a.pp-btn:hover {
   align-items: center;
   color: var(--pp-white);
 }
-.pp-navbar__icon svg,
-.pp-navbar svg[stroke] {
-  stroke: #FFFFFF;
+.pp-navbar__icon {
+  color: var(--pp-brown);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.pp-navbar__icon:hover {
+  color: var(--pp-white);
+  transform: scale(1.1);
 }
 .pp-navbar__icon svg { width: 28px; height: 28px; }
 .pp-navbar__dropdown-arrow {
