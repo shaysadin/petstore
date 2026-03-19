@@ -2149,3 +2149,215 @@ body {
   overflow-x: clip;
   max-width: 100vw;
 }
+
+/* =============================================
+   ENTRANCE ANIMATIONS & MICRO-INTERACTIONS
+   ============================================= */
+
+/* === Scroll-triggered reveal states === */
+.pp-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pp-reveal.pp-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children */
+.pp-stagger > .pp-reveal:nth-child(1) { transition-delay: 0ms; }
+.pp-stagger > .pp-reveal:nth-child(2) { transition-delay: 80ms; }
+.pp-stagger > .pp-reveal:nth-child(3) { transition-delay: 160ms; }
+.pp-stagger > .pp-reveal:nth-child(4) { transition-delay: 240ms; }
+.pp-stagger > .pp-reveal:nth-child(5) { transition-delay: 320ms; }
+.pp-stagger > .pp-reveal:nth-child(6) { transition-delay: 400ms; }
+.pp-stagger > .pp-reveal:nth-child(7) { transition-delay: 480ms; }
+.pp-stagger > .pp-reveal:nth-child(8) { transition-delay: 560ms; }
+
+/* Scale-up variant */
+.pp-reveal--scale {
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pp-reveal--scale.pp-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Slide-from-right for RTL */
+.pp-reveal--right {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pp-reveal--right.pp-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* === Word-by-word blur-in for headings === */
+.pp-blur-word {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease;
+}
+.pp-blur-word.pp-word-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* === Category Card Hover === */
+.pp-category-card {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s ease;
+}
+.pp-category-card:hover {
+  transform: translateY(-8px) rotate(-1.5deg) scale(1.03);
+  box-shadow: 0 16px 32px rgba(80, 30, 21, 0.15);
+}
+.pp-category-card:active {
+  transform: translateY(-2px) scale(0.98);
+  transition-duration: 0.1s;
+}
+.pp-category-card__top img {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pp-category-card:hover .pp-category-card__top img {
+  transform: scale(1.1) rotate(3deg);
+}
+
+/* === Product Card Hover === */
+.pp-product-card {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease !important;
+}
+.pp-product-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 14px 28px rgba(80, 30, 21, 0.12) !important;
+}
+.pp-product-card__img {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+.pp-product-card:hover .pp-product-card__img {
+  transform: scale(1.05);
+}
+
+/* === Promo Card Hover === */
+.pp-promo-card {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s ease !important;
+}
+.pp-promo-card:hover {
+  transform: scale(1.02) !important;
+  box-shadow: 0 18px 36px rgba(80, 30, 21, 0.18) !important;
+}
+.pp-promo-card__bg {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.5s ease !important;
+}
+.pp-promo-card:hover .pp-promo-card__bg {
+  transform: scale(1.06);
+  filter: brightness(0.92);
+}
+
+/* === CTA Button Glow === */
+.pp-btn--primary {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+              background 0.25s ease !important;
+}
+.pp-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(247, 92, 2, 0.4);
+}
+.pp-btn--primary::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: radial-gradient(circle at center, rgba(247, 92, 2, 0.3), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.pp-btn--primary:hover::after {
+  opacity: 1;
+}
+
+/* === Testimonial Card Hover === */
+.pp-testi-card {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease !important;
+}
+.pp-testi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(80, 30, 21, 0.1) !important;
+}
+
+/* === Blog Card Hover === */
+.pp-blog-card {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease !important;
+}
+.pp-blog-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(80, 30, 21, 0.12) !important;
+}
+.pp-blog-card__img {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pp-blog-card:hover .pp-blog-card__img {
+  transform: scale(1.06);
+}
+
+/* === Navbar link underline animation === */
+.pp-nav-link {
+  position: relative;
+}
+.pp-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background: var(--pp-cream);
+  border-radius: 1px;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pp-nav-link:hover::after {
+  width: 100%;
+}
+
+/* === Carousel dot active pulse === */
+.pp-carousel__dot.active {
+  animation: ppDotPulse 1.5s ease infinite;
+}
+@keyframes ppDotPulse {
+  0%, 100% { transform: scale(1.2); }
+  50% { transform: scale(1.5); }
+}
+
+/* === Reduce motion for accessibility === */
+@media (prefers-reduced-motion: reduce) {
+  .pp-reveal,
+  .pp-reveal--scale,
+  .pp-reveal--right,
+  .pp-blur-word {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .pp-blur-word { opacity: 1 !important; filter: none !important; }
+  .pp-carousel__dot.active { animation: none; }
+}

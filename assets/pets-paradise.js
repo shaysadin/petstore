@@ -427,4 +427,127 @@
   } else {
     init();
   }
+
+  /* ===========================
+     SCROLL ANIMATIONS
+     =========================== */
+  function initScrollAnimations() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // 1. Mark elements for reveal animation
+    var revealSelectors = [
+      '.pp-category-card',
+      '.pp-promo-card',
+      '.pp-product-card',
+      '.pp-testi-card',
+      '.pp-blog-card',
+      '.pp-featured-brand__content',
+      '.pp-new-arrival-row > *',
+      '.pp-guide-header',
+      '.pp-footer__newsletter',
+      '.pp-pet-guide-section .pp-btn'
+    ];
+
+    revealSelectors.forEach(function(sel) {
+      document.querySelectorAll(sel).forEach(function(el) {
+        if (!el.classList.contains('pp-reveal')) {
+          el.classList.add('pp-reveal');
+        }
+      });
+    });
+
+    // Mark stagger parents
+    var staggerParents = [
+      '.pp-category-grid',
+      '.pp-promo-row',
+      '.pp-testimonials__grid',
+      '.pp-guide-grid',
+      '.pp-carousel__track'
+    ];
+    staggerParents.forEach(function(sel) {
+      document.querySelectorAll(sel).forEach(function(el) {
+        el.classList.add('pp-stagger');
+      });
+    });
+
+    // 2. Word-by-word blur-in for headings
+    var headingSelectors = [
+      '.pp-hero__content .pp-h1',
+      '.pp-category-wave__heading',
+      '.pp-section-heading',
+      '.pp-testimonials__heading',
+      '.pp-featured-brand__content .pp-h1'
+    ];
+
+    headingSelectors.forEach(function(sel) {
+      document.querySelectorAll(sel).forEach(function(heading) {
+        if (heading.dataset.ppSplit) return;
+        heading.dataset.ppSplit = 'true';
+
+        var text = heading.textContent.trim();
+        var words = text.split(/\s+/);
+        heading.innerHTML = '';
+
+        words.forEach(function(word, i) {
+          var span = document.createElement('span');
+          span.className = 'pp-blur-word';
+          span.textContent = word;
+          span.style.transitionDelay = (i * 100) + 'ms';
+          heading.appendChild(span);
+          // Add space between words
+          if (i < words.length - 1) {
+            heading.appendChild(document.createTextNode(' '));
+          }
+        });
+      });
+    });
+
+    // 3. IntersectionObserver for reveals
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('pp-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.pp-reveal, .pp-reveal--scale, .pp-reveal--right').forEach(function(el) {
+      revealObserver.observe(el);
+    });
+
+    // 4. Observer for blur-word headings
+    var wordObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var words = entry.target.querySelectorAll('.pp-blur-word');
+          words.forEach(function(word) {
+            word.classList.add('pp-word-visible');
+          });
+          wordObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.3,
+      rootMargin: '0px 0px -20px 0px'
+    });
+
+    headingSelectors.forEach(function(sel) {
+      document.querySelectorAll(sel).forEach(function(heading) {
+        wordObserver.observe(heading);
+      });
+    });
+  }
+
+  // Init animations after a slight delay to let page render
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(initScrollAnimations, 200);
+    });
+  } else {
+    setTimeout(initScrollAnimations, 200);
+  }
 })();
