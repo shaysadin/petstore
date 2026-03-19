@@ -112,6 +112,29 @@
     max-width: 100% !important;
     height: 100%;
     min-height: 0 !important;
+    box-sizing: border-box;
+  }
+  .pp-search-grid .pp-product-card__img {
+    width: calc(100% - 10px) !important;
+    margin: 5px !important;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+  }
+  .pp-search-grid .pp-product-card__body {
+    padding: 0 16px 20px;
+  }
+  .pp-search-grid .pp-product-card__title {
+    font-size: 16px;
+  }
+  .pp-search-grid .pp-product-card__actions .pp-btn {
+    min-width: 0;
+    flex: 1;
+    font-size: 13px;
+    padding: 0 12px;
+  }
+  .pp-search-grid .pp-qty {
+    width: auto;
+    flex: 0 0 auto;
   }
 
   /* ── Pagination ── */
@@ -200,7 +223,7 @@
   @media (max-width: 768px) {
     .pp-search-grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      gap: 12px;
     }
 
     .pp-search__header h1 {
@@ -210,6 +233,30 @@
     .pp-search-bar__input {
       font-size: 1rem;
       padding: 14px 50px 14px 16px;
+    }
+
+    .pp-search-grid .pp-product-card__body {
+      padding: 0 8px 12px;
+      gap: 6px;
+    }
+    .pp-search-grid .pp-product-card__title {
+      font-size: 13px;
+    }
+    .pp-search-grid .pp-product-card__price {
+      font-size: 13px;
+    }
+    .pp-search-grid .pp-product-card__actions {
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pp-search-grid .pp-product-card__actions .pp-btn {
+      height: 34px;
+      font-size: 12px;
+      width: 100%;
+    }
+    .pp-search-grid .pp-qty {
+      width: 100%;
+      height: 34px;
     }
   }
 </style>
