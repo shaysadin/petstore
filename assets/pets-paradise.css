@@ -552,7 +552,7 @@ a.pp-btn:hover {
   align-items: center;
   flex: 1;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
   white-space: nowrap;
 }
 .pp-navbar__nav-item:nth-child(n+9) { display: none; }
@@ -620,6 +620,13 @@ a.pp-btn:hover {
 .pp-navbar__hamburger svg { width: 28px; height: 28px; }
 @media (max-width: 1200px) {
   .pp-navbar__hamburger { display: flex; align-items: center; }
+}
+
+/* Hero subtitle & CTA: start hidden so word-observer chain is the only animation */
+.pp-hero__text,
+.pp-hero .pp-btn {
+  opacity: 0;
+  transform: translateY(24px);
 }
 
 /* --- Hero Banner --- */
@@ -2325,5 +2332,10 @@ body {
     transition: none !important;
   }
   .pp-blur-word { opacity: 1 !important; filter: none !important; }
+  .pp-hero__text,
+  .pp-hero .pp-btn {
+    opacity: 1 !important;
+    transform: none !important;
+  }
   .pp-carousel__dot.active { animation: none; }
 }
