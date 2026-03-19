@@ -444,7 +444,7 @@
       }
     }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
 
-    // Word observer for blur-in headings — also triggers sibling subtitle/button after
+    // Word observer for blur-in headings — chains siblings after words finish
     var wordObserver = new IntersectionObserver(function(entries) {
       for (var i = 0; i < entries.length; i++) {
         if (entries[i].isIntersecting) {
@@ -452,24 +452,29 @@
           var words = heading.querySelectorAll('.pp-blur-word');
           for (var j = 0; j < words.length; j++) words[j].classList.add('pp-word-visible');
 
-          // After last word animates, reveal siblings (subtitle, button)
-          var totalWordTime = words.length * 90 + 400;
+          // Chain: reveal ALL non-heading children of the parent after words finish
+          var totalWordTime = words.length * 90 + 350;
           var parent = heading.parentElement;
           if (parent) {
-            var siblings = parent.children;
             var delay = totalWordTime;
-            for (var s = 0; s < siblings.length; s++) {
-              if (siblings[s] !== heading && siblings[s].classList.contains('pp-reveal')) {
-                siblings[s].style.transitionDelay = delay + 'ms';
-                siblings[s].classList.add('pp-visible');
-                delay += 120;
-              }
+            for (var s = 0; s < parent.children.length; s++) {
+              var sib = parent.children[s];
+              if (sib === heading) continue;
+              // Force it to be a reveal if not already
+              if (!sib.classList.contains('pp-reveal')) sib.classList.add('pp-reveal');
+              setTimeout((function(el, d) {
+                return function() {
+                  el.style.transitionDelay = '0ms';
+                  el.classList.add('pp-visible');
+                };
+              })(sib, delay), delay);
+              delay += 150;
             }
           }
           wordObserver.unobserve(heading);
         }
       }
-    }, { threshold: 0.25 });
+    }, { threshold: 0.2 });
 
     // --- Mark reveal elements with stagger delays ---
     function markReveal(sel, baseDelay) {
