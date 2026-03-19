@@ -452,23 +452,38 @@
           var words = heading.querySelectorAll('.pp-blur-word');
           for (var j = 0; j < words.length; j++) words[j].classList.add('pp-word-visible');
 
-          // Chain: reveal ALL non-heading children of the parent after words finish
+          // Chain: reveal text siblings (skip SVGs, structural divs)
           var totalWordTime = words.length * 90 + 350;
           var parent = heading.parentElement;
           if (parent) {
+            var skipTags = ['SVG', 'DIV'];
+            var skipClasses = ['pp-best-sellers__cream-top', 'pp-category-wave__svg-top', 'pp-carousel'];
             var delay = totalWordTime;
             for (var s = 0; s < parent.children.length; s++) {
               var sib = parent.children[s];
               if (sib === heading) continue;
-              // Force it to be a reveal if not already
-              if (!sib.classList.contains('pp-reveal')) sib.classList.add('pp-reveal');
-              setTimeout((function(el, d) {
-                return function() {
-                  el.style.transitionDelay = '0ms';
-                  el.classList.add('pp-visible');
-                };
-              })(sib, delay), delay);
-              delay += 150;
+              // Skip structural/SVG elements
+              var shouldSkip = false;
+              if (skipTags.indexOf(sib.tagName) > -1 && !sib.classList.contains('pp-hero__text')) {
+                for (var sc = 0; sc < skipClasses.length; sc++) {
+                  if (sib.classList.contains(skipClasses[sc])) { shouldSkip = true; break; }
+                }
+                if (sib.tagName === 'SVG') shouldSkip = true;
+                if (sib.querySelector('svg') && !sib.classList.contains('pp-hero__text')) {
+                  var isCarousel = sib.classList.contains('pp-carousel') || sib.querySelector('.pp-carousel');
+                  if (isCarousel) shouldSkip = true;
+                }
+              }
+              if (shouldSkip) continue;
+              // Only animate text-like siblings: p, a, span, button
+              var tag = sib.tagName;
+              if (tag === 'P' || tag === 'A' || tag === 'SPAN' || tag === 'BUTTON' || sib.classList.contains('pp-hero__text')) {
+                if (!sib.classList.contains('pp-reveal')) sib.classList.add('pp-reveal');
+                setTimeout((function(el) {
+                  return function() { el.classList.add('pp-visible'); };
+                })(sib), delay);
+                delay += 150;
+              }
             }
           }
           wordObserver.unobserve(heading);

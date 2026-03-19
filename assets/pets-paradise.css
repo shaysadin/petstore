@@ -869,7 +869,7 @@ a.pp-btn:hover {
 }
 
 /* --- Testimonials --- */
-.pp-testimonials-section { overflow: visible; background: var(--pp-cream); }
+.pp-testimonials-section { overflow: visible; background: transparent; }
 .pp-testimonials {
   position: relative;
   width: 100%;
@@ -877,20 +877,14 @@ a.pp-btn:hover {
   flex-direction: column;
   align-items: center;
   overflow: visible;
-  background: var(--pp-cream);
-  padding: 80px 0 40px;
+  background-image: url('testimonials-wave-desktop.png');
+  background-size: 100% auto;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-color: var(--pp-cream);
+  padding: 80px 0 120px;
 }
 .pp-testimonials__cream-bottom { display: none; }
-.pp-testimonials__wave-bg {
-  width: 100%;
-  line-height: 0;
-  margin-top: -2px;
-}
-.pp-testimonials__wave-bg img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
 .pp-testimonials__bg {
   position: absolute;
   inset: 0;
@@ -1628,14 +1622,13 @@ a.pp-btn:hover {
   }
 
   /* --- Testimonials (stacked vertically, full-width cards) --- */
-  .pp-testimonials__bg--desktop { display: none !important; }
   .pp-testimonials__bg--mobile {
     display: block !important;
     object-fit: cover;
     object-position: center bottom;
   }
   .pp-testimonials__cream-bottom { display: none !important; }
-  .pp-testimonials__wave-bg { display: none !important; }
+  .pp-testimonials { background-image: none !important; }
   .pp-testimonials {
     min-height: auto;
     padding: 30px 0 0;
