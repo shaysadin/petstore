@@ -555,8 +555,8 @@ a.pp-btn:hover {
   background: #F0F0F0;
   border: none;
   border-radius: var(--pp-radius-pill);
-  padding: 5px 10px;
-  width: 220px;
+  padding: 7px 12px;
+  width: 240px;
   display: flex;
   gap: 6px;
   align-items: center;

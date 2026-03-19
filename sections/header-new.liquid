@@ -198,6 +198,290 @@
   }
   .pp-sidebar__footer-link:hover { color: var(--pp-orange); }
   .pp-sidebar__footer-link svg { color: var(--pp-orange); flex-shrink: 0; }
+
+  /* ====== Cart Sidebar ====== */
+  .pp-cart-sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .pp-cart-sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .pp-cart-sidebar {
+    position: fixed;
+    top: 0;
+    left: -420px;
+    width: 400px;
+    max-width: 90vw;
+    height: 100vh;
+    height: 100dvh;
+    background: var(--pp-white);
+    z-index: 9999;
+    transition: left 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.15);
+    direction: rtl;
+  }
+  .pp-cart-sidebar.active {
+    left: 0;
+  }
+
+  .pp-cart-sidebar__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid rgba(80,30,21,0.08);
+  }
+  .pp-cart-sidebar__title {
+    font-family: var(--pp-font);
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--pp-brown);
+    margin: 0;
+  }
+  .pp-cart-sidebar__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    color: var(--pp-brown);
+  }
+  .pp-cart-sidebar__close:hover {
+    background: var(--pp-cream);
+  }
+
+  .pp-cart-sidebar__items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 24px;
+  }
+
+  .pp-cart-sidebar__item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(80,30,21,0.06);
+  }
+  .pp-cart-sidebar__item:last-child {
+    border-bottom: none;
+  }
+
+  .pp-cart-sidebar__item-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .pp-cart-sidebar__item-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pp-cart-sidebar__item-details {
+    flex: 1;
+    min-width: 0;
+  }
+  .pp-cart-sidebar__item-title {
+    font-family: var(--pp-font);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--pp-brown);
+    margin: 0 0 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .pp-cart-sidebar__item-variant {
+    font-family: var(--pp-font);
+    font-size: 0.8rem;
+    color: #9a8a82;
+    margin: 0 0 6px;
+  }
+  .pp-cart-sidebar__item-price {
+    font-family: var(--pp-font);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--pp-brown);
+  }
+
+  .pp-cart-sidebar__item-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .pp-cart-sidebar__qty {
+    display: inline-flex;
+    align-items: center;
+    background: var(--pp-cream);
+    border-radius: 8px;
+    border: 1px solid #e8ddd4;
+    overflow: hidden;
+  }
+  .pp-cart-sidebar__qty-btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--pp-brown);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 0.15s;
+  }
+  .pp-cart-sidebar__qty-btn:hover {
+    background: rgba(80,30,21,0.08);
+  }
+  .pp-cart-sidebar__qty-val {
+    width: 28px;
+    text-align: center;
+    font-family: var(--pp-font);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #501E15;
+    user-select: none;
+  }
+
+  .pp-cart-sidebar__item-remove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #c0a89e;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-inline-start: auto;
+  }
+  .pp-cart-sidebar__item-remove:hover {
+    background: #fde8e0;
+    color: #e74c3c;
+  }
+
+  .pp-cart-sidebar__footer {
+    padding: 20px 24px;
+    border-top: 1px solid rgba(80,30,21,0.08);
+  }
+  .pp-cart-sidebar__subtotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-family: var(--pp-font);
+  }
+  .pp-cart-sidebar__subtotal-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #7a6a62;
+  }
+  .pp-cart-sidebar__subtotal-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--pp-brown);
+  }
+
+  .pp-cart-sidebar__checkout {
+    display: block;
+    width: 100%;
+    padding: 14px 24px;
+    background: var(--pp-orange);
+    color: var(--pp-white);
+    font-family: var(--pp-font);
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-bottom: 10px;
+  }
+  .pp-cart-sidebar__checkout:hover {
+    background: var(--pp-brown);
+    transform: translateY(-1px);
+    color: var(--pp-white);
+  }
+
+  .pp-cart-sidebar__view-cart {
+    display: block;
+    text-align: center;
+    font-family: var(--pp-font);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--pp-brown);
+    text-decoration: underline;
+    transition: color 0.2s;
+  }
+  .pp-cart-sidebar__view-cart:hover {
+    color: var(--pp-orange);
+  }
+
+  .pp-cart-sidebar__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    flex: 1;
+  }
+  .pp-cart-sidebar__empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+  .pp-cart-sidebar__empty h3 {
+    font-family: var(--pp-font);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--pp-brown);
+    margin: 0 0 16px;
+  }
+  .pp-cart-sidebar__empty-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    background: var(--pp-orange);
+    color: var(--pp-white);
+    font-family: var(--pp-font);
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pp-cart-sidebar__empty-btn:hover {
+    background: var(--pp-brown);
+    color: var(--pp-white);
+  }
 </style>
 
 <header class="pp-navbar" data-section-id="{{ section.id }}">
@@ -236,10 +520,10 @@
 
       {%- comment -%} Cart + Wishlist {%- endcomment -%}
       <div class="pp-navbar__icons">
-        <a href="{{ routes.cart_url }}" class="pp-navbar__icon" aria-label="עגלת קניות" style="position:relative;">
+        <button type="button" class="pp-navbar__icon" id="ppCartSidebarOpen" aria-label="עגלת קניות" style="position:relative;background:none;border:none;cursor:pointer;padding:0;">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 6H21" stroke="#FFFFFF" stroke-width="1.5"/><path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/></svg>
           <span class="pp-navbar__cart-count" id="ppCartCount" data-count="{{ cart.item_count }}">{{ cart.item_count }}</span>
-        </a>
+        </button>
         <a href="/pages/wishlist" class="pp-navbar__icon" aria-label="מועדפים">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61C20.3292 4.099 19.7228 3.69365 19.0554 3.41708C18.3879 3.14052 17.6725 2.99817 16.95 2.99817C16.2275 2.99817 15.5121 3.14052 14.8446 3.41708C14.1772 3.69365 13.5708 4.099 13.06 4.61L12 5.67L10.94 4.61C9.9083 3.57831 8.50903 2.99871 7.05 2.99871C5.59096 2.99871 4.19169 3.57831 3.16 4.61C2.1283 5.64169 1.54871 7.04097 1.54871 8.5C1.54871 9.95903 2.1283 11.3583 3.16 12.39L12 21.23L20.84 12.39C21.351 11.8792 21.7563 11.2728 22.0329 10.6054C22.3095 9.93789 22.4518 9.22249 22.4518 8.5C22.4518 7.77751 22.3095 7.0621 22.0329 6.39464C21.7563 5.72718 21.351 5.12075 20.84 4.61Z" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -323,8 +607,31 @@
   </div>
 </div>
 
+{%- comment -%} Cart Sidebar Overlay {%- endcomment -%}
+<div class="pp-cart-sidebar-overlay" id="ppCartSidebarOverlay"></div>
+
+{%- comment -%} Cart Sidebar {%- endcomment -%}
+<div class="pp-cart-sidebar" id="ppCartSidebar">
+  <div class="pp-cart-sidebar__header">
+    <h2 class="pp-cart-sidebar__title">סל הקניות</h2>
+    <button class="pp-cart-sidebar__close" id="ppCartSidebarClose" aria-label="סגור">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="pp-cart-sidebar__items" id="ppCartSidebarItems"></div>
+  <div class="pp-cart-sidebar__footer" id="ppCartSidebarFooter" style="display:none;">
+    <div class="pp-cart-sidebar__subtotal">
+      <span class="pp-cart-sidebar__subtotal-label">סה״כ</span>
+      <span class="pp-cart-sidebar__subtotal-value" id="ppCartSidebarSubtotal"></span>
+    </div>
+    <a href="/checkout" class="pp-cart-sidebar__checkout">המשך לתשלום</a>
+    <a href="/cart" class="pp-cart-sidebar__view-cart">צפה בסל</a>
+  </div>
+</div>
+
 <script>
   (function() {
+    /* ====== Mobile Menu Sidebar ====== */
     var openBtn = document.getElementById('ppSidebarOpen');
     var closeBtn = document.getElementById('ppSidebarClose');
     var overlay = document.getElementById('ppSidebarOverlay');
@@ -344,6 +651,138 @@
     if (openBtn) openBtn.addEventListener('click', openSidebar);
     if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
     if (overlay) overlay.addEventListener('click', closeSidebar);
+
+    /* ====== Cart Sidebar ====== */
+    var cartOpenBtn = document.getElementById('ppCartSidebarOpen');
+    var cartCloseBtn = document.getElementById('ppCartSidebarClose');
+    var cartOverlay = document.getElementById('ppCartSidebarOverlay');
+    var cartSidebar = document.getElementById('ppCartSidebar');
+    var cartItemsEl = document.getElementById('ppCartSidebarItems');
+    var cartFooterEl = document.getElementById('ppCartSidebarFooter');
+    var cartSubtotalEl = document.getElementById('ppCartSidebarSubtotal');
+
+    function formatMoney(cents) {
+      return '\u20AA' + (cents / 100).toFixed(2);
+    }
+
+    function openCartSidebar() {
+      cartSidebar.classList.add('active');
+      cartOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      refreshCartSidebar();
+    }
+
+    function closeCartSidebar() {
+      cartSidebar.classList.remove('active');
+      cartOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function refreshCartSidebar() {
+      fetch('/cart.js')
+        .then(function(r) { return r.json(); })
+        .then(function(cart) { renderCartSidebar(cart); })
+        .catch(function() {});
+    }
+
+    function renderCartSidebar(cart) {
+      if (!cart.items || cart.items.length === 0) {
+        cartItemsEl.innerHTML =
+          '<div class="pp-cart-sidebar__empty">' +
+            '<div class="pp-cart-sidebar__empty-icon">\uD83D\uDC3E</div>' +
+            '<h3>\u05D4\u05E1\u05DC \u05E8\u05D9\u05E7</h3>' +
+            '<a href="/collections/all" class="pp-cart-sidebar__empty-btn">\u05D4\u05DE\u05E9\u05DA \u05DC\u05E7\u05E0\u05D5\u05EA</a>' +
+          '</div>';
+        cartFooterEl.style.display = 'none';
+        return;
+      }
+
+      var html = '';
+      cart.items.forEach(function(item, index) {
+        var imgSrc = item.image ? item.image.replace(/(\.[a-z]+)(\?|$)/, '_200x200$1$2') : '';
+        var variantHtml = item.variant_title && item.variant_title !== 'Default Title'
+          ? '<p class="pp-cart-sidebar__item-variant">' + item.variant_title + '</p>'
+          : '';
+
+        html +=
+          '<div class="pp-cart-sidebar__item" data-line="' + (index + 1) + '" data-key="' + item.key + '">' +
+            '<div class="pp-cart-sidebar__item-img">' +
+              (imgSrc ? '<img src="' + imgSrc + '" alt="' + item.title + '" loading="lazy">' : '') +
+            '</div>' +
+            '<div class="pp-cart-sidebar__item-details">' +
+              '<p class="pp-cart-sidebar__item-title">' + item.product_title + '</p>' +
+              variantHtml +
+              '<span class="pp-cart-sidebar__item-price">' + formatMoney(item.final_line_price) + '</span>' +
+              '<div class="pp-cart-sidebar__item-actions">' +
+                '<div class="pp-cart-sidebar__qty">' +
+                  '<button type="button" class="pp-cart-sidebar__qty-btn" data-action="plus" data-key="' + item.key + '">+</button>' +
+                  '<span class="pp-cart-sidebar__qty-val">' + item.quantity + '</span>' +
+                  '<button type="button" class="pp-cart-sidebar__qty-btn" data-action="minus" data-key="' + item.key + '">\u2212</button>' +
+                '</div>' +
+                '<button type="button" class="pp-cart-sidebar__item-remove" data-key="' + item.key + '" aria-label="\u05D4\u05E1\u05E8">' +
+                  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>' +
+                '</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+      });
+
+      cartItemsEl.innerHTML = html;
+      cartSubtotalEl.textContent = formatMoney(cart.total_price);
+      cartFooterEl.style.display = 'block';
+    }
+
+    function updateCartSidebarItem(key, quantity) {
+      fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: key, quantity: quantity })
+      })
+        .then(function(r) { return r.json(); })
+        .then(function(cart) {
+          renderCartSidebar(cart);
+          // Update header badge
+          var badge = document.getElementById('ppCartCount');
+          if (badge) {
+            badge.textContent = cart.item_count;
+            badge.setAttribute('data-count', cart.item_count);
+            badge.style.display = cart.item_count > 0 ? 'flex' : 'none';
+          }
+          document.querySelectorAll('.pp-mobile-cart-count').forEach(function(el) {
+            el.textContent = cart.item_count;
+          });
+        })
+        .catch(function() {});
+    }
+
+    // Event delegation for cart sidebar buttons
+    cartItemsEl.addEventListener('click', function(e) {
+      var plusBtn = e.target.closest('[data-action="plus"]');
+      var minusBtn = e.target.closest('[data-action="minus"]');
+      var removeBtn = e.target.closest('.pp-cart-sidebar__item-remove');
+
+      if (plusBtn) {
+        var valEl = plusBtn.closest('.pp-cart-sidebar__qty').querySelector('.pp-cart-sidebar__qty-val');
+        var newQty = parseInt(valEl.textContent, 10) + 1;
+        updateCartSidebarItem(plusBtn.getAttribute('data-key'), newQty);
+      }
+      if (minusBtn) {
+        var valEl2 = minusBtn.closest('.pp-cart-sidebar__qty').querySelector('.pp-cart-sidebar__qty-val');
+        var newQty2 = parseInt(valEl2.textContent, 10) - 1;
+        updateCartSidebarItem(minusBtn.getAttribute('data-key'), Math.max(0, newQty2));
+      }
+      if (removeBtn) {
+        updateCartSidebarItem(removeBtn.getAttribute('data-key'), 0);
+      }
+    });
+
+    if (cartOpenBtn) cartOpenBtn.addEventListener('click', openCartSidebar);
+    if (cartCloseBtn) cartCloseBtn.addEventListener('click', closeCartSidebar);
+    if (cartOverlay) cartOverlay.addEventListener('click', closeCartSidebar);
+
+    // Expose globally so pets-paradise.js can call it
+    window.ppOpenCartSidebar = openCartSidebar;
+    window.ppRefreshCartSidebar = refreshCartSidebar;
   })();
 </script>
 

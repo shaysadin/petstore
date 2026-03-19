@@ -112,6 +112,10 @@
         btn.textContent = '\u2713 \u05E0\u05D5\u05E1\u05E3';
         showToast((productTitle || '\u05DE\u05D5\u05E6\u05E8') + ' \u05E0\u05D5\u05E1\u05E3 \u05DC\u05E1\u05DC');
 
+        if (typeof window.ppOpenCartSidebar === 'function') {
+          window.ppOpenCartSidebar();
+        }
+
         return fetch('/cart.js');
       })
       .then(function (r) { return r.json(); })

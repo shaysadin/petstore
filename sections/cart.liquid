@@ -167,23 +167,15 @@
     background: rgba(80, 30, 21, 0.08);
   }
 
-  .pp-cart-qty__input {
+  .pp-cart-qty__display {
     width: 40px;
     text-align: center;
-    border: none;
-    background: none;
     font-family: var(--pp-font);
     font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--pp-brown);
-    -moz-appearance: textfield;
-    appearance: textfield;
-  }
-
-  .pp-cart-qty__input::-webkit-inner-spin-button,
-  .pp-cart-qty__input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+    font-weight: 700;
+    color: #501E15;
+    line-height: 36px;
+    user-select: none;
   }
 
   .pp-cart-item__line-total {
@@ -450,9 +442,10 @@
                 <span class="pp-cart-item__price">{{ item.price | money }}</span>
 
                 <div class="pp-cart-qty">
-                  <button type="button" class="pp-cart-qty__btn" onclick="this.parentNode.querySelector('input').stepUp();this.closest('form').querySelector('[name=update]').click();" aria-label="הוסף">+</button>
-                  <input type="number" class="pp-cart-qty__input" name="updates[]" value="{{ item.quantity }}" min="0" step="1" aria-label="כמות">
-                  <button type="button" class="pp-cart-qty__btn" onclick="this.parentNode.querySelector('input').stepDown();this.closest('form').querySelector('[name=update]').click();" aria-label="הפחת">−</button>
+                  <button type="button" class="pp-cart-qty__btn" onclick="var h=this.parentNode.querySelector('input[type=hidden]'),s=this.parentNode.querySelector('.pp-cart-qty__display'),v=parseInt(h.value,10)+1;h.value=v;s.textContent=v;this.closest('form').querySelector('[name=update]').click();" aria-label="הוסף">+</button>
+                  <input type="hidden" name="updates[]" value="{{ item.quantity }}">
+                  <span class="pp-cart-qty__display" aria-label="כמות">{{ item.quantity }}</span>
+                  <button type="button" class="pp-cart-qty__btn" onclick="var h=this.parentNode.querySelector('input[type=hidden]'),s=this.parentNode.querySelector('.pp-cart-qty__display'),v=Math.max(0,parseInt(h.value,10)-1);h.value=v;s.textContent=v;this.closest('form').querySelector('[name=update]').click();" aria-label="הפחת">−</button>
                 </div>
 
                 <span class="pp-cart-item__line-total">{{ item.line_price | money }}</span>
