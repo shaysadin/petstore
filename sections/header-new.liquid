@@ -18,8 +18,9 @@
   }
   .pp-navbar__dropdown-menu {
     position: absolute;
-    top: 100%;
-    right: 0;
+    top: calc(100% + 8px);
+    right: 50%;
+    transform: translateX(50%) translateY(8px);
     min-width: 220px;
     background: var(--pp-white);
     border-radius: 12px;
@@ -27,15 +28,29 @@
     padding: 8px 0;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(8px);
     transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
-    z-index: 100;
+    z-index: 9999;
     direction: rtl;
+    pointer-events: none;
+  }
+  /* Bridge gap so hover doesn't break */
+  .pp-navbar__dropdown::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    display: none;
+  }
+  .pp-navbar__dropdown:hover::after {
+    display: block;
   }
   .pp-navbar__dropdown:hover .pp-navbar__dropdown-menu {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateX(50%) translateY(0);
+    pointer-events: auto;
   }
   .pp-navbar__dropdown-link {
     display: block;
