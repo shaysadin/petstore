@@ -635,6 +635,31 @@ a.pp-btn:hover {
   .pp-navbar__hamburger { display: flex; align-items: center; }
 }
 
+/* Page fade-in: hide everything until CSS/JS ready, then smooth reveal */
+body.home3_pet_shop > main,
+body.home3_pet_shop > .pp-header-section,
+body.home3_pet_shop > header {
+  animation: ppPageFadeIn 0.5s ease both;
+}
+@keyframes ppPageFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Headings that will be word-split: hide until JS processes them */
+.pp-hero__content .pp-h1,
+.pp-category-wave__heading,
+.pp-section-heading,
+.pp-testimonials__heading,
+.pp-featured-brand__content .pp-h1 {
+  opacity: 0;
+  transition: none;
+}
+/* Once JS splits the heading, it adds data-pp-split — show container, words handle their own animation */
+[data-pp-split] {
+  opacity: 1 !important;
+}
+
 /* Hero subtitle & CTA: start hidden so word-observer chain is the only animation */
 .pp-hero__text,
 .pp-hero .pp-btn {
@@ -2339,6 +2364,14 @@ body {
 
 /* === Reduce motion for accessibility === */
 @media (prefers-reduced-motion: reduce) {
+  body.home3_pet_shop > main,
+  body.home3_pet_shop > .pp-header-section,
+  body.home3_pet_shop > header { animation: none !important; opacity: 1 !important; }
+  .pp-hero__content .pp-h1,
+  .pp-category-wave__heading,
+  .pp-section-heading,
+  .pp-testimonials__heading,
+  .pp-featured-brand__content .pp-h1 { opacity: 1 !important; }
   .pp-reveal,
   .pp-reveal--scale,
   .pp-reveal--right,
