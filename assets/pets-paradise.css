@@ -2236,14 +2236,11 @@ body {
 /* === Scroll-triggered reveal === */
 .pp-reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
+  transition: opacity 0.6s ease;
+  will-change: opacity;
 }
 .pp-reveal.pp-visible {
   opacity: 1;
-  transform: none;
   will-change: auto;
 }
 
@@ -2427,6 +2424,7 @@ body {
 
 
 /* sync */
+
 
 
 

@@ -505,17 +505,17 @@
       }
     }
 
-    // Cards — staggered within their containers
-    var staggerGroups = [
-      '.pp-category-grid > .pp-category-card',
-      '.pp-promo-row > .pp-promo-card',
-      '.pp-guide-grid > .pp-blog-card'
+    // Cards & carousels — fade in all at once (observe parent container)
+    var fadeGroups = [
+      '.pp-category-grid',
+      '.pp-promo-row',
+      '.pp-guide-grid',
+      '.pp-carousel'
     ];
-    staggerGroups.forEach(function(sel) {
+    fadeGroups.forEach(function(sel) {
       var els = document.querySelectorAll(sel);
       for (var i = 0; i < els.length; i++) {
         els[i].classList.add('pp-reveal');
-        els[i].style.transitionDelay = (i * 80) + 'ms';
         observer.observe(els[i]);
       }
     });
@@ -529,8 +529,7 @@
     markReveal('.pp-featured-brand__content', 0);
     markReveal('.pp-featured-brand__text', 150);
     markReveal('.pp-featured-brand__content .pp-btn', 300);
-    markReveal('.pp-new-arrival-row > .pp-promo-card', 0);
-    markReveal('.pp-new-arrival-row__products', 150);
+    markReveal('.pp-new-arrival-row', 0);
     markReveal('.pp-guide-header', 0);
     markReveal('.pp-guide-header p', 100);
     markReveal('.pp-pet-guide-section .pp-btn', 200);
