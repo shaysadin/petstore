@@ -301,8 +301,15 @@ a.pp-btn:hover {
   margin-top: auto;
 }
 .pp-product-card__actions .pp-btn {
-  min-width: 163px;
+  min-width: 120px;
   height: 41px;
+}
+
+/* Product cards in non-carousel grids: 3 per row */
+.pp-product-grid .pp-product-card {
+  width: calc(33.333% - clamp(14px, 2vw, 34px));
+  max-width: none;
+  min-height: auto;
 }
 
 /* --- Category Card --- */
@@ -427,7 +434,8 @@ a.pp-btn:hover {
 /* --- Testimonial Card --- */
 .pp-testi-card {
   position: relative;
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   max-width: 509px;
   min-height: 239px;
   background: var(--pp-white);
@@ -436,7 +444,6 @@ a.pp-btn:hover {
   padding: 83px 26px;
   display: flex;
   flex-direction: column;
-  flex-shrink: 1;
 }
 .pp-testi-card__quote {
   position: absolute;
@@ -802,7 +809,7 @@ body.home3_pet_shop > header {
 .pp-promo-row .pp-promo-card {
   flex: 1;
   max-width: 790px;
-  height: 390px;
+  height: clamp(300px, 22vw, 390px);
 }
 
 /* --- Product Grid --- */
@@ -835,11 +842,11 @@ body.home3_pet_shop > header {
 }
 .pp-product-grid {
   display: flex;
-  gap: clamp(20px, 4vw, 81px);
+  gap: clamp(20px, 2.5vw, 50px);
   justify-content: center;
   align-items: flex-start;
-  flex-wrap: nowrap;
-  padding: 0 clamp(20px, 7vw, 132px);
+  flex-wrap: wrap;
+  padding: 0 clamp(20px, 5vw, 100px);
   max-width: 1920px;
   margin: 0 auto;
 }
@@ -902,24 +909,24 @@ body.home3_pet_shop > header {
   margin: 0 auto;
 }
 .pp-new-arrival-row > .pp-promo-card {
-  width: 45%;
+  flex: 0 0 40%;
   max-width: 790px;
-  min-height: 544px;
-  flex-shrink: 0;
+  min-height: 500px;
   order: 2;
 }
 .pp-new-arrival-row__products {
   display: flex;
-  gap: clamp(16px, 3vw, 82px);
+  gap: clamp(16px, 2vw, 40px);
   align-items: stretch;
   padding-bottom: 20px;
   flex: 1;
+  min-width: 0;
 }
 .pp-new-arrival-row__products .pp-product-card {
-  width: 100%;
+  flex: 1;
   max-width: 353px;
   min-height: auto;
-  flex-shrink: 1;
+  min-width: 0;
 }
 
 /* --- Testimonials --- */
@@ -990,13 +997,18 @@ body.home3_pet_shop > header {
 }
 .pp-guide-grid {
   display: flex;
-  gap: clamp(20px, 4vw, 81px);
+  gap: clamp(20px, 2.5vw, 50px);
   justify-content: center;
   align-items: flex-start;
-  flex-wrap: nowrap;
-  padding: 0 clamp(20px, 7vw, 132px) 73px;
+  flex-wrap: wrap;
+  padding: 0 clamp(20px, 5vw, 100px) 73px;
   max-width: 1920px;
   margin: 0 auto;
+}
+.pp-guide-grid .pp-blog-card {
+  width: calc(33.333% - clamp(14px, 2vw, 34px));
+  max-width: none;
+  height: auto;
 }
 
 /* --- Footer --- */
@@ -2042,9 +2054,9 @@ body.home3_pet_shop > header {
 
 /* Carousel responsive */
 @media (max-width: 1440px) {
-  .pp-carousel { padding: 16px 40px; }
-  .pp-carousel__track { gap: 24px; }
-  .pp-carousel__slide { width: 300px; }
+  .pp-carousel { padding: 16px 30px; }
+  .pp-carousel__track { gap: 20px; }
+  .pp-carousel__slide { width: calc(25vw - 20px); }
 }
 @media (max-width: 1200px) {
   .pp-carousel { padding: 12px 20px; }
@@ -2415,4 +2427,6 @@ body {
 
 
 
+
+/* sync */
 
