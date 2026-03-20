@@ -490,31 +490,26 @@ a.pp-btn:hover {
   border-radius: 20px !important;
   box-shadow: var(--pp-shadow-card-lg) !important;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 53px;
   background: var(--pp-cream);
-  min-height: 390px;
 }
 .pp-promo-card__bg {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   object-position: center;
-  z-index: 0;
 }
 .pp-promo-card__content {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: flex-start;
-  max-width: 313px;
+  justify-content: center;
+  padding: 53px;
+  max-width: 50%;
   text-align: right;
 }
 .pp-promo-card__title {
@@ -809,8 +804,6 @@ body.home3_pet_shop > header {
 .pp-promo-row .pp-promo-card {
   flex: 1;
   max-width: 790px;
-  aspect-ratio: 2 / 1;
-  height: auto;
 }
 
 /* --- Product Grid --- */
@@ -866,32 +859,31 @@ body.home3_pet_shop > header {
 .pp-featured-brand {
   position: relative;
   width: 100%;
-  height: 700px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 80px clamp(40px, 7vw, 142px);
   background: var(--pp-cream);
   overflow: hidden;
 }
 .pp-featured-brand__bg {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   object-position: center;
   z-index: 0;
 }
 .pp-featured-brand__bg--mobile { display: none; }
 .pp-featured-brand__content {
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
   z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 22px;
   align-items: flex-start;
-  max-width: 730px;
+  justify-content: center;
+  max-width: 45%;
+  padding: 40px clamp(40px, 5vw, 142px);
 }
 .pp-featured-brand__text {
   text-align: right;
@@ -1216,7 +1208,7 @@ body.home3_pet_shop > header {
   .pp-testi-card { max-width: none; }
   .pp-testimonials__heading { font-size: clamp(44px, 4vw, 58px); }
   .pp-best-sellers .pp-section-heading { margin-bottom: 50px; }
-  .pp-promo-row .pp-promo-card { height: auto; aspect-ratio: 2 / 1; min-height: 0; }
+  .pp-promo-row .pp-promo-card { }
 }
 
 /* =====================
@@ -1263,7 +1255,7 @@ body.home3_pet_shop > header {
 
   /* Promo Cards — side by side, aspect ratio preserved */
   .pp-promo-row { flex-direction: row; align-items: stretch; gap: 16px; padding: 20px 20px; }
-  .pp-promo-row .pp-promo-card { width: 50%; max-width: none; flex: 1; aspect-ratio: 16 / 9; height: auto; min-height: 0; }
+  .pp-promo-row .pp-promo-card { width: 50%; max-width: none; flex: 1; }
   .pp-promo-card { padding: 30px; }
   .pp-promo-card__title { font-size: 24px; }
   .pp-promo-card__content { gap: 12px; max-width: 70%; }
@@ -1295,15 +1287,13 @@ body.home3_pet_shop > header {
   .pp-blog-card__img { width: 100%; height: auto; aspect-ratio: 1/1; }
   .pp-blog-card__title { font-size: 18px; }
 
-  /* Featured Brand — fixed height, bg covers */
-  .pp-featured-brand { height: 500px; padding: 40px 30px; }
-  .pp-featured-brand__content { max-width: 45%; }
+  /* Featured Brand */
   .pp-featured-brand__content .pp-h1 { font-size: 28px; }
   .pp-featured-brand__text { font-size: 14px; }
 
   /* New Arrival Row */
   .pp-new-arrival-row { gap: 16px; padding: 0 20px 30px; flex-wrap: wrap; }
-  .pp-new-arrival-row > .pp-promo-card { width: 100%; min-height: 280px; height: 280px; order: -1; }
+  .pp-new-arrival-row > .pp-promo-card { width: 100%; order: -1; }
   .pp-new-arrival-row__products { gap: 16px; flex-wrap: wrap; width: 100%; }
   .pp-new-arrival-row__products .pp-product-card { width: calc(50% - 8px); height: auto; }
 
@@ -2414,6 +2404,7 @@ body {
 
 
 /* sync */
+
 
 
 
