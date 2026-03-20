@@ -1253,64 +1253,68 @@ body.home3_pet_shop > header {
   .pp-navbar__nav { display: none !important; }
   .pp-navbar__search { width: 220px; }
 
-  /* Hero */
+  /* Hero — side-by-side, text right-aligned, vertically centered */
   .pp-hero { height: auto; }
   .pp-hero__inner {
     flex-direction: row;
     height: 100%;
     padding: 0 40px;
     align-items: center;
+    gap: 24px;
   }
   .pp-hero__content {
     width: 50%;
     max-width: 50%;
     align-items: flex-start;
     text-align: right;
+    gap: 16px;
   }
-  .pp-hero__content .pp-h1 { text-align: right; }
-  .pp-hero__text { text-align: right; max-width: 100%; }
+  .pp-hero__content .pp-h1 { text-align: right; font-size: clamp(28px, 3.2vw, 48px); }
+  .pp-hero__text { text-align: right; max-width: 100%; font-size: 15px; }
   .pp-hero__image-wrap { max-width: 400px; flex: 1; }
 
-  /* Category - wrap */
+  /* Category — 3 per row centered */
   .pp-category-grid {
-    gap: 30px;
+    gap: 24px;
     padding: 40px 40px;
     flex-wrap: wrap;
     justify-content: center;
     overflow-x: visible;
   }
-  .pp-category-card { min-width: 200px; width: 200px; height: 280px; }
+  .pp-category-card { min-width: 180px; width: calc(33.333% - 20px); max-width: 220px; height: 280px; }
   .pp-category-card__top { height: 220px; }
   .pp-category-card__bottom { height: 100%; }
-  .pp-category-card__label { font-size: 20px; }
+  .pp-category-card__label { font-size: 18px; }
 
-  /* Product Grid - wrap */
+  /* Product Grid — 3 columns */
   .pp-product-grid {
-    gap: 30px;
+    gap: 24px;
     padding: 0 40px;
     flex-wrap: wrap;
     justify-content: center;
   }
-  .pp-product-card { width: calc(50% - 16px); max-width: 100%; height: auto; flex-shrink: 0; }
+  .pp-product-card { width: calc(33.333% - 16px); max-width: 100%; height: auto; flex-shrink: 0; }
   .pp-product-card__img { width: calc(100% - 8px); height: auto; aspect-ratio: 1/1; margin: 4px; }
+  .pp-product-card__title { font-size: 18px; }
 
-  /* Promo Cards - stack vertically */
-  .pp-promo-row { flex-direction: column; align-items: center; gap: 30px; padding: 40px 40px; }
-  .pp-promo-row .pp-promo-card { height: auto; width: 100%; max-width: 700px; }
-  .pp-promo-card { min-height: 350px; }
+  /* Promo Cards — side by side */
+  .pp-promo-row { flex-direction: row; align-items: stretch; gap: 24px; padding: 40px 40px; }
+  .pp-promo-row .pp-promo-card { height: auto; width: 50%; max-width: none; flex: 1; }
+  .pp-promo-card { min-height: 300px; }
+  .pp-promo-card__title { font-size: 32px; }
 
-  /* Blog Cards - wrap */
+  /* Blog Cards — 3 columns */
   .pp-guide-grid {
-    gap: 30px;
+    gap: 24px;
     padding: 0 40px 60px;
     flex-wrap: wrap;
     justify-content: center;
   }
-  .pp-blog-card { width: calc(50% - 16px); height: auto; }
+  .pp-blog-card { width: calc(33.333% - 16px); height: auto; }
   .pp-blog-card__img { width: 100%; height: auto; aspect-ratio: 1/1; }
 
-  /* Featured Brand */
-  .pp-featured-brand { padding: 0; height: auto; }
+  /* Featured Brand — image drives height, content overlaid */
+  .pp-featured-brand { padding: 0; height: auto; position: relative; }
   .pp-featured-brand__bg--desktop {
     position: relative !important;
     inset: auto !important;
@@ -1323,30 +1327,39 @@ body.home3_pet_shop > header {
     top: 0;
     right: 0;
     bottom: 0;
+    left: auto;
     max-width: 50%;
     padding: 40px;
     display: flex;
     align-items: center;
   }
+  .pp-featured-brand__content .pp-h1 { font-size: clamp(24px, 3vw, 40px); }
+  .pp-featured-brand__text { font-size: 15px; }
 
-  /* New Arrival Row */
-  .pp-new-arrival-row { gap: 30px; padding: 0 40px 40px; flex-wrap: wrap; }
-  .pp-new-arrival-row > .pp-promo-card { width: 100%; min-height: 350px; order: -1; }
-  .pp-new-arrival-row__products { gap: 30px; flex-wrap: wrap; width: 100%; }
-  .pp-new-arrival-row__products .pp-product-card { width: calc(50% - 15px); height: auto; }
+  /* New Arrival Row — promo on top, 3 products below */
+  .pp-new-arrival-row { gap: 24px; padding: 0 40px 40px; flex-wrap: wrap; }
+  .pp-new-arrival-row > .pp-promo-card { width: 100%; min-height: 300px; order: -1; }
+  .pp-new-arrival-row__products { gap: 24px; flex-wrap: wrap; width: 100%; }
+  .pp-new-arrival-row__products .pp-product-card { width: calc(33.333% - 16px); height: auto; }
 
-  /* Testimonials - wrap */
-  .pp-testimonials__heading { font-size: 48px; padding-top: 80px; }
-  .pp-testimonials__grid { padding: 0 40px; flex-wrap: wrap; margin-top: 60px; justify-content: center; }
-  .pp-testi-card { width: 100%; max-width: 450px; min-width: auto; flex-shrink: 0; }
+  /* Testimonials — 2 per row */
+  .pp-testimonials__heading { font-size: 44px; padding-top: 60px; }
+  .pp-testimonials__grid { padding: 0 40px; flex-wrap: wrap; margin-top: 40px; justify-content: center; gap: 20px; }
+  .pp-testi-card { width: calc(50% - 10px); max-width: none; min-width: auto; flex-shrink: 0; }
+  .pp-testi-card__text { font-size: 15px; }
   .pp-testimonials { min-height: auto; }
 
+  /* Section headings */
+  .pp-section-heading { font-size: clamp(28px, 3vw, 40px); margin-bottom: 30px; }
+  .pp-best-sellers .pp-section-heading { margin-bottom: 40px; }
+
   /* Footer */
-  .pp-footer { padding: 60px 40px 40px; }
-  .pp-footer__top { flex-direction: column; }
+  .pp-footer { padding: 50px 40px 40px; }
+  .pp-footer__top { flex-direction: column; gap: 32px; }
   .pp-footer__right-section { width: 100%; }
   .pp-footer__newsletter { max-width: 100%; width: 100%; text-align: center; }
-  .pp-footer__columns { flex-wrap: wrap; }
+  .pp-footer__newsletter .pp-h2 { font-size: 36px; }
+  .pp-footer__columns { flex-wrap: wrap; gap: 40px; }
 }
 
 /* =====================
@@ -2079,7 +2092,7 @@ body.home3_pet_shop > header {
 /* Carousel responsive slide widths */
 @media (max-width: 1200px) {
   .pp-carousel__slide {
-    width: calc(50% - 12px);
+    width: calc(50vw - 64px);
   }
 }
 @media (max-width: 768px) {
