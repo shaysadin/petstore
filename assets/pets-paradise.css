@@ -1378,18 +1378,39 @@ body.home3_pet_shop > header {
   }
   .pp-navbar {
     height: 70px;
-    padding: 0 16px;
+    padding: 0;
     flex-wrap: nowrap;
-    gap: 12px;
+    gap: 0;
   }
+  .pp-navbar__inner { padding: 0 12px !important; }
   .pp-navbar__nav { display: none !important; }
   .pp-navbar__search { display: none; }
-  .pp-navbar__hamburger { display: flex; align-items: center; order: -1; }
-  .pp-navbar__hamburger svg { width: 22px; height: 22px; }
+  .pp-navbar__hamburger { display: flex; align-items: center; order: -1; color: var(--pp-brown); }
+  .pp-navbar__hamburger svg { width: 24px; height: 24px; }
   .pp-navbar__logo { height: 16px; }
   .pp-navbar__logo-text { font-size: 16px; }
   .pp-navbar__icon svg { width: 22px; height: 22px; }
-  .pp-navbar__icons { gap: 12px; }
+  .pp-navbar__icons { gap: 10px; }
+
+  /* Disable hover animations on mobile */
+  .pp-category-card:hover,
+  .pp-product-card:hover,
+  .pp-promo-card:hover,
+  .pp-blog-card:hover,
+  .pp-testi-card:hover,
+  .pp-btn--primary:hover {
+    transform: none !important;
+    box-shadow: var(--pp-shadow-card) !important;
+  }
+  .pp-category-card:hover .pp-category-card__top img,
+  .pp-product-card:hover .pp-product-card__img,
+  .pp-blog-card:hover .pp-blog-card__img,
+  .pp-promo-card:hover .pp-promo-card__bg {
+    transform: none !important;
+    filter: none !important;
+  }
+  .pp-btn--primary:hover::after { opacity: 0 !important; }
+  .pp-nav-link:hover::after { width: 0 !important; }
 
   /* --- Hero (text on top, mobile bg image with dog below) --- */
   .pp-hero {
@@ -1808,8 +1829,10 @@ body.home3_pet_shop > header {
   .pp-section-heading { font-size: 20px; margin-bottom: 14px; text-align: right; }
 
   /* --- Navbar (tighter) --- */
-  .pp-navbar { height: 70px; padding: 0 12px; }
+  .pp-navbar { height: 70px; padding: 0; }
+  .pp-navbar__inner { padding: 0 8px !important; }
   .pp-navbar__logo-text { font-size: 14px; }
+  .pp-navbar__hamburger svg { width: 22px; height: 22px; }
 
   /* --- Hero --- */
   .pp-hero { aspect-ratio: 360 / 590; overflow: visible; }
@@ -2404,6 +2427,7 @@ body {
 
 
 /* sync */
+
 
 
 
