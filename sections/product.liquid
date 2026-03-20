@@ -1,12 +1,15 @@
 <div class="pp-product-page">
-  <nav class="pp-breadcrumb">
-    <a href="/">דף הבית</a>
-    <span class="pp-breadcrumb__sep">&rsaquo;</span>
+  <nav class="pp-breadcrumb" aria-label="ניווט">
+    <a href="/" class="pp-breadcrumb__item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      דף הבית
+    </a>
     {%- if product.collections.size > 0 -%}
-      <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
-      <span class="pp-breadcrumb__sep">&rsaquo;</span>
+      <svg class="pp-breadcrumb__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18L9 12L15 6"/></svg>
+      <a href="{{ product.collections.first.url }}" class="pp-breadcrumb__item">{{ product.collections.first.title }}</a>
     {%- endif -%}
-    <span>{{ product.title }}</span>
+    <svg class="pp-breadcrumb__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18L9 12L15 6"/></svg>
+    <span class="pp-breadcrumb__item pp-breadcrumb__item--current">{{ product.title | truncate: 40 }}</span>
   </nav>
 
   <div class="pp-product-page__inner">
@@ -183,17 +186,37 @@
   }
   .pp-product-page .pp-breadcrumb {
     font-family: var(--pp-font);
-    font-size: 14px;
-    color: var(--pp-brown);
-    opacity: 0.6;
-    margin-bottom: 32px;
-    display: flex;
-    gap: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
     align-items: center;
+    gap: 8px;
+    background: var(--pp-cream);
+    border: 1px solid rgba(80, 30, 21, 0.08);
+    border-radius: 50px;
+    padding: 8px 20px;
+    margin-bottom: 32px;
   }
-  .pp-product-page .pp-breadcrumb a { color: inherit; text-decoration: none; transition: opacity 0.2s; }
-  .pp-product-page .pp-breadcrumb a:hover { opacity: 1; text-decoration: underline; }
-  .pp-product-page .pp-breadcrumb__sep { margin: 0 2px; font-size: 16px; }
+  .pp-product-page .pp-breadcrumb__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--pp-brown);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+  .pp-product-page a.pp-breadcrumb__item:hover { opacity: 1; }
+  .pp-product-page .pp-breadcrumb__item--current {
+    color: var(--pp-orange);
+    opacity: 1;
+    font-weight: 700;
+  }
+  .pp-product-page .pp-breadcrumb__chevron {
+    color: var(--pp-brown);
+    opacity: 0.3;
+    flex-shrink: 0;
+  }
 
   .pp-product-page__inner {
     display: grid;
@@ -581,7 +604,9 @@
     .pp-product-page__title { font-size: 22px; }
     .pp-product-page__price-current { font-size: 22px; }
     .pp-product-page__thumb { width: 56px; height: 56px; border-radius: 10px; }
-    .pp-product-page .pp-breadcrumb { font-size: 13px; }
+    .pp-product-page .pp-breadcrumb { font-size: 12px; padding: 6px 14px; gap: 6px; }
+    .pp-product-page .pp-breadcrumb__item svg { width: 13px; height: 13px; }
+    .pp-product-page .pp-breadcrumb__chevron { width: 12px; height: 12px; }
   }
 </style>
 
