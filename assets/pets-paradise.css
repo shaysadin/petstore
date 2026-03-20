@@ -1256,7 +1256,7 @@ body.home3_pet_shop > header {
   /* Promo Cards — side by side, aspect ratio preserved */
   .pp-promo-row { flex-direction: row; align-items: stretch; gap: 16px; padding: 20px 20px; }
   .pp-promo-row .pp-promo-card { width: 50%; max-width: none; flex: 1; }
-  .pp-promo-card { padding: 30px; }
+  .pp-promo-card { padding: 0px; }
   .pp-promo-card__title { font-size: 24px; }
   .pp-promo-card__content { gap: 12px; max-width: 70%; }
 
@@ -1355,7 +1355,7 @@ body.home3_pet_shop > header {
 
   /* Promo card adjustments */
   .pp-promo-card__title { font-size: 36px; }
-  .pp-promo-card { padding: 40px; }
+  .pp-promo-card { padding: 0px; }
 
   /* Testimonials - stack */
   .pp-testimonials__grid { flex-direction: column; align-items: center; }
@@ -1843,7 +1843,7 @@ body.home3_pet_shop > header {
     min-width: 0;
     border-radius: 14px !important;
   }
-  .pp-promo-card { padding: 16px; justify-content: center; min-height: 200px !important; }
+  .pp-promo-card { padding: 0px; justify-content: center; min-height: 200px !important; }
   .pp-promo-card__bg { border-radius: 14px; }
   .pp-promo-card__title { font-size: 20px; }
   .pp-promo-card__content { max-width: 55%; gap: 10px; }
