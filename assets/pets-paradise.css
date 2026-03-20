@@ -745,7 +745,7 @@ body.home3_pet_shop > header {
   z-index: 1;
   width: 100%;
   background: var(--pp-brown);
-  padding: 80px 0 0;
+  padding: 60px 0 0;
   text-align: center;
 }
 .pp-category-wave .pp-wave { display: block; }
