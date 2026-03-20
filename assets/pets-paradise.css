@@ -1256,19 +1256,20 @@ body.home3_pet_shop > header {
   /* Hero */
   .pp-hero { height: auto; }
   .pp-hero__inner {
-    flex-direction: column;
-    height: auto;
-    padding: 40px;
+    flex-direction: row;
+    height: 100%;
+    padding: 0 40px;
+    align-items: center;
   }
   .pp-hero__content {
-    width: 100%;
-    max-width: 100%;
-    align-items: center;
-    text-align: center;
+    width: 50%;
+    max-width: 50%;
+    align-items: flex-start;
+    text-align: right;
   }
-  .pp-hero__content .pp-h1 { text-align: center; }
-  .pp-hero__text { text-align: center; max-width: 100%; }
-  .pp-hero__image-wrap { max-width: 500px; }
+  .pp-hero__content .pp-h1 { text-align: right; }
+  .pp-hero__text { text-align: right; max-width: 100%; }
+  .pp-hero__image-wrap { max-width: 400px; flex: 1; }
 
   /* Category - wrap */
   .pp-category-grid {
